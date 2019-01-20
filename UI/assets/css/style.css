@@ -55,7 +55,7 @@ body, html {
 
 .front-main-nav li:hover{
 	border-bottom: 6px solid aliceblue;
-	line-height: 60px;
+	line-height: 4rem;
 
 }
 
@@ -115,8 +115,8 @@ body, html {
 }
 
 .active{
-	border-bottom: 6px solid #ADA9BB;
-	line-height: 65px;
+	border-bottom: 6px solid aliceblue;
+	line-height: 4rem;
 
 }
 #header{
@@ -184,11 +184,15 @@ body, html {
     #header {
       font-size: 36px;
     }
-    
-    .btn-default{
-        padding: 10px 0 10px 0;
+
+
+     .form-wrap {
+        width: 400px;
+    }
+   
+    .form__title{
         
-        line-height: 25px;  
+        margin-top: 60px;
     }
 }
 
@@ -275,4 +279,29 @@ footer{
 @keyframes fade {
   from {opacity: .4} 
   to {opacity: 1}
+}
+
+
+.form__title{
+    font-size: 36px;
+    font-weight: 900;
+    text-align: center;
+}
+
+label{
+    font-weight: 700;
+}
+
+@media screen and (max-width: 375px) {
+    
+    .form__title{
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .sign__up__form__container{
+        margin-top: 0;
+    }
+    .wrapper{
+        padding-top: 0;
+    }
 }

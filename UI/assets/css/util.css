@@ -660,9 +660,14 @@
 .text-right{
   text-align: right;
 }
-
+.w-20{
+  width: 20%;
+}
 .w-25{
   width: 25%;
+}
+.w-30 {
+  width: 30%;
 }
 .w-35{
   width: 35%;
@@ -691,10 +696,10 @@
 .w-100{
   width: 100%;
 }
-.h-100{
-  height: 100%;
-}
 
+.h-100{
+  min-height: 100vh;
+}
 input{
   height:100%;
   border-radius: 0px;
@@ -705,12 +710,20 @@ input{
   border: 1px solid #BDBDBD;
   border-radius: 4px;
 }
+
 input:hover{
-  border:1px solid #000203;
+  border:1px solid #6193c5;
 }
+
 input:focus{
-  border:1px solid #000203!important;
+  border:1px solid #6193c5!important;
+  outline: none;
 }
+
+input[type="file"]{
+    border: none;
+}
+
 input::placeholder{
   font-size: 16px;
   line-height: 20px;
@@ -724,10 +737,11 @@ hr {
 h3 {
   font-weight: 500;
 }
-/*h1 {
+h1 {
   font-size: 1.7rem;
   font-weight: 900;
-}*/
+}
+
 h1 small {
   font-size: 1.3rem;
   color: #9D9D9D;
@@ -737,7 +751,7 @@ h2 {
   font-weight: 600;
 }
 .btn-default{
-    padding: 5px 0 5px 0;
+    padding: 10px 0 10px 0;
     text-align: center;
     line-height: 20px;
     background-color: #EE6860;
@@ -817,4 +831,31 @@ select:hover{
 }
 .text-uppercase {
   text-transform: uppercase;
+}
+
+.form-control {
+   border: 1px solid #d8e4f1;
+   padding:5px;
+   resize: none;
+   line-height: 1;
+   margin-bottom: 10px;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin: 10;
+}
+
+
+ @media screen and (min-width: 768px) {
+    
+    .form-control {
+      padding: 10px;
+    }
+
+     .btn-default{
+        padding: 10px 0 10px 0;
+        line-height: 25px;  
+    }
 }
