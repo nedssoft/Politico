@@ -185,15 +185,10 @@ body, html {
       font-size: 36px;
     }
 
-
      .form-wrap {
         width: 400px;
     }
    
-    .form__title{
-        
-        margin-top: 60px;
-    }
 }
 
 footer{
@@ -282,25 +277,12 @@ footer{
 }
 
 
-.form__title{
-    font-size: 36px;
-    font-weight: 900;
-    text-align: center;
-}
-
 label{
     font-weight: 700;
 }
 
 @media screen and (max-width: 375px) {
-    
-    .form__title{
-        font-size: 24px;
-        font-weight: 700;
-    }
-    .sign__up__form__container{
-        margin-top: 0;
-    }
+
     .wrapper{
         padding-top: 0;
     }
