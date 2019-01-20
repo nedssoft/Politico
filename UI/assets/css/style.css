@@ -55,7 +55,7 @@ body, html {
 
 .front-main-nav li:hover{
 	border-bottom: 6px solid aliceblue;
-	line-height: 60px;
+	line-height: 4rem;
 
 }
 
@@ -115,8 +115,8 @@ body, html {
 }
 
 .active{
-	border-bottom: 6px solid #ADA9BB;
-	line-height: 65px;
+	border-bottom: 6px solid aliceblue;
+	line-height: 4rem;
 
 }
 #header{
@@ -184,12 +184,11 @@ body, html {
     #header {
       font-size: 36px;
     }
-    
-    .btn-default{
-        padding: 10px 0 10px 0;
-        
-        line-height: 25px;  
+
+     .form-wrap {
+        width: 400px;
     }
+   
 }
 
 footer{
@@ -275,4 +274,16 @@ footer{
 @keyframes fade {
   from {opacity: .4} 
   to {opacity: 1}
+}
+
+
+label{
+    font-weight: 700;
+}
+
+@media screen and (max-width: 375px) {
+
+    .wrapper{
+        padding-top: 0;
+    }
 }
