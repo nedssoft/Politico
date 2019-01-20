@@ -589,6 +589,9 @@
 .border-r {
     border-radius: 3px;
 }
+.p-10 {
+  padding: 10px;
+}
 .card {
   border-top: 3px solid #6193c5;
   background-color: white;
