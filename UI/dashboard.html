@@ -11,7 +11,19 @@
     <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
 </head>
 <body>
-    <aside id="nav-lateral" class="nav-lateral">
+    <nav class="nabvar d-flex j-c-space-between a-i-center" id="nabvar">
+        <div class="container d-flex j-c-space-between a-i-center py-1">
+            <div class="btn-icon" id="dash__nav__toggle">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        <ul class="main-nav d-flex flex-row j-c-end">
+            <li> <a href="#" class="nav-link">Logout</a></li>
+        </ul>
+        </div>
+    </nav>
+    <aside id="sidebar__menu" class="sidebar">
         <div class="title-page d-flex a-i-center j-c-center text-capitaize">
             Politico
         </div>
@@ -33,18 +45,6 @@
             </li>
         </ul>
     </aside>
-    <nav class="nabvar d-flex j-c-space-between a-i-center" id="nabvar">
-        <div class="container d-flex j-c-space-between a-i-center py-1">
-            <div class="btn-icon" id="dash__nav__toggle">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-        <ul class="main-nav d-flex flex-row j-c-end">
-            <li> <a href="#" class="nav-link">Logout</a></li>
-        </ul>
-        </div>
-    </nav>
     <div class="wrap my-4" id="main">
        <div class="container">
             <div class="text-capitaize d-flex j-c-space-between a-i-center my-4">
@@ -53,13 +53,13 @@
             <div class="card px-0 pb-2 my-2">
                 <hr>
                 <div class="container">
-                    <div class="my-1">
-                        <form class="" action="" method="post">
-                            <div class="input-group">
-                                <button type="button" name="button" class="btn btn-primary g-item">
+                    <div class="my-1 d-flex justify-content a-i-center">
+                        <form class="search-form flex-basis-80" action="" method="post" >
+                            <div class="input-group search w-80">
+                                <input type="text" name="" value="" placeholder="Search Party..." class="w-80">
+                                <button type="submit"class="btn btn-primary">
                                     Search
                                 </button>
-                                <input type="text" name="" value="" placeholder="Search Party..." class="g-item">
                             </div>
                         </form>
                         <button type="button" name="button" class="btn btn-success btn-small text-capitaize border-r">
@@ -72,6 +72,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Logo</th>
+                                <th>HQTRS Address</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -79,7 +80,8 @@
                             <tr>
                                 <td>1</td>
                                 <td class="text-uppercase">All Progressive Congress</td>
-                                <td>APC</td>
+                                <td>YPP</td>
+                                <td>3 Murtala Mohammed Way, Maitama, Abuja</td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" name="button" class="btn btn-info">
@@ -94,7 +96,8 @@
                             <tr>
                                 <td>1</td>
                                 <td class="text-uppercase">All Progressive Congress</td>
-                                <td>APC</td>
+                                <td>YPP</td>
+                                 <td>3 Murtala Mohammed Way, Maitama, Abuja</td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" name="button" class="btn btn-info">
@@ -109,7 +112,8 @@
                             <tr>
                                 <td>1</td>
                                 <td class="text-uppercase">All Progressive Congress</td>
-                                <td>APC</td>
+                                <td>YPP</td>
+                                 <td>3 Murtala Mohammed Way, Maitama, Abuja</td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" name="button" class="btn btn-info">
@@ -124,7 +128,8 @@
                             <tr>
                                 <td>1</td>
                                 <td class="text-uppercase">All Progressive Congress</td>
-                                <td>APC</td>
+                                <td>YPP</td>
+                                 <td>3 Murtala Mohammed Way, Maitama, Abuja</td>
                                 <td>
                                     <div class="btn-group">
                                         <button type="button" name="button" class="btn btn-info">

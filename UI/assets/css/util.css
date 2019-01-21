@@ -338,6 +338,10 @@
   flex-basis: 50%;
 }
 
+.flex-basis-80 {
+  flex-basis: 80%;
+}
+
 /* End FLEXBOX */
 
 .my-0 {
@@ -546,10 +550,11 @@
   padding: 10px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
   font-size: 10px;
   float: right;
   height: 100%;
+  cursor: pointer;
 }
 .btn-group {
   border: none;
@@ -557,7 +562,7 @@
   padding: 20px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
   font-size: 10px;
   cursor: pointer;
   float: left;
@@ -594,7 +599,7 @@
     padding: 10px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
     font-size: 10px;
     float: right;
     height: 100%;
@@ -717,6 +722,9 @@ button:focus {
 .w-65{
   width: 65%;
 }
+.w-80{
+  width: 80%;
+}
 .w-90{
   width: 90%;
 }
@@ -773,7 +781,7 @@ select:hover{
 }
 .dropdown {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
 }
 
 .dropdown-content {

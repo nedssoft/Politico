@@ -117,29 +117,29 @@ button:focus {
 .nabvar .btn-icon i:hover {
     color: #6193c5;
 }
-.nav-lateral {
+.sidebar {
     float: left;
     width: 18%;
     position: fixed;
 }
-.nav-lateral .title-page {
+.sidebar .title-page {
     height: 65px;
     background-color: #6193c5;
     font-size: 1.5rem;
     color: white;
     font-weight: bold;
 }
-.nav-lateral .title-page span {
+.sidebar .title-page span {
     font-weight: 300;
 }
-.nav-lateral ul {
+.sidebar ul {
     list-style-type: none;
     width: 18%;
     background-color: #fff;
     position: fixed;
     height: 100%;
 }
-.nav-lateral ul li a {
+.sidebar ul li a {
     display: block;
     text-decoration: none;
     padding: 15px 20px;
@@ -149,17 +149,17 @@ button:focus {
     font-family: auto;
 
 }
-.nav-lateral ul li:hover {
+.sidebar ul li:hover {
     background-color: #6193c5;
     -webkit-transition: all 500ms ease;
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
     color: #ffffff;
 }
-.nav-lateral ul li a:hover{
+.sidebar ul li a:hover{
     color: #ffffff;
 }
-.nav-lateral ul .active {
+.sidebar ul .active {
     background-color: #6193c5;
 }
 
@@ -241,22 +241,23 @@ button:focus {
 .breadcrumb li .disabled {
     color: #9D9D9D;
 }
-.input-group, .g-item {
-    padding: 10px;
-    display: inline-block;
-}
+
 .input-group i, .g-item i {
     font-size: 1rem;
 }
 .input-group {
     border-radius: 3px;
     padding: 0;
-    width: 40%;
+    width: 40%; 
     height: 40px;
 }
-button.g-item {
-    width: 10%;
+.search {
+    display: flex;
 }
+.search-form {
+    margin-right: auto;
+}
+
 .pagination, .p-item {
     border: none;
     color: black;
@@ -324,4 +325,8 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
 .arrow-prev{
     transform: rotate(45deg);
     -webkit-transform: rotate(134deg);
+}
+
+ @media screen and (min-width: 768px) {
+    
 }

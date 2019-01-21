@@ -1,7 +1,7 @@
 
 let click = 1;
 const dashNavToggle = document.getElementById('dash__nav__toggle');
-const navLateral = document.getElementById("nav-lateral");
+const navLateral = document.getElementById("sidebar__menu");
 const navbar = document.getElementById("nabvar");
 const main = document.getElementById("main");
 dashNavToggle.addEventListener('click', () =>{
