@@ -588,10 +588,7 @@
 .btn-primary {
     background-color: #6193c5;
 }
-.btn-small {
-    font-size: 1rem;
-    padding: .5rem 1.5rem;
-}
+
 
 .btn {
     border: none;
@@ -600,7 +597,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-flex;
-    font-size: 10px;
+    font-size: 1rem;
     float: right;
     height: 100%;
 }
@@ -744,6 +741,10 @@ input{
   padding-left: 15px!important;
   border: 1px solid #BDBDBD;
   border-radius: 4px;
+}
+
+.search-btn {
+  border-radius: 0;
 }
 
 input:hover{
