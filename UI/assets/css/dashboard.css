@@ -8,6 +8,7 @@
 body {
     background-color: #EBEEF3;
     font-family: "Raleway", sans-serif;
+    height: 100vh;
 }
 .arrow-right {
     transform: rotate(-45deg);
@@ -305,6 +306,12 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     align-items: center;
 }
 
+.create-office {
+    font-size: .6em;
+    height: 40px;
+    padding-top: 14px
+}
+
  @media screen and (min-width: 768px) {
     .sidebar {
         width: 18%;
@@ -361,5 +368,9 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     }
     .pagination-container {
         justify-content: flex-end;
+    }
+    .create-office {
+        font-size: 1em;
+        height: 100%;
     }
 }

@@ -544,18 +544,6 @@
 .pr-4 {
   padding-right: 4rem !important;
 }
-.btn {
-  border: none;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-flex;
-  font-size: 10px;
-  float: right;
-  height: 100%;
-  cursor: pointer;
-}
 .btn-group {
   border: none;
   background-color: red;
@@ -593,12 +581,11 @@
 .btn {
     border: none;
     color: white;
-    padding: 10px;
+    padding: 10px 15px;
     text-align: center;
     text-decoration: none;
     display: inline-flex;
-    font-size: 1rem;
-    float: right;
+    font-size: 0.7rem;
     height: 100%;
 }
 
@@ -821,7 +808,7 @@ select:hover{
   margin-right: auto;
   margin-left: auto;
 }
-.text-capitaize {
+.text-capitalize {
   text-transform: capitalize;
 }
 .text-uppercase {

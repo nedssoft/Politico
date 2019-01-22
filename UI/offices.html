@@ -26,19 +26,23 @@
             Politico
         </div>
         <ul class="text-capitalize">
-            <li class="active">
+            <li>
                 <a href="#">
                     Parties<i class="arrow-right"></i>
                 </a>
             </li>
-           
+            <li class="active">
+                <a href="offices.html">
+                    Offices<i class="arrow-right"></i>
+                </a>
+            </li>
             <li> <a href="#" class="nav-link">Logout</a></li>
         </ul>
     </aside>
     <div class="wrap my-4" id="main">
         <div class="container">
             <div class="text-capitalize d-flex j-c-space-between a-i-center my-4">
-                <h1>Parties </h1>
+                <h1>Offices</h1>
             </div>
             <div class="card px-0 pb-2 my-2">
                 <hr>
@@ -52,27 +56,55 @@
                                 </button>
                             </div>
                         </form>
-                        <button type="button" name="button" class="btn btn-success btn-small text-capitalize border-r">
-                            Add Party
-                        </button>
+                        <a href="add-office.html" class="btn btn-success create-office text-capitalize border-r">
+                            Create Office
+                        </a>
                     </div>
                     <div class="table-container">
                         <table>
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Type</th>
                                     <th>Name</th>
-                                    <th>Logo</th>
-                                    <th>HQTRS Address</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td class="text-uppercase">All Progressive Congress</td>
-                                    <td>YPP</td>
-                                    <td>3 Murtala Mohammed Way, Maitama, Abuja</td>
+                                    <td class="text-uppercase">Federal</td>
+                                    <td>Presidential</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" name="button" class="btn btn-info">
+                                                Edit
+                                            </button>
+                                            <button type="button" name="button" class="btn btn-danger">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                               <tr>
+                                    <td>2</td>
+                                    <td class="text-uppercase">Federal</td>
+                                    <td>Senatorial</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" name="button" class="btn btn-info">
+                                                Edit
+                                            </button>
+                                            <button type="button" name="button" class="btn btn-danger">
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                               <tr>
+                                    <td>3</td>
+                                    <td class="text-uppercase">State</td>
+                                    <td>Gubernatorial</td>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" name="button" class="btn btn-info">
@@ -85,45 +117,12 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>1</td>
-                                    <td class="text-uppercase">All Progressive Congress</td>
-                                    <td>YPP</td>
-                                    <td>3 Murtala Mohammed Way, Maitama, Abuja</td>
+                                    <td>4</td>
+                                    <td class="text-uppercase">Local Government</td>
+                                    <td>Chairmanship</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" name="button" class="btn btn-info">
-                                                Edit
-                                            </button>
-                                            <button type="button" name="button" class="btn btn-danger">
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="text-uppercase">All Progressive Congress</td>
-                                    <td>YPP</td>
-                                    <td>3 Murtala Mohammed Way, Maitama, Abuja</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" name="button" class="btn btn-info">
-                                                Edit
-                                            </button>
-                                            <button type="button" name="button" class="btn btn-danger">
-                                                Delete
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td class="text-uppercase">All Progressive Congress</td>
-                                    <td>YPP</td>
-                                    <td>3 Murtala Mohammed Way, Maitama, Abuja</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" name="button" class="btn btn-info">
+                                            <button  name="button" class="btn btn-info">
                                                 Edit
                                             </button>
                                             <button type="button" name="button" class="btn btn-danger">
@@ -156,6 +155,5 @@
          </div>
     </div> 
 <script src="assets/js/dashboard.js"></script>
-
 </body>
 </html>
