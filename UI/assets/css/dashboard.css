@@ -3,6 +3,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    
 }
 body {
     background-color: #EBEEF3;
@@ -55,7 +56,7 @@ button:focus {
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .border-r {
@@ -104,9 +105,10 @@ button:focus {
 }
 .sidebar {
     float: left;
+    position: fixed;
     width: 50%;
     display: none;
-    z-index: 100;
+    background-color: #9D9D9D;
 }
 .sidebar .title-page {
     height: 65px;
@@ -125,6 +127,8 @@ button:focus {
     background-color: #fff;
     position: fixed;
     height: 100%;
+    background-color: #EBEEF3;
+    z-index: 2;
 }
 .sidebar ul li a {
     display: block;
@@ -149,6 +153,7 @@ button:focus {
 .sidebar ul .active,
 .active>a {
     background-color: #6193c5;
+    color: #fff !important;
 }
 
 .main-nav li {
@@ -204,31 +209,6 @@ button:focus {
 
 }
 
-.breadcrumb {
-    padding: 10px 16px;
-    list-style: none;
-}
-.breadcrumb i {
-    color: black;
-}
-.breadcrumb li + li:before {
-    padding: 8px;
-    color: black;
-    display: inline;
-    content: ">\00a0";
-}
-.breadcrumb li {
-    display: inline;
-    font-size: .8rem;
-}
-.breadcrumb li a {
-    color: black;
-    text-decoration: none;
-}
-.breadcrumb li .disabled {
-    color: #9D9D9D;
-}
-
 .input-group i, .g-item i {
     font-size: 1rem;
 }
@@ -243,6 +223,7 @@ button:focus {
 }
 .search-form {
     margin-right: auto;
+    flex-basis: 70%;
 }
 
 .pagination, .p-item {
@@ -315,12 +296,17 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
 .arrow-prev{
     transform: rotate(45deg);
     -webkit-transform: rotate(134deg);
+
 }
 
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
  @media screen and (min-width: 768px) {
     .sidebar {
-        float: left;
         width: 18%;
         position: fixed;
         display:block;
@@ -369,5 +355,11 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
         padding: 0;
         width: 100%;
         height: 40px;
+    }
+    .search-form {
+        flex-basis: 30%;
+    }
+    .pagination-container {
+        justify-content: flex-end;
     }
 }
