@@ -52,8 +52,7 @@ button:focus {
     outline: none;
 }
 .wrap {
-    width: 82%;
-    float: right;
+    width: 100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -72,12 +71,10 @@ button:focus {
     border-top-right-radius: 3px;
     padding: 10px;
 }
-.nabvar {
-    width: 82%;
+.navbar {
+    width: 100% !important;
     position: fixed;
     top: 0px;
-    left: 18%;
-    float: right;
     background-color: #6193c5;
     margin: 0;
     padding: 0;
@@ -85,7 +82,7 @@ button:focus {
     overflow: hidden;
     color: white;
 }
-.nabvar .btn-icon {
+.navbar .btn-icon {
     background-color: #6193c5;
     border: none;
     width: 40px;
@@ -93,34 +90,23 @@ button:focus {
     border-radius: 100%;
     padding-left: 9px;
     padding-top: 6px;
+    display: block;
 
 }
-.nabvar .btn-icon:hover {
+.navbar .btn-icon:hover {
     background-color: black;
     -webkit-transition: all 500ms ease;
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
 }
-.nabvar .btn-icon i {
-    padding: 10px;
-    font-size: 1.2rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-.nabvar .btn-icon i:hover {
-    color: #6193c5;
+.show-sidebar {
+    display: block !important;
 }
 .sidebar {
     float: left;
-    width: 18%;
-    position: fixed;
+    width: 50%;
+    display: none;
+    z-index: 100;
 }
 .sidebar .title-page {
     height: 65px;
@@ -128,13 +114,14 @@ button:focus {
     font-size: 1.5rem;
     color: white;
     font-weight: bold;
+    display: none !important;
 }
 .sidebar .title-page span {
     font-weight: 300;
 }
 .sidebar ul {
     list-style-type: none;
-    width: 18%;
+    width: 50%;
     background-color: #fff;
     position: fixed;
     height: 100%;
@@ -154,15 +141,15 @@ button:focus {
     -webkit-transition: all 500ms ease;
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
-    color: #ffffff;
+    color: #ffffff; 
 }
 .sidebar ul li a:hover{
     color: #ffffff;
 }
-.sidebar ul .active {
+.sidebar ul .active,
+.active>a {
     background-color: #6193c5;
 }
-
 
 .main-nav li {
     text-align: center;
@@ -248,7 +235,7 @@ button:focus {
 .input-group {
     border-radius: 3px;
     padding: 0;
-    width: 40%; 
+    width: 100%; 
     height: 40px;
 }
 .search {
@@ -287,6 +274,9 @@ button:focus {
 .pagination {
     border-radius: 3px;
     padding: 0;
+}
+.table-container {
+    overflow-x: auto;
 }
 table {
     margin: 0 auto;
@@ -327,6 +317,57 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     -webkit-transform: rotate(134deg);
 }
 
+
  @media screen and (min-width: 768px) {
+    .sidebar {
+        float: left;
+        width: 18%;
+        position: fixed;
+        display:block;
+    }
+    .navbar{
+        position: fixed;
+        top: 0px;
+        float: right;
+        background-color: #6193c5;
+        margin: 0;
+        padding: 0;
+        height: 65px;
+        overflow: hidden;
+        color: white;
+    }
+    .wrap {
+        width: 82%;
+        float: right;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    .sidebar ul {
+        list-style-type: none;
+        width: 18%;
+        background-color: #fff;
+        position: fixed;
+        height: 100%;
+    }
+    .sidebar .title-page {
+        height: 65px;
+        background-color: #6193c5;
+        font-size: 1.5rem;
+        color: white;
+        font-weight: bold;
+        display: flex !important;
+    }
     
+    .navbar .btn-icon {
+   
+        display: none;
+
+    }
+    .input-group {
+        border-radius: 3px;
+        padding: 0;
+        width: 100%;
+        height: 40px;
+    }
 }
