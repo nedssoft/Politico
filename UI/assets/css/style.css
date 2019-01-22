@@ -102,13 +102,6 @@ body, html {
     transition: all 500ms ease;
 }
 
- .bar {
-    width: 21px;
-    height: 3px;
-    background-color: #ffffff;
-    margin: 5px 0;
-}
-
 
 .show {
     display: block;
@@ -141,6 +134,8 @@ body, html {
     margin: 50px 10px 0 0;
 }
 
+
+/* end dashboard */
  @media screen and (min-width: 768px) {
     .front-navbar {
         display: flex;
@@ -287,3 +282,5 @@ label{
         padding-top: 0;
     }
 }
+
+

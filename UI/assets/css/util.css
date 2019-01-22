@@ -337,6 +337,11 @@
 .flex-basis-50 {
   flex-basis: 50%;
 }
+
+.flex-basis-80 {
+  flex-basis: 80%;
+}
+
 /* End FLEXBOX */
 
 .my-0 {
@@ -545,10 +550,11 @@
   padding: 10px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
   font-size: 10px;
   float: right;
   height: 100%;
+  cursor: pointer;
 }
 .btn-group {
   border: none;
@@ -556,7 +562,7 @@
   padding: 20px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
   font-size: 10px;
   cursor: pointer;
   float: left;
@@ -586,22 +592,45 @@
     font-size: 1rem;
     padding: .5rem 1.5rem;
 }
-.border-r {
-    border-radius: 3px;
+
+.btn {
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    font-size: 10px;
+    float: right;
+    height: 100%;
 }
+
+.btn-default{
+    padding: 10px 0 10px 0;
+    text-align: center;
+    line-height: 20px;
+    background-color: #EE6860;
+    letter-spacing: 0.3px;
+    color: aliceblue;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer; 
+}
+.btn-default:hover{
+    background-color: #ea564b;
+    transition-duration: 300ms;
+}
+button:focus {
+  outline: none;
+}
+
 .p-10 {
   padding: 10px;
 }
-.card {
-  border-top: 3px solid #6193c5;
-  background-color: white;
-  width: auto;
-  height: auto;
-  margin: 0 auto;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  padding: 10px;
-}
+
 
 .btn-blue{
   background-color: #000203;
@@ -693,6 +722,9 @@
 .w-65{
   width: 65%;
 }
+.w-80{
+  width: 80%;
+}
 .w-90{
   width: 90%;
 }
@@ -732,48 +764,7 @@ input::placeholder{
   line-height: 20px;
   color: #c4c4c4;
 }
-hr {
-  border: #EBEEF3;
-  background-color: #EBEEF3;
-  height: 1px;
-}
-h3 {
-  font-weight: 500;
-}
-h1 {
-  font-size: 1.7rem;
-  font-weight: 900;
-}
 
-h1 small {
-  font-size: 1.3rem;
-  color: #9D9D9D;
-}
-h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-.btn-default{
-    padding: 10px 0 10px 0;
-    text-align: center;
-    line-height: 20px;
-    background-color: #EE6860;
-    letter-spacing: 0.3px;
-    color: aliceblue;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer; 
-}
-.btn-default:hover{
-    background-color: #ea564b;
-    transition-duration: 300ms;
-}
-button:focus {
-  outline: none;
-}
 select{
   width: 100%;
   height:40px;
@@ -790,7 +781,7 @@ select:hover{
 }
 .dropdown {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
 }
 
 .dropdown-content {
