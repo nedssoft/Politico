@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head profile="http://www.w3.org/2005/10/profile">
+	<meta charset="utf-8">
+	<title>Politico</title>
+	<meta name="description" content="Online voting systems">
+	<meta name="author" content="Orie Chinedu Emmanuel">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Shadows+Into+Light+Two" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="assets/css/util.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar d-flex j-c-space-between a-i-center" id="nabvar">
+        <div class="container d-flex j-c-space-between a-i-center py-1">
+            <div class="btn-icon" id="dash__nav__toggle">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+      
+        </div>
+    </nav>
+    <aside id="sidebar__menu" class="sidebar">
+        <div class="title-page d-flex a-i-center j-c-center text-capitalize">
+            Politico
+        </div>
+        <ul class="text-capitalize">
+            <li>
+                <a href="apply.html">
+                    Apply<i class="arrow-right"></i>
+                </a>
+            </li>
+            <li>
+                <a href="political-parties.html">
+                    Political Parties<i class="arrow-right"></i>
+                </a>
+            </li>
+             <li class="active">
+                <a href="candidates.html">
+                    Candidates<i class="arrow-right"></i>
+                </a>
+            </li>
+            <li> <a href="#" class="nav-link">Logout</a></li>
+        </ul>
+    </aside>
+    <div class="wrap my-4" id="main">
+        <div class="container">
+            <div class="text-capitalize d-flex j-c-space-between a-i-center my-4">
+                <h1>Candidates</h1>
+            </div>
+            <div class="card px-0 pb-2 my-2">
+                <hr>
+                <div class="container">
+                    <div class="my-1 d-flex justify-content a-i-center">
+                        <form class="search-form" action="" method="post" >
+                            <div class="input-group search">
+                                <input type="text" name="" value="" placeholder="Search Candidate..." class="search-btn" >
+                                <button type="submit"class="btn btn-primary">
+                                    Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Party Logo</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td class="text-uppercase">All Progressives Congress</td>
+                                    <td><img src="assets/img/apc.jpeg" class="party-logo" alt="APC"></td>
+                                    <td>
+                                        <a href="#"  class="btn btn-info">
+                                         Vote
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td class="text-uppercase">People's Democratic Party</td>
+                                    <td><img src="assets/img/pdp.jpeg" alt="PDP" class="party-logo"></td>
+                                    <td>
+                                        <a href="#"  class="btn btn-info">
+                                         Vote
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td class="text-uppercase">Young Progressives Party</td>
+                                    <td><img src="assets/img/ypp.jpeg" alt="YPP" class="party-logo"></td>
+                                    <td>
+                                        <a href="#"  class="btn btn-info">
+                                         Vote
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td class="text-uppercase">Social Democratic Party</td>
+                                    <td><img src="assets/img/sdp.png" alt="SDP" class="party-logo"></td>
+                                    <td>
+                                        <a href="#"  class="btn btn-info">
+                                         Vote
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td class="text-uppercase">Allied Congress Party of Nigeria</td>
+                                    <td><img src="assets/img/acpn.jpeg" alt="ACPN" class="party-logo"></td>
+                                    <td>
+                                        <a href="#"  class="btn btn-info">
+                                         Vote
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td class="text-uppercase">Alliance for New Nigeria </td>
+                                    <td><img src="assets/img/ann.jpeg" alt="ANN" class="party-logo"></td>
+                                    <td>
+                                        <a href="#"  class="btn btn-info">
+                                         Vote
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="my-2 pagination-container">
+                        <nav class="pagination">
+                            <a href="#" class="p-item">
+                                PREV
+                            </a>
+                            <a href="#" class="p-item active" type="button">1</a>
+                            <a href="#" class="p-item">2</a>
+                            <a href="#" class="p-item">3</a>
+                            <a href="#" class="p-item">4</a>
+                            <a href="#" class="p-item">5</a>
+                            <a href="#" class="p-item">
+                                NEXT
+                            </a>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div> 
+<script src="assets/js/dashboard.js"></script>
+</body>
+</html>
