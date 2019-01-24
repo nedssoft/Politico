@@ -598,7 +598,7 @@
     color: aliceblue;
     border: none;
     outline: none;
-    font-size: 16px;
+    font-size: 1em;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer; 
@@ -719,10 +719,13 @@ button:focus {
 .h-100{
   min-height: 100vh;
 }
+.h-50 {
+  min-height: 50vh;
+}
 input{
   height:100%;
   border-radius: 0px;
-  font-size: 16px;
+  font-size: 1.2rem;
   line-height: 20px;
   color: #828282;
   padding-left: 15px!important;
@@ -734,8 +737,8 @@ input{
   border-radius: 0;
 }
 
-input:hover{
-  border:1px solid #6193c5;
+label{
+    font-weight: 700;
 }
 
 input:focus{
@@ -754,7 +757,7 @@ input::placeholder{
 }
 
 select{
-  width: 100%;
+  width: 80vw;
   height:40px;
   border:1px solid #c4c4c4;
   border-radius: 0px;
@@ -765,7 +768,8 @@ select{
   background-color: #FFFFFF;
 }
 select:hover{
-  border:1px solid #000203;
+  border:1px solid #6193c5!important;
+  outline: none;
 }
 .dropdown {
   position: relative;
@@ -837,7 +841,10 @@ select:hover{
     }
 
      .btn-default{
-        padding: 10px 0 10px 0;
         line-height: 25px;  
+    }
+
+    select {
+      width: 30vw;
     }
 }
