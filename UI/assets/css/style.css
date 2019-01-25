@@ -1,8 +1,8 @@
 
 body, html {
-	margin: 0;
-	padding: 0;
-	height: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 * {
@@ -14,8 +14,8 @@ body, html {
 }
 
 .front-navbar {
-	position: fixed;
-	top: 0;
+    position: fixed;
+    top: 0;
     background-color: #6193c5;
     color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -31,11 +31,11 @@ body, html {
 
 /*.logo>img,
 .logo {
-	border-radius: 50%;
+    border-radius: 50%;
 }*/
 
 .nav-link{
-	font-weight: 600;
+    font-weight: 600;
 }
 .nav-link,
 .logo {
@@ -46,7 +46,7 @@ body, html {
 
 .nav-link:hover,
 .logo:hover {
-	color: aliceblue !important;
+    color: aliceblue !important;
 }
 .front-main-nav li {
     text-align: center;
@@ -54,8 +54,8 @@ body, html {
 }
 
 .front-main-nav li:hover{
-	border-bottom: 6px solid aliceblue;
-	line-height: 4rem;
+    border-bottom: 6px solid aliceblue;
+    line-height: 4rem;
 
 }
 
@@ -64,7 +64,7 @@ body, html {
     font-size: 22px;
     margin-top: 10px;
     margin-left: 20px;
-	font-weight: 700;
+    font-weight: 700;
 
 }
 
@@ -79,15 +79,15 @@ body, html {
 }
 
 .front-navbar-toggle:hover{
-	background-color: #6193c5;
-	color: white;
-	-webkit-transition: all 500ms ease;
+    background-color: #6193c5;
+    color: white;
+    -webkit-transition: all 500ms ease;
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
 }
 
 .navbar-toggle {
-	background-color: #6193c5;
+    background-color: #6193c5;
     border: none;
     width: 40px;
     height: 40px;
@@ -108,8 +108,8 @@ body, html {
 }
 
 .active{
-	border-bottom: 6px solid aliceblue;
-	line-height: 4rem;
+    border-bottom: 6px solid aliceblue;
+    line-height: 4rem;
 
 }
 #header{
@@ -130,7 +130,7 @@ body, html {
 
 #get-started{
 
-	width: 120px;
+    min-width: 120px;
     margin: 50px 10px 0 0;
 }
 
@@ -177,40 +177,45 @@ body, html {
     }
 
     #header {
-      font-size: 36px;
+      font-size: 2rem;
     }
 
      .form-wrap {
         width: 400px;
     }
+
+    #get-started {
+        width: 15%;
+        padding: 20px 0;
+    }
    
 }
 
 footer{
-	
-	background-color: #4f4f4f;
+    
+    background-color: #4f4f4f;
 
-	position: relative;
-	bottom: 0;
-	min-height: 100px;
+    position: relative;
+    bottom: 0;
+    min-height: 100px;
 }
 
 @keyframes bounce {
-	0%, 100%, 20%, 50%, 80% {
-		-webkit-transform: translateY(0);
-		-ms-transform:     translateY(0);
-		transform:         translateY(0)
-	}
-	40% {
-		-webkit-transform: translateY(-30px);
-		-ms-transform:     translateY(-30px);
-		transform:         translateY(-30px)
-	}
-	60% {
-		-webkit-transform: translateY(-15px);
-		-ms-transform:     translateY(-15px);
-		transform:         translateY(-15px)
-	}
+    0%, 100%, 20%, 50%, 80% {
+        -webkit-transform: translateY(0);
+        -ms-transform:     translateY(0);
+        transform:         translateY(0)
+    }
+    40% {
+        -webkit-transform: translateY(-30px);
+        -ms-transform:     translateY(-30px);
+        transform:         translateY(-30px)
+    }
+    60% {
+        -webkit-transform: translateY(-15px);
+        -ms-transform:     translateY(-15px);
+        transform:         translateY(-15px)
+    }
 }
 
 #header {
@@ -282,5 +287,3 @@ label{
         padding-top: 0;
     }
 }
-
-
