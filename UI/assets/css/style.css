@@ -138,6 +138,12 @@ body, html {
     min-width: 120px;
     margin: 50px 10px 0 0;
 }
+ .form-wrap {
+    width: 80%;
+    margin-bottom: 40px;
+    margin-top: 40px;
+    padding-top: 10px;
+}
 
 
 /* end dashboard */
@@ -186,7 +192,8 @@ body, html {
     }
 
      .form-wrap {
-        width: 400px;
+        width: 25%;
+        padding: 20px 0;
     }
 
     #get-started {
@@ -289,6 +296,6 @@ label{
 @media screen and (max-width: 375px) {
 
     .wrapper{
-        padding-top: 0;
+        padding: 0;
     }
 }
