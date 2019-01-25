@@ -311,6 +311,9 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     height: 40px;
     padding-top: 14px
 }
+.profile-image {
+    border-radius: 50%;
+}
 
  @media screen and (min-width: 768px) {
     .sidebar {
@@ -372,5 +375,8 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     .create-office {
         font-size: 1em;
         height: 100%;
+    }
+    .profile {
+        width: 50%;
     }
 }
