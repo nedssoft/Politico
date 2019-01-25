@@ -65,6 +65,8 @@ body, html {
     margin-top: 10px;
     margin-left: 20px;
     font-weight: 700;
+    list-style: 24px;
+    padding: 10px;
 
 }
 
@@ -75,6 +77,9 @@ body, html {
     cursor: pointer;
     font-size: 24px;
     color: aliceblue;
+    line-height: 24px;
+    padding: 10px;
+    font-weight: 900;
      
 }
 
