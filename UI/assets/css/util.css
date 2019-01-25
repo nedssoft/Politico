@@ -587,6 +587,7 @@
     display: inline-flex;
     font-size: 0.7rem;
     height: 100%;
+    cursor: pointer;
 }
 
 .btn-default{
