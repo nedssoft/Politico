@@ -577,6 +577,25 @@
     background-color: #6193c5;
 }
 
+.btn-icon {
+  display: none;
+  background-color: #6193c5;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  padding-left: 9px;
+  padding-top: 6px;
+  display: block;
+
+}
+ .btn-icon:hover {
+    background-color: black;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+
 
 .btn {
     border: none;
