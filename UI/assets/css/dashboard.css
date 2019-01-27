@@ -323,7 +323,11 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     font-size: 1.5rem !important;
     text-align: center !important;
 }
-
+.admin-form {
+    padding: 10px;
+    margin: 10px 20px;
+    width: 100%;
+}
  @media screen and (min-width: 768px) {
     .sidebar {
         width: 18%;
@@ -397,5 +401,10 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     }
     .profile {
         width: 50%;
+    }
+    .admin-form {
+        padding: 10px;
+        margin: 10px 20px;
+        width: 30%;
     }
 }
