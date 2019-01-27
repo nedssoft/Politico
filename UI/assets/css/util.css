@@ -632,7 +632,7 @@ button:focus {
 }
 
 .p-10 {
-  padding: 10px;
+  padding: 10px !important;
 }
 
 
@@ -751,6 +751,7 @@ input{
   padding-left: 15px!important;
   border: 1px solid #BDBDBD;
   border-radius: 4px;
+  width: 100%;
 }
 
 .search-btn {
@@ -854,7 +855,9 @@ select:hover{
     flex-direction: column;
     margin: 10;
 }
-
+.form-group small {
+  padding-top: 5px;
+}
 .party-logo {
     width: 50px;
     height: 50px;
