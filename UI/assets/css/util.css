@@ -777,7 +777,7 @@ input::placeholder{
 }
 
 select{
-  width: 80vw;
+
   height:40px;
   border:1px solid #c4c4c4;
   border-radius: 0px;
@@ -835,6 +835,8 @@ select:hover{
 .text-capitalize {
   text-transform: capitalize;
 }
+
+
 .text-uppercase {
   text-transform: uppercase;
 }
