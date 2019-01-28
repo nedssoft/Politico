@@ -20,6 +20,7 @@
                 <div class="bar"></div>
                 <div class="bar"></div>
             </div>
+      
         </div>
     </nav>
     <aside id="sidebar__menu" class="sidebar">
@@ -34,7 +35,7 @@
                    <button type="submit" class="btn btn-info mt-1 mb-1" id="logout">Logout</button>
                </form>
            </div>
-             <li>
+            <li>
                 <a href="profile.html">
                     My Profile<i class="arrow-right"></i>
                 </a>
@@ -49,116 +50,82 @@
                     Political Parties<i class="arrow-right"></i>
                 </a>
             </li>
-              <li class="active">
+             <li>
                 <a href="political-offices.html">
                     Political Offices<i class="arrow-right"></i>
                 </a>
             </li>
-             <li>
+            <li class="active">
                 <a href="results.html">
                     Results<i class="arrow-right"></i>
                 </a>
             </li>
+        
         </ul>
     </aside>
     <div class="wrap my-4" id="main">
         <div class="container">
-            <div class="text-capitalize d-flex j-c-space-between a-i-center my-4">
-                <h1>Candidates</h1>
+            <div class="text-capitalize d-flex j-c-space-between a-i-center mt-3">
+                <h1 class="result-title">Presidential Election Results</h1>
+            </div>
+            <div class="my-1 d-flex flex-col justify-content a-i-center filter-c">
+                <form class="result-filter" action="" method="post" >
+                    <div class="input-group search">
+                        <select name="office_id" id="office" class="form-control filter-select">
+                            <option value="">Select Election</option>
+                            <option value="">Presidential</option>
+                            <option value="">Senatorial</option>
+                            <option value="">Gubernatorial</option>
+                        </select>
+                        <button type="submit"class="btn btn-primary">
+                            Filter Result
+                        </button>
+                    </div>
+                </form>
             </div>
             <div class="card px-0 pb-2 my-2">
                 <hr>
                 <div class="container">
-                    <div class="my-1 d-flex justify-content a-i-center">
-                        <form class="search-form" action="" method="post" >
-                            <div class="input-group search">
-                                <input type="text" name="" value="" placeholder="Search Candidate..." class="search-btn" >
-                                <button type="submit"class="btn btn-primary">
-                                    Search
-                                </button>
-                            </div>
-                        </form>
-                    </div>
                     <div class="table-container">
                         <table>
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Party</th>
+                                    <th>Part</th>
                                     <th>Party Logo</th>
-                                    <th>Action</th>
+                                    <th>Candidate</th>
+                                    <th>N0 of Votes</th>
+                                    <th>Postion</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                               <tr>
                                     <td>1</td>
-                                    <td>Muhammadu Buhari</td>
-                                    <td class="text-uppercase">All Progressives Congress</td>
-                                    <td><img src="assets/img/apc.jpeg" class="party-logo" alt="APC"></td>
-                                    <td>
-                                        <a href="#"  class="btn btn-info">
-                                         Vote
-                                        </a>
-                                    </td>
+                                    <td>YPP</td>
+                                    <td><img src="assets/img/ypp.jpeg" class="party-logo" alt="YPP"></td>
+                                    <td>Kingsley Moghalu</td>
+                                    <td>60,123, 456</td>
+                                    <td>Winner</td>
                                 </tr>
                                 <tr>
                                     <td>2</td>
+                                    <td>PDP</td>
+                                    <td><img src="assets/img/pdp.jpeg" class="party-logo" alt="PDP"></td>
                                     <td>Atiku Abubakar</td>
-                                    <td class="text-uppercase">People's Democratic Party</td>
-                                    <td><img src="assets/img/pdp.jpeg" alt="PDP" class="party-logo"></td>
-                                    <td>
-                                        <a href="#"  class="btn btn-info">
-                                         Vote
-                                        </a>
-                                    </td>
+                                    <td>58,124, 155</td>
+                                    <td></td>
                                 </tr>
-                                <tr>
+                                 <tr>
                                     <td>3</td>
-                                    <td>Moghalu Kingsley</td>
-                                    <td class="text-uppercase">Young Progressives Party</td>
-                                    <td><img src="assets/img/ypp.jpeg" alt="YPP" class="party-logo"></td>
-                                    <td>
-                                        <a href="#"  class="btn btn-info">
-                                         Vote
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Fela Durotoye</td>
-                                    <td class="text-uppercase">Social Democratic Party</td>
-                                    <td><img src="assets/img/sdp.png" alt="SDP" class="party-logo"></td>
-                                    <td>
-                                        <a href="#"  class="btn btn-info">
-                                         Vote
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Oby Ezekwesili</td>
-                                    <td class="text-uppercase">Allied Congress Party of Nigeria</td>
-                                    <td><img src="assets/img/acpn.jpeg" alt="ACPN" class="party-logo"></td>
-                                    <td>
-                                        <a href="#"  class="btn btn-info">
-                                         Vote
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Omoloye Sowore </td>
-                                    <td class="text-uppercase">Alliance for New Nigeria </td>
-                                    <td><img src="assets/img/ann.jpeg" alt="ANN" class="party-logo"></td>
-                                    <td>
-                                        <a href="#"  class="btn btn-info">
-                                         Vote
-                                        </a>
-                                    </td>
+                                    <td>APC</td>
+                                    <td><img src="assets/img/apc.jpeg" class="party-logo" alt="APC"></td>
+                                    <td>Muhammadu Buhari</td>
+                                    <td>46,342, 255</td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
+
                     </div>
                     <div class="my-2 pagination-container">
                         <nav class="pagination">

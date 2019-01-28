@@ -20,7 +20,6 @@
                 <div class="bar"></div>
                 <div class="bar"></div>
             </div>
-      
         </div>
     </nav>
     <aside id="sidebar__menu" class="sidebar">
@@ -30,34 +29,19 @@
         <ul class="text-capitalize">
             <div class="d-flex flex-col j-c-center a-i-center mt-2">
                <img src="assets/img/avatar.jpeg" class="profile-image" width="20%" height="20%">
-               <h4 class="mt-1">Hi, Chinedu</h3>
+               <h4 class="mt-1">Hi, Admin</h3>
                <form>
                    <button type="submit" class="btn btn-info mt-1 mb-1" id="logout">Logout</button>
                </form>
            </div>
              <li>
-                <a href="profile.html">
-                    My Profile<i class="arrow-right"></i>
+                <a href="parties.html">
+                    Parties<i class="arrow-right"></i>
                 </a>
             </li>
             <li class="active">
-                <a href="apply.html">
-                   Apply<i class="arrow-right"></i>
-                </a>
-            </li>
-            <li>
-                <a href="political-parties.html">
-                    Political Parties<i class="arrow-right"></i>
-                </a>
-            </li>
-             <li>
-                <a href="political-offices.html">
-                    Political Offices<i class="arrow-right"></i>
-                </a>
-            </li>
-             <li>
-                <a href="results.html">
-                    Results<i class="arrow-right"></i>
+                <a href="offices.html">
+                    Offices<i class="arrow-right"></i>
                 </a>
             </li>
         </ul>
@@ -65,35 +49,23 @@
     <div class="wrap my-4" id="main">
         <div class="container">
             <div class="text-capitalize d-flex j-c-space-between a-i-center my-4">
-                <h1>Application for Candidacy</h1>
+                <h1>Create New Political Office</h1>
             </div>
             <div class="card px-0 pb-2 my-2 d-flex flex-row j-c-center a-i-center h-50">
-                 <form action="#" method="post">
+                <form action="#" method="post" class="admin-form">
                         <div class="form-group">
-                        <label for="party">Party</label>
-                        <select name="party_id" id="party" class="form-control">
-                            <option value="S">Select Party</option>
-                            <option value="apc">APC</option>
-                            <option value="apga">APGA</option>
-                            <option value="pdp">PDP</option>
-                            <option value="ypp">YPP</option>
-                        </select>
+                        <!-- <label for="party">Party</label> -->
+                         <input type="text" name="officeName" class="form-control w-100 p-10" placeholder="Office Name e.g Presidentail, Gubernatorial...">
                         </div>
                         <div class="form-group">
-                            <label for="office">Office</label>
-                            <select name="office_id" id="office" class="form-control">
-                                <option value="">Select Office</option>
-                                <option value="">Presidential</option>
-                                <option value="">Senatorial</option>
-                                <option value="">Gubernatorial</option>
-                            </select>
+                            <!-- <label for="office">Office</label> -->
+                             <input type="text" name="partyType" class="form-control w-100 p-10" placeholder="Part Type, Federal, State...">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn-default text-center">Submit</button> 
                         </div> 
                 </form>    
             </div>
-        
         </div>
     </div>
 <script src="assets/js/dashboard.js"></script>

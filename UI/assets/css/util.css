@@ -577,6 +577,25 @@
     background-color: #6193c5;
 }
 
+.btn-icon {
+  display: none;
+  background-color: #6193c5;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  padding-left: 9px;
+  padding-top: 6px;
+  display: block;
+
+}
+ .btn-icon:hover {
+    background-color: black;
+    -webkit-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+
 
 .btn {
     border: none;
@@ -587,6 +606,7 @@
     display: inline-flex;
     font-size: 0.7rem;
     height: 100%;
+    cursor: pointer;
 }
 
 .btn-default{
@@ -612,7 +632,7 @@ button:focus {
 }
 
 .p-10 {
-  padding: 10px;
+  padding: 10px !important;
 }
 
 
@@ -731,6 +751,7 @@ input{
   padding-left: 15px!important;
   border: 1px solid #BDBDBD;
   border-radius: 4px;
+  width: 100%;
 }
 
 .search-btn {
@@ -757,7 +778,7 @@ input::placeholder{
 }
 
 select{
-  width: 80vw;
+
   height:40px;
   border:1px solid #c4c4c4;
   border-radius: 0px;
@@ -815,6 +836,8 @@ select:hover{
 .text-capitalize {
   text-transform: capitalize;
 }
+
+
 .text-uppercase {
   text-transform: uppercase;
 }
@@ -832,7 +855,9 @@ select:hover{
     flex-direction: column;
     margin: 10;
 }
-
+.form-group small {
+  padding-top: 5px;
+}
 .party-logo {
     width: 50px;
     height: 50px;

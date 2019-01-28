@@ -221,10 +221,14 @@ button:focus {
 }
 .search {
     display: flex;
+    /*padding: 10px;*/
 }
 .search-form {
     margin-right: auto;
     flex-basis: 70%;
+}
+.filter-select {
+    width: 60vw;
 }
 
 .pagination, .p-item {
@@ -315,6 +319,15 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     border-radius: 50%;
 }
 
+.result-title {
+    font-size: 1.5rem !important;
+    text-align: center !important;
+}
+.admin-form {
+    padding: 10px;
+    margin: 10px 20px;
+    width: 100%;
+}
  @media screen and (min-width: 768px) {
     .sidebar {
         width: 18%;
@@ -369,6 +382,16 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     .search-form {
         flex-basis: 30%;
     }
+    .filter-result {
+
+    }
+    .filter-select {
+        width: 20vw;
+    }
+    .filter-c {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
     .pagination-container {
         justify-content: flex-end;
     }
@@ -378,5 +401,10 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     }
     .profile {
         width: 50%;
+    }
+    .admin-form {
+        padding: 10px;
+        margin: 10px 20px;
+        width: 30%;
     }
 }
