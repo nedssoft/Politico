@@ -95,6 +95,9 @@ describe('Test Party Endpoints', () => {
       .get(`/api/v1/parties/${id}`)
       .end((err, res) => {
         expect(res).to.have.status(200);
+        expect(res.body.data.name).to.eql('Test Party');
+        expect(res.body.data.hqAddress).to.eql('Test Address');
+        expect(res.body.data.logoUrl).to.eql('TestLogo Url');
         done();
       });
   });
