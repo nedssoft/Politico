@@ -133,15 +133,30 @@ body, html {
 }
 
 
-#get-started{
-
-    min-width: 120px;
-    margin: 50px 10px 0 0;
+#get-started {
+  min-width: 150px;
+  margin: 50px 10px 0 0;
+  padding: 10px 0 10px 0;
+  text-align: center;
+  line-height: 20px;
+  background-color: #EE6860;
+  letter-spacing: 0.3px;
+  color: aliceblue;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer; 
+}
+#get-started:hover{
+  background-color: #ea564b;
+  transition-duration: 300ms;
 }
  .form-wrap {
     width: 80%;
     margin-bottom: 40px;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     padding-top: 10px;
 }
 
@@ -197,16 +212,43 @@ body, html {
     }
 
     #get-started {
-        width: 15%;
+        width: 20%;
         padding: 20px 0;
+        font-size: 24px;
     }
    
+}
+
+@media screen and (max-width: 768px) {
+  .form-wrap {
+    width: 80%;
+  }
+  #get-started {
+    width: 20%;
+    padding: 20px 0;
+    font-size: 24px;
+}
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .form-wrap {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 768px) {
+  .form-wrap {
+    width: 45%;
+  }
+  #get-started {
+    width: 20%;
+    padding: 20px 0;
+    font-size: 24px;
+}
 }
 
 footer{
     
     background-color: #4f4f4f;
-
     position: relative;
     bottom: 0;
     min-height: 100px;
@@ -290,7 +332,8 @@ footer{
 
 
 label{
-    font-weight: 700;
+    font-weight: 600;
+    display: none;
 }
 
 @media screen and (max-width: 375px) {
