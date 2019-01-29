@@ -22,5 +22,4 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   debugg(`App started at port ${port}`);
 });
-
 export default app;

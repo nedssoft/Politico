@@ -1,4 +1,4 @@
-import PartyModel from '../models/Party';
+import PartyModel from '../models/PartyModel';
 
 
 class PartyController {
