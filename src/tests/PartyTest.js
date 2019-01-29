@@ -84,7 +84,7 @@ describe('Test Party Endpoints', () => {
     chai.request(app)
       .get(`/api/v1/parties/${id}`)
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(404);
         expect(res.body.error).to.eql('Not Found');
         done();
       });
