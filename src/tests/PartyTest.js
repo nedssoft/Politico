@@ -79,4 +79,23 @@ describe('Test Party Endpoints', () => {
         done();
       });
   });
+  it('Should return Not found if the Party with the ID does not exist', (done) => {
+    const id = 2;
+    chai.request(app)
+      .get(`/api/v1/parties/${id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.error).to.eql('Not Found');
+        done();
+      });
+  });
+  it('Should return status 200 if the record exists', (done) => {
+    const id = 1;
+    chai.request(app)
+      .get(`/api/v1/parties/${id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
 });
