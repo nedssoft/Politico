@@ -1,9 +1,9 @@
 import express from 'express';
 import PartyController from '../controllers/PartyController';
-import Validator from '../middlewares/Validator';
+import PartyValidator from '../middlewares/PartyValidator';
 
 const partyRouter = express.Router();
 
-partyRouter.post('/', Validator.validateParty, PartyController.create);
+partyRouter.post('/', PartyValidator.createPartyValidator, PartyController.create);
 
 export default partyRouter;

@@ -4,7 +4,7 @@
   "description": "Politico enables citizens give their mandate to politicians running for different government offices",
   "main": "app.js",
   "scripts": {
-    "test": "mocha ./src/tests/**/*.js --compilers js:babel-core/register",
+    "test": "mocha --require @babel/register ./src/tests/**/*.js  --exit",
     "start-dev": "DEBUG=* nodemon --exec babel-node app.js"
   },
   "repository": {
