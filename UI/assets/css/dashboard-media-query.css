@@ -5,16 +5,10 @@
       display:block;
   }
   .navbar{
-      position: fixed;
-      top: 0px;
       float: right;
-      background-color: #6193c5;
-      margin: 0;
-      padding: 0;
       height: 65px;
-      overflow: hidden;
-      color: white;
   }
+
   .wrap {
       width: 82%;
       float: right;
@@ -75,3 +69,65 @@
       width: 30%;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    width: 30%;
+  }
+  .wrap {
+    width: 70%;
+  }
+  .sidebar ul {
+    width: 30% !important;
+  }
+  .pagination-container{
+    flex-direction: column;
+  }
+
+}
+@media screen and (width: 1024px) {
+  .sidebar {
+    width: 25%;
+  }
+  .sidebar ul {
+    width: 25%;
+  }
+  .wrap {
+    width: 75%;
+  }
+}
+
+@media screen and (width: 425px) {
+  .wrap {
+    width: 100% !important;
+  }
+  .sidebar ul {
+    width: 50% !important;
+  }
+}
+@media screen and (width: 375px) {
+  .wrap {
+    width: 100% !important;
+  }
+  .sidebar ul {
+    width: 50% !important;
+  }
+}
+@media screen and (width: 320px) {
+  .wrap {
+    width: 100% !important;
+  }
+  .sidebar ul {
+    width: 50% !important;
+  }
+
+  .pagination, .p-item {
+
+    padding: 5px !important;
+    
+  }
+  .pagination {
+    border: none !important;
+  }
+}
+
