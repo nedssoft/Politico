@@ -74,6 +74,9 @@
   .sidebar {
     width: 30%;
   }
+  .filter-select{
+    width: 31vw;
+  }
   .wrap {
     width: 70%;
   }
@@ -111,6 +114,9 @@
   }
   .sidebar ul {
     width: 50% !important;
+  }
+  .filter-select {
+    width: 61vw;
   }
 }
 @media screen and (width: 320px) {

@@ -330,12 +330,6 @@ footer{
   to {opacity: 1}
 }
 
-
-label{
-    font-weight: 600;
-    display: none;
-}
-
 @media screen and (max-width: 375px) {
 
     .wrapper{

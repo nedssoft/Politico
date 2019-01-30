@@ -763,7 +763,8 @@ input{
 }
 
 label{
-    font-weight: 700;
+  font-weight: 600;
+  display: none;
 }
 
 input:focus{
@@ -782,14 +783,14 @@ input::placeholder{
 }
 
 select{
-  height:40px;
   border:1px solid #c4c4c4;
-  border-radius: 0px;
-  font-size: 16px;
-  line-height: 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  line-height: 25px;
   color: #828282;
-  padding-left: 5px!important;
+  padding: 0.8rem;
   background-color: #FFFFFF;
+  margin: 10px 0;
 }
 select:hover{
   border:1px solid #6193c5!important;

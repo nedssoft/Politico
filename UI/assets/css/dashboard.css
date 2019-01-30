@@ -328,3 +328,9 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     margin: 10px 20px;
     width: 100%;
 }
+.btn-filter {
+  font-size: 1rem;
+  padding: 0.8rem;
+  margin: 10px 0;
+  height: 2.8rem;
+}
