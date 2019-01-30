@@ -382,9 +382,6 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
     .search-form {
         flex-basis: 30%;
     }
-    .filter-result {
-
-    }
     .filter-select {
         width: 20vw;
     }
