@@ -4,8 +4,9 @@
   "description": "Politico enables citizens give their mandate to politicians running for different government offices",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --require @babel/register ./src/tests/**/*.js  --exit",
-    "start-dev": "DEBUG=* nodemon --exec babel-node app.js"
+    "test": "mocha --require @babel/register ./src/test/**/*.js  --exit",
+    "start-dev": "DEBUG=* nodemon --exec babel-node app.js",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,12 @@
   },
   "homepage": "https://github.com/oriechinedu/Politico#readme",
   "devDependencies": {
+    "coveralls": "^3.0.2",
     "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.15.0"
+    "eslint-plugin-import": "^2.15.0",
+    "mocha": "^5.2.0",
+    "mocha-lcov-reporter": "^1.3.0"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",
@@ -33,8 +37,8 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
-    "mocha": "^5.2.0",
     "morgan": "^1.9.1",
     "pg": "^7.8.0"
   }
+  
 }
