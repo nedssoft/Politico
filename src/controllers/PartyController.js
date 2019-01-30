@@ -17,5 +17,15 @@ class PartyController {
       data: [newParty],
     });
   }
+
+  static edit(req, res) {
+    const { partyIndex, name } = req.body;
+    const party = PartyModel[partyIndex];
+    party.name = name;
+    return res.status(200).json({
+      status: 200,
+      data: party,
+    });
+  }
 }
 export default PartyController;
