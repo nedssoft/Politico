@@ -326,7 +326,7 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
 .admin-form {
     padding: 10px;
     margin: 10px 20px;
-    width: 100%;
+    width: 80% !important;
 }
 .btn-filter {
   font-size: 1rem;
@@ -334,3 +334,37 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
   margin: 10px 0;
   height: 2.8rem;
 }
+
+.add-party {
+  line-height: 20px;
+}
+
+.logo-container {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.badge-success {
+  background-color: #55A854;
+  border-radius: 10px;
+  padding: 2px 5px;
+  color: aliceblue;
+}
+
+.badge-primary {
+  background-color: #23B4F3;
+  opacity: 0.5;
+  border-radius: 10px;
+  padding: 2px 5px;
+  color: aliceblue;
+}
+
+.badge-danger {
+  background-color: #F14340;
+  border-radius: 10px;
+  padding: 2px 5px;
+  color: aliceblue;
+}
+

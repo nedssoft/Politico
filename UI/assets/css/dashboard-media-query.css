@@ -66,7 +66,7 @@
   .admin-form {
       padding: 10px;
       margin: 10px 20px;
-      width: 30%;
+      width: 30% !important;
   }
 }
 
@@ -86,6 +86,9 @@
   .pagination-container{
     flex-direction: column;
   }
+  .admin-form {
+    width: 50% !important;
+  }
 
 }
 @media screen and (width: 1024px) {
@@ -98,6 +101,9 @@
   .wrap {
     width: 75%;
   }
+  .admin-form {
+    width: 40% !important;
+  }
 }
 
 @media screen and (width: 425px) {
@@ -106,6 +112,9 @@
   }
   .sidebar ul {
     width: 50% !important;
+  }
+  .admin-form {
+    width: 90% !important;
   }
 }
 @media screen and (width: 375px) {
@@ -117,6 +126,9 @@
   }
   .filter-select {
     width: 61vw;
+  }
+  .admin-form {
+    width: 90% !important;
   }
 }
 @media screen and (width: 320px) {
@@ -135,5 +147,13 @@
   .pagination {
     border: none !important;
   }
+  .admin-form {
+    width: 100% !important;
+  }
 }
-
+@media screen and (width: 768px) {
+  
+  .admin-form {
+    width: 70% !important;
+  }
+}
