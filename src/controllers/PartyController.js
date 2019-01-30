@@ -60,6 +60,15 @@ class PartyController {
       });
     }
   }
+
+  static deleteParty(req, res) {
+    const { partyIndex } = req.body;
+    PartyModel.splice(partyIndex, 1);
+    return res.status(200).json({
+      status: 200,
+      data: [{ message: 'success' }],
+    });
+  }
 }
 
 export default PartyController;

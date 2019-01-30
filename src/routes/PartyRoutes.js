@@ -11,5 +11,6 @@ partyRouter.patch('/:partyId', PartyValidator.editPartyValidator, PartyControlle
 
 partyRouter.get('/:partyId', PartyController.getAParty);
 
+partyRouter.delete('/:partyId', PartyValidator.deletePartyValidator, PartyController.deleteParty);
 
 export default partyRouter;
