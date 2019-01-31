@@ -15,13 +15,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.use('/api/v1/parties', partyRouter);
-app.use('/api/v1/offices', officeRouter);
 app.get('/', (req, res) => {
   res.send('welcome to Politico');
 });
 
+app.use('/api/v1/parties', partyRouter);
+app.use('/api/v1/offices', officeRouter);
+
+
 app.listen(port, () => {
   debugg(`App started at port ${port}`);
 });
+
 export default app;

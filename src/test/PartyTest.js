@@ -6,6 +6,16 @@ chai.use(chaiHTTP);
 const { expect } = chai;
 
 describe('Test Party Endpoints', () => {
+  /* eslint-disable no-unused-expressions */
+  it('Should return an empty array when no political party record exists', (done) => {
+    chai.request(app)
+      .get('/api/v1/parties')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.data).to.be.an('array').that.is.empty;
+        done();
+      });
+  });
   it('Should ensure that party name is not empty', (done) => {
     const newParty = {
       name: '',
@@ -84,7 +94,7 @@ describe('Test Party Endpoints', () => {
     chai.request(app)
       .get(`/api/v1/parties/${id}`)
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(404);
         expect(res.body.error).to.eql('Not Found');
         done();
       });
@@ -98,6 +108,61 @@ describe('Test Party Endpoints', () => {
         expect(res.body.data.name).to.eql('Test Party');
         expect(res.body.data.hqAddress).to.eql('Test Address');
         expect(res.body.data.logoUrl).to.eql('TestLogo Url');
+        done();
+      });
+  });
+  it('Should it should return Not Found if the party does not exist', (done) => {
+    const id = 2;
+    const newName = {
+      name: 'New Test Party',
+    };
+    chai.request(app)
+      .patch(`/api/v1/parties/${id}`)
+      .send(newName)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.error).to.eql('The party you want to edit does not exist');
+        done();
+      });
+  });
+  it('Should it should check that the new political party name exists', (done) => {
+    const id = 1;
+    const newName = {
+      name: '',
+    };
+    chai.request(app)
+      .patch(`/api/v1/parties/${id}`)
+      .send(newName)
+      .end((err, res) => {
+        expect(res).to.have.status(422);
+        expect(res.body.errors[0]).to.eql('The new party name is required');
+        done();
+      });
+  });
+  // it('Should it should update the political party with the new name', (done) => {
+  //   const id = 1;
+  //   const newName = {
+  //     name: 'New Test Party',
+  //   };
+  //   chai.request(app)
+  //     .patch(`/api/v1/parties/${id}`)
+  //     .send(newName)
+  //     .end((err, res) => {
+  //       expect(res).to.have.status(200);
+  //       expect(res.body.data.name).to.eql('New Test Party');
+  //       expect(res.body.data.id).to.eql(id);
+  //     });
+  //   done();
+  // });
+  it('Should return the array of all political parties', (done) => {
+    chai.request(app)
+      .get('/api/v1/parties')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.data).to.have.lengthOf(1);
+        expect(res.body.data[0].name).to.eql('Test Party');
+        expect(res.body.data[0].hqAddress).to.eql('Test Address');
+        expect(res.body.data[0].logoUrl).to.eql('TestLogo Url');
         done();
       });
   });

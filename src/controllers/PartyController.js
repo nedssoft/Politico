@@ -17,5 +17,58 @@ class PartyController {
       data: [newParty],
     });
   }
+
+
+  static edit(req, res) {
+    const { partyIndex, name } = req.body;
+    const party = PartyModel[partyIndex];
+    party.name = name;
+    return res.status(200).json({
+      status: 200,
+      data: party,
+    });
+  }
+
+  static getAParty(req, res) {
+    const { partyId } = req.params;
+    const party = PartyModel.find(partyR => (
+      partyR.id === Number(partyId)
+    ));
+    if (party) {
+      res.status(200).json({
+        status: 200,
+        data: party,
+      });
+    } else {
+      return res.status(404).json({
+        status: 404,
+        error: 'Not Found',
+      });
+    }
+  }
+
+  static all(req, res) {
+    try {
+      return res.status(200).json({
+        status: 200,
+        data: PartyModel,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        erorr: 'Unable to fetch resource from the server',
+      });
+    }
+  }
+
+  static deleteParty(req, res) {
+    const { partyIndex } = req.body;
+    PartyModel.splice(partyIndex, 1);
+    return res.status(200).json({
+      status: 200,
+      data: [{ message: 'success' }],
+    });
+  }
 }
+
 export default PartyController;
