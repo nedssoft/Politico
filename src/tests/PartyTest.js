@@ -84,7 +84,7 @@ describe('Test Party Endpoints', () => {
     chai.request(app)
       .get(`/api/v1/parties/${id}`)
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(404);
         expect(res.body.error).to.eql('Not Found');
         done();
       });
@@ -98,6 +98,46 @@ describe('Test Party Endpoints', () => {
         expect(res.body.data.name).to.eql('Test Party');
         expect(res.body.data.hqAddress).to.eql('Test Address');
         expect(res.body.data.logoUrl).to.eql('TestLogo Url');
+        done();
+      });
+  });
+  it('Should it should return Not Found if the party does not exist', (done) => {
+    const id = 2;
+    chai.request(app)
+      .patch(`/api/v1/parties/${id}`)
+      .send({})
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.error).to.eql('The party you want to edit does not exist');
+        done();
+      });
+  });
+  it('Should it should check that the new political party name exists', (done) => {
+    const id = 1;
+    const newName = {
+      name: '',
+    };
+    chai.request(app)
+      .patch(`/api/v1/parties/${id}`)
+      .send(newName)
+      .end((err, res) => {
+        expect(res).to.have.status(422);
+        expect(res.body.error).to.eql('Specify the new party name');
+        done();
+      });
+  });
+  it('Should it should update the political party with the new name', (done) => {
+    const id = 1;
+    const newName = {
+      name: 'New Test Party',
+    };
+    chai.request(app)
+      .patch(`/api/v1/parties/${id}`)
+      .send(newName)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.data.name).to.eql(newName.name);
+        expect(res.body.data.id).to.eql(id);
         done();
       });
   });
