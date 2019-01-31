@@ -135,7 +135,7 @@ describe('Test Party Endpoints', () => {
       .patch(`/api/v1/parties/${id}`)
       .send(newName)
       .end((err, res) => {
-        expect(res).to.have.status(422);
+        expect(res).to.have.status(200);
         expect(res.body.data.name).to.eql(newName.name);
         expect(res.body.data.id).to.eql(id);
         done();
