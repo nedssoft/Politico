@@ -156,6 +156,9 @@ describe('Test Party Endpoints', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.data).to.have.lengthOf(1);
+        expect(res.body.data[0].name).to.eql('Test Party');
+        expect(res.body.data[0].hqAddress).to.eql('Test Address');
+        expect(res.body.data[0].logoUrl).to.eql('TestLogo Url');
         done();
       });
   });
