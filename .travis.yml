@@ -1,9 +1,15 @@
 language: node_js
 node_js:
 - "stable"
-script:
-  - npm test
-after_success:
-- npm run coveralls
-- npm run coverage
-after_script: NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+install: npm install
+cache:
+  directories:
+    - "node_modules"
+before_script:
+  - yarn global add nyc
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build --debug
+script: npm test
+after_success: npm run coverage
+
