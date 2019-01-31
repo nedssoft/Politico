@@ -47,7 +47,7 @@ class PartyController {
     }
   }
 
-  static allPaty(req, res) {
+  static all(req, res) {
     try {
       return res.status(200).json({
         status: 200,

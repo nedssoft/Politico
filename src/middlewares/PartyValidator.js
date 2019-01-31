@@ -55,6 +55,7 @@ class PartyValidator {
       });
     }
     req.body.name = req.body.name.trim();
+    req.body.partyIndex = partyIndex;
     return next();
   }
 

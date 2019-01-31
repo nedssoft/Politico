@@ -7,7 +7,7 @@ import partyRouter from './src/routes/PartyRoutes';
 
 const app = express();
 const debugg = debug('app');
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 7000;
 app.use(expressValidator());
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
