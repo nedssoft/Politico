@@ -14,7 +14,7 @@ class OfficeController {
       OfficeModel.push(newOffice);
       return res.status(201).json({
         status: 201,
-        data: [{ newOffice }],
+        data: [newOffice],
       });
     } catch (err) {
       return res.stattus(500).json({
