@@ -6,6 +6,16 @@ chai.use(chaiHTTP);
 const { expect } = chai;
 
 describe('Test Party Endpoints', () => {
+  /* eslint-disable no-unused-expressions */
+  it('Should return an empty array when no political party record exists', (done) => {
+    chai.request(app)
+      .get('/api/v1/parties')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.data).to.be.an('array').that.is.empty;
+        done();
+      });
+  });
   it('Should ensure that party name is not empty', (done) => {
     const newParty = {
       name: '',
@@ -138,6 +148,17 @@ describe('Test Party Endpoints', () => {
         expect(res).to.have.status(200);
         expect(res.body.data.name).to.eql(newName.name);
         expect(res.body.data.id).to.eql(id);
+      });
+  });
+  it('Should return the array of all political parties', (done) => {
+    chai.request(app)
+      .get('/api/v1/parties')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.data).to.have.lengthOf(1);
+        expect(res.body.data[0].name).to.eql('Test Party');
+        expect(res.body.data[0].hqAddress).to.eql('Test Address');
+        expect(res.body.data[0].logoUrl).to.eql('TestLogo Url');
         done();
       });
   });
