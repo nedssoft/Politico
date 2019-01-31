@@ -3,8 +3,8 @@ import bodyParser from 'body-parser';
 import debug from 'debug';
 import morgan from 'morgan';
 import expressValidator from 'express-validator';
-import partyRouter from './src/routes/PartyRoutes';
-import officeRouter from './src/routes/OfficeRoutes';
+import partyRouter from './routes/PartyRoutes';
+import officeRouter from './routes/OfficeRoutes';
 
 const app = express();
 const debugg = debug('app');
