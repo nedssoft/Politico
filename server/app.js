@@ -3,12 +3,12 @@ import bodyParser from 'body-parser';
 import debug from 'debug';
 import morgan from 'morgan';
 import expressValidator from 'express-validator';
-import partyRouter from './src/routes/PartyRoutes';
-import officeRouter from './src/routes/OfficeRoutes';
+import partyRouter from './routes/PartyRoutes';
+import officeRouter from './routes/OfficeRoutes';
 
 const app = express();
 const debugg = debug('app');
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 3000;
 app.use(expressValidator());
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
