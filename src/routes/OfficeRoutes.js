@@ -4,6 +4,9 @@ import OfficeValidator from '../middlewares/OfficeValidator';
 
 const officeRouter = express.Router();
 
+officeRouter.get('/:officeId',
+  OfficeValidator.readOfficeValidator,
+  OfficeController.getOffice);
 officeRouter.post('/', OfficeValidator.createOfficeValidator, OfficeController.createOffice);
 
 officeRouter.get('/', OfficeController.all);
