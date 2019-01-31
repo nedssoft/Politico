@@ -28,6 +28,7 @@ class PartyController {
       data: party,
     });
   }
+
   static getAParty(req, res) {
     const { partyId } = req.params;
     const party = PartyModel.find(partyR => (
@@ -44,7 +45,20 @@ class PartyController {
         error: 'Not Found',
       });
     }
+  }
 
+  static allPaty(req, res) {
+    try {
+      return res.status(200).json({
+        status: 200,
+        data: PartyModel,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        erorr: 'Unable to fetch resource from the server',
+      });
+    }
   }
 }
 
