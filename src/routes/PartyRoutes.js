@@ -5,5 +5,6 @@ import PartyValidator from '../middlewares/PartyValidator';
 const partyRouter = express.Router();
 
 partyRouter.post('/', PartyValidator.createPartyValidator, PartyController.create);
+partyRouter.get('/:partyId', PartyController.getAParty);
 
 export default partyRouter;
