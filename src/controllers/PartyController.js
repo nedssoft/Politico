@@ -18,6 +18,16 @@ class PartyController {
     });
   }
 
+
+  static edit(req, res) {
+    const { partyIndex, name } = req.body;
+    const party = PartyModel[partyIndex];
+    party.name = name;
+    return res.status(200).json({
+      status: 200,
+      data: party,
+    });
+  }
   static getAParty(req, res) {
     const { partyId } = req.params;
     const party = PartyModel.find(partyR => (
@@ -34,6 +44,7 @@ class PartyController {
         error: 'Not Found',
       });
     }
+
   }
 }
 
