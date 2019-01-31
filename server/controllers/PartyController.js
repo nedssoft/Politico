@@ -18,7 +18,6 @@ class PartyController {
     });
   }
 
-
   static edit(req, res) {
     const { partyIndex, name } = req.body;
     const party = PartyModel[partyIndex];
