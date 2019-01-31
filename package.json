@@ -2,9 +2,9 @@
   "name": "politico",
   "version": "1.0.0",
   "description": "Politico enables citizens give their mandate to politicians running for different government offices",
-  "main": "app.js",
+  "main": "./server/app.js",
   "scripts": {
-    "test": "mocha --require @babel/register ./src/test/**/*.js  --exit",
+    "test": "mocha --require @babel/register ./server/test/**/*.js  --exit",
     "start-dev": "DEBUG=* nodemon --exec babel-node app.js",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
