@@ -22,6 +22,21 @@ class OfficeController {
       });
     }
   }
+
+  static all(req, res) {
+    try {
+      return res.status(200).json({
+        status: 200,
+        message: 'success',
+        data: OfficeModel,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        status: 500,
+        error: 'Unable to fetch political offices from the server',
+      });
+    }
+  }
 }
 
 export default OfficeController;

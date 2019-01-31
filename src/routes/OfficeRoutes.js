@@ -6,4 +6,6 @@ const officeRouter = express.Router();
 
 officeRouter.post('/', OfficeValidator.createOfficeValidator, OfficeController.createOffice);
 
+officeRouter.get('/', OfficeController.all);
+
 export default officeRouter;
