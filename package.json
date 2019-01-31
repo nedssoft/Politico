@@ -5,7 +5,8 @@
   "main": "./server/app.js",
   "scripts": {
     "test": "mocha --require @babel/register ./server/test/**/*.js  --exit",
-    "start-dev": "DEBUG=* nodemon --exec babel-node ./server/app.js",
+    "start:dev": "DEBUG=* nodemon --exec babel-node ./server/app.js",
+    "start": "babel-node ./server/app.js",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
