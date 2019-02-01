@@ -29,8 +29,8 @@ class OfficeValidator {
 
     if (errors) {
       errors.map(error => validationErrors.push(error.msg));
-      return res.status(422).json({
-        status: 422,
+      return res.status(400).json({
+        status: 400,
         errors: validationErrors,
       });
     }
@@ -38,8 +38,8 @@ class OfficeValidator {
       office.name.toLowerCase() === req.body.name.toLowerCase()
     ));
     if (officeExists) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(409).json({
+        status: 409,
         error: 'The political office already exists',
       });
     }
