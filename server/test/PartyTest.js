@@ -96,7 +96,7 @@ describe('Test Party Endpoints', () => {
         .get(`${baseUrl}/${id}`)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body.error).to.eql('Not Found');
+          expect(res.body.error).to.eql(`Party with ID: ${id} Not Found`);
           done();
         });
     });
@@ -177,7 +177,7 @@ describe('Test Party Endpoints', () => {
         .delete(`${baseUrl}/${partyId}`)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body.error).to.eql('Not Found');
+          expect(res.body.error).to.eql(`Party with ID: ${partyId} Not Found`);
           done();
         });
     });
@@ -188,6 +188,14 @@ describe('Test Party Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body.data[0].message).to.eql('success');
+          done();
+        });
+    });
+    it('It should return 400 if the URL is incorrect', (done) => {
+      chai.request(app)
+        .delete(`${baseUrl}`)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
           done();
         });
     });

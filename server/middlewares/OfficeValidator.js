@@ -1,4 +1,5 @@
 import OfficeModel from '../models/OfficeModel';
+import helpers from '../helpers/helpers';
 
 class OfficeValidator {
   static readOfficeValidator(req, res, next) {
@@ -7,7 +8,7 @@ class OfficeValidator {
     if (officeIndex < 0) {
       return res.status(404).json({
         status: 404,
-        error: 'Office Not Found',
+        error: `Office with ID: ${officeId} Not Found`,
       });
     }
     req.body.officeIndex = officeIndex;
@@ -24,14 +25,10 @@ class OfficeValidator {
       .isLength({ min: 1 })
       .withMessage('The political office type is required');
     const errors = req.validationErrors();
-
-    const validationErrors = [];
-
     if (errors) {
-      errors.map(error => validationErrors.push(error.msg));
       return res.status(400).json({
         status: 400,
-        errors: validationErrors,
+        errors: helpers.extractErrors(errors),
       });
     }
     const officeExists = OfficeModel.find(office => (

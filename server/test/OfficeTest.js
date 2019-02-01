@@ -105,7 +105,7 @@ describe('Test All Office Endpoints', () => {
         .get(`${baseUrl}/${officeId}`)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body.error).to.eql('Office Not Found');
+          expect(res.body.error).to.eql(`Office with ID: ${officeId} Not Found`);
           done();
         });
     });
