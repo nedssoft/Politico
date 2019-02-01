@@ -4,8 +4,16 @@ const extractErrors = (errors) => {
   return validationErrors;
 };
 
+const isNumber = num => Number.isInteger(Number(num));
+
+const recordExists = (Model, req) => Model.find(m => (
+  m.name.toLowerCase() === req.body.name.toLowerCase()
+));
+
 const helpers = {
   extractErrors,
+  isNumber,
+  recordExists,
 };
 
 export default helpers;

@@ -79,11 +79,10 @@ describe('Test All Office Endpoints', () => {
           expect(res).to.have.status(201);
           expect(res.body.data[0].name).to.eql(newOffice.name);
           expect(res.body.data[0].type).to.eql(newOffice.type);
-          expect(res.body.data[0].id).to.equal(1);
           done();
         });
     });
-    it('It should create the new political office', (done) => {
+    it('It should return status 409 if the political office alreay exists', (done) => {
       const newOffice = {
         name: 'Test Office Name',
         type: 'Test Office Type',
@@ -106,6 +105,16 @@ describe('Test All Office Endpoints', () => {
         .end((err, res) => {
           expect(res).to.have.status(404);
           expect(res.body.error).to.eql(`Office with ID: ${officeId} Not Found`);
+          done();
+        });
+    });
+    it('It should throw an error if the officeId is not a number', (done) => {
+      const officeId = 'd';
+      chai.request(app)
+        .get(`${baseUrl}/${officeId}`)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.error).to.eql(`Office with ID: ${officeId} must be an integer`);
           done();
         });
     });

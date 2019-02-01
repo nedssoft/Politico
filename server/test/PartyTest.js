@@ -126,6 +126,20 @@ describe('Test Party Endpoints', () => {
     });
   });
   describe('PATCH REQUESTS', () => {
+    it('It should return status 400 if the ID is not a number', (done) => {
+      const id = 'd';
+      const newName = {
+        name: 'New Test Party',
+      };
+      chai.request(app)
+        .patch(`${baseUrl}/${id}`)
+        .send(newName)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.error).to.eql(`Party ID: ${id} must be an integer`);
+          done();
+        });
+    });
     it('It should return throw Not Found if the party does not exist', (done) => {
       const id = 2;
       const newName = {
@@ -171,6 +185,16 @@ describe('Test Party Endpoints', () => {
     });
   });
   describe('DELETE REQUESTS', () => {
+    it('It should throw an error if the partyId is not an integer', (done) => {
+      const partyId = 'd';
+      chai.request(app)
+        .delete(`${baseUrl}/${partyId}`)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.error).to.eql(`Party ID: ${partyId} must be an integer`);
+          done();
+        });
+    });
     it('It should throw Not Found if the political party does not exist', (done) => {
       const partyId = 2;
       chai.request(app)
