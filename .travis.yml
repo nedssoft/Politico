@@ -11,5 +11,5 @@ before_script:
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build --debug
 script: npm test
-after_success: npm run coverage
+after_success: npm run coveralls
 
