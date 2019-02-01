@@ -17,7 +17,7 @@ class OfficeController {
         data: [newOffice],
       });
     } catch (err) {
-      return res.stattus(500).json({
+      return res.status(500).json({
         status: 500,
         error: err,
       });
