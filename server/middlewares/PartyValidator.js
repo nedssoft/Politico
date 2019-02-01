@@ -4,7 +4,7 @@ import PartyModel from '../models/PartyModel';
 class PartyValidator {
   static createPartyValidator(req, res, next) {
     req.check('name', 'The party name is required').notEmpty();
-    req.check('hqAddress', 'The party Address is required').notEmpty();
+    req.check('hqAddress', 'The party HQ Address is required').notEmpty();
     req.check('logoUrl', 'The party logo is required').notEmpty();
     const errors = req.validationErrors();
 
@@ -12,8 +12,8 @@ class PartyValidator {
 
     if (errors) {
       errors.map(error => validationErrors.push(error.msg));
-      return res.status(422).json({
-        status: 422,
+      return res.status(400).json({
+        status: 400,
         errors: validationErrors,
       });
     }
@@ -21,8 +21,8 @@ class PartyValidator {
       party.name.toLowerCase() === req.body.name.toLowerCase()
     ));
     if (partyExists) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(409).json({
+        status: 409,
         error: 'The party already exists',
       });
     }
@@ -39,8 +39,8 @@ class PartyValidator {
     const errors = req.validationErrors();
     if (errors) {
       errors.map(error => validationErrors.push(error.msg));
-      return res.status(422).json({
-        status: 422,
+      return res.status(400).json({
+        status: 400,
         errors: validationErrors,
       });
     }
