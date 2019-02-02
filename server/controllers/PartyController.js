@@ -41,27 +41,21 @@ class PartyController {
     } else {
       return res.status(404).json({
         status: 404,
-        error: 'Not Found',
+        error: `Party with ID: ${partyId} Not Found`,
       });
     }
   }
 
   static all(req, res) {
-    try {
-      return res.status(200).json({
-        status: 200,
-        data: PartyModel,
-      });
-    } catch (err) {
-      return res.status(500).json({
-        status: 500,
-        erorr: 'Unable to fetch resource from the server',
-      });
-    }
+    return res.status(200).json({
+      status: 200,
+      data: PartyModel,
+    });
   }
 
   static deleteParty(req, res) {
     const { partyIndex } = req.body;
+
     PartyModel.splice(partyIndex, 1);
     return res.status(200).json({
       status: 200,
