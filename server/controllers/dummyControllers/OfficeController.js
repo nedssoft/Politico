@@ -25,7 +25,7 @@ class OfficeController {
     });
   }
 
-  static all(req, res) {
+  static allOffices(req, res) {
     return res.status(200).json({
       status: 200,
       message: 'success',

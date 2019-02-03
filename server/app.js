@@ -8,7 +8,7 @@ import router from './routes';
 
 const app = express();
 const debugg = debug('app');
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 3000;
 app.use(expressValidator());
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
