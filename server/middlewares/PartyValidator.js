@@ -1,5 +1,5 @@
 
-import PartyModel from '../models/PartyModel';
+import PartyModel from '../models/dummyModels/PartyModel';
 import helpers from '../helpers/helpers';
 
 class PartyValidator {

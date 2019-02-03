@@ -5,6 +5,9 @@
   "main": "./server/app.js",
   "scripts": {
     "test": "mocha --require @babel/register ./server/test/**/*.js  --exit",
+    "migrate": "babel-node ./server/database/migrations/index.js",
+    "migrate:seed": "babel-node ./server/database/migrations/seed.js",
+    "migrate:reset": "babel-node ./server/database/migrations/migrateReset.js",
     "start:dev": "DEBUG=* nodemon --exec babel-node ./server/app.js",
     "start": "babel-node ./server/app.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
@@ -33,6 +36,7 @@
   "dependencies": {
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
@@ -42,6 +46,7 @@
     "express": "^4.16.4",
     "express-validator": "^5.3.1",
     "morgan": "^1.9.1",
+    "password-hash": "^1.2.2",
     "pg": "^7.8.0"
   }
 }

@@ -1,4 +1,4 @@
-import OfficeModel from '../models/OfficeModel';
+import OfficeModel from '../models/dummyModels/OfficeModel';
 import helpers from '../helpers/helpers';
 
 class OfficeValidator {
