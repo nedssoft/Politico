@@ -1,5 +1,5 @@
 
-import OfficeModel from '../models/OfficeModel';
+import OfficeModel from '../../models/dummyModels/OfficeModel';
 
 class OfficeController {
   static createOffice(req, res) {

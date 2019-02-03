@@ -1,7 +1,7 @@
 import express from 'express';
-import OfficeController from '../controllers/OfficeController';
+import OfficeController from '../controllers/dummyControllers/OfficeController';
 import OfficeValidator from '../middlewares/OfficeValidator';
-import PartyController from '../controllers/PartyController';
+import PartyController from '../controllers/dummyControllers/PartyController';
 import PartyValidator from '../middlewares/PartyValidator';
 
 const router = express.Router();

@@ -1,4 +1,4 @@
-import PartyModel from '../models/PartyModel';
+import PartyModel from '../../models/dummyModels/PartyModel';
 
 
 class PartyController {
