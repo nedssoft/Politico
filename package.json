@@ -4,12 +4,13 @@
   "description": "Politico enables citizens give their mandate to politicians running for different government offices",
   "main": "./server/app.js",
   "scripts": {
+    "pretest": "export NODE_ENV=test && npm run migrate:reset && npm run migrate",
     "test": "mocha --require @babel/register ./server/test/**/*.js  --exit",
     "migrate": "babel-node ./server/database/migrations/index.js",
     "migrate:seed": "babel-node ./server/database/migrations/seed.js",
     "migrate:reset": "babel-node ./server/database/migrations/migrateReset.js",
     "start:dev": "DEBUG=* nodemon --exec babel-node ./server/app.js",
-    "start": "babel-node ./server/app.js",
+    "start": "export NODE_ENV=production && babel-node ./server/app.js",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -24,6 +25,8 @@
   },
   "homepage": "https://github.com/oriechinedu/Politico#readme",
   "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-runtime": "^6.26.0",
     "coveralls": "^3.0.2",
     "eslint": "^5.12.1",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -41,12 +44,15 @@
     "body-parser": "^1.18.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",
-    "debug": "^4.1.1",
+    "cor": "0.0.0",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
-    "express-validator": "^5.3.1",
     "morgan": "^1.9.1",
+    "debug": "^4.1.1",
+    "express-validator": "^5.3.1",
+    "jsonwebtoken": "^8.4.0",
     "password-hash": "^1.2.2",
+    "babel-polyfill": "^6.26.0",
     "pg": "^7.8.0"
   }
 }

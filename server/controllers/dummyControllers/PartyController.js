@@ -2,7 +2,7 @@ import PartyModel from '../../models/dummyModels/PartyModel';
 
 
 class PartyController {
-  static create(req, res) {
+  static createParty(req, res) {
     const { name, hqAddress, logoUrl } = req.body;
     const newParty = {
       id: PartyModel.length + 1,
@@ -18,7 +18,7 @@ class PartyController {
     });
   }
 
-  static edit(req, res) {
+  static editParty(req, res) {
     const { partyIndex, name } = req.body;
     const party = PartyModel[partyIndex];
     party.name = name;
@@ -46,7 +46,7 @@ class PartyController {
     }
   }
 
-  static all(req, res) {
+  static allParties(req, res) {
     return res.status(200).json({
       status: 200,
       data: PartyModel,

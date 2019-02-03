@@ -1,6 +1,6 @@
 
 import PartyModel from '../models/dummyModels/PartyModel';
-import helpers from '../helpers/helpers';
+import helpers from '../helpers/Helpers';
 
 class PartyValidator {
   static createPartyValidator(req, res, next) {

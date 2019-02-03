@@ -3,9 +3,17 @@ import OfficeController from '../controllers/dummyControllers/OfficeController';
 import OfficeValidator from '../middlewares/OfficeValidator';
 import PartyController from '../controllers/dummyControllers/PartyController';
 import PartyValidator from '../middlewares/PartyValidator';
+import AuthValidator from '../middlewares/AuthValidator';
+import UserController from '../controllers/UserController';
+
 
 const router = express.Router();
-
+const { createAccount } = UserController;
+const { validateSignUp, userExists } = AuthValidator;
+const { createOfficeValidator, readOfficeValidator } = OfficeValidator;
+const { getOffice, allOffices, createOffice } = OfficeController;
+const { editPartyValidator, createPartyValidator, deletePartyValidator } = PartyValidator;
+const { allParties, createParty, editParty, getAParty, deleteParty } = PartyController;
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
 });
@@ -16,26 +24,26 @@ router.get('/', (req, res) => {
 */
 const officeUrl = '/api/v1/offices';
 
-router.get(`${officeUrl}/:officeId`,
-  OfficeValidator.readOfficeValidator,
-  OfficeController.getOffice);
-router.post(officeUrl, OfficeValidator.createOfficeValidator, OfficeController.createOffice);
+router.get(`${officeUrl}/:officeId`, readOfficeValidator, getOffice);
+router.post(officeUrl, createOfficeValidator, createOffice);
 
-router.get(officeUrl, OfficeController.all);
+router.get(officeUrl, allOffices);
 
 /**  End Office Routes */
 
 /** Party Routes */
 const partyUrl = '/api/v1/parties';
-router.post(partyUrl, PartyValidator.createPartyValidator, PartyController.create);
-router.get(partyUrl, PartyController.all);
+router.post(partyUrl, createPartyValidator, createParty);
+router.get(partyUrl, allParties);
 
-router.patch(`${partyUrl}/:partyId`, PartyValidator.editPartyValidator, PartyController.edit);
+router.patch(`${partyUrl}/:partyId`, editPartyValidator, editParty);
 
-router.get(`${partyUrl}/:partyId`, PartyController.getAParty);
+router.get(`${partyUrl}/:partyId`, getAParty);
 
-router.delete(`${partyUrl}/:partyId`, PartyValidator.deletePartyValidator, PartyController.deleteParty);
+router.delete(`${partyUrl}/:partyId`, deletePartyValidator, deleteParty);
 
 /** End Party Routes */
 
+const authBaseUrl = '/api/v1/auth';
+router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
 export default router;

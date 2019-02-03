@@ -14,7 +14,8 @@
       "object-curly-newline" : 0,
       "array-callback-return": 0,
       "consistent-return" : 0,
-      "prefer-destructuring": 0
+      "prefer-destructuring": 0,
+      "no-console": "off"
   }
 
 }

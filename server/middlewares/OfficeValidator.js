@@ -1,5 +1,5 @@
 import OfficeModel from '../models/dummyModels/OfficeModel';
-import helpers from '../helpers/helpers';
+import helpers from '../helpers/Helpers';
 
 class OfficeValidator {
   static readOfficeValidator(req, res, next) {
