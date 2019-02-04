@@ -18,10 +18,8 @@ class UserModel {
       const values = [firstName, lastName, otherName, phone, email,
         passportUrl, hashedpassword];
       user = await client.query({ text, values });
-
       return user;
     } catch (err) {
-      console.log(err);
       const { constraint } = err;
       if (constraint === 'users_email_key') {
         return res.status(409).json({ error: true, message: 'User already exists' });

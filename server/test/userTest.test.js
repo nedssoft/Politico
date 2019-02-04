@@ -11,7 +11,7 @@ const baseUrl = '/api/v1/auth';
 const hashedPassword = passwordHash.generate('password');
 const user = {
   firstName: 'First Name',
-  lasttName: 'Last Name',
+  lastName: 'Last Name',
   otherName: 'Other Name',
   phone: '07000000000',
   email: 'jondoe@gmail.com',
@@ -27,8 +27,7 @@ describe('SIGN UP', () => {
         .send(user);
       expect(res).to.have.status(201);
       expect(res.body.data[0]).to.have.property('token');
-      expect(res.body.data[0]).to.deep.equal(user);
-      console.log(res);
+      expect(res.body.data[0].user).to.be.an('object');
     } catch (err) {
       console.log(err);
     }
@@ -95,6 +94,96 @@ describe('SIGN UP', () => {
           expect(res.body.errors[0]).to.eql('The phone number is required');
           done();
         });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+});
+describe('SIGN IN', () => {
+  it('Should respond with status code 400 if email is emapty', (done) => {
+    const loginDetails = {
+      email: '',
+      password: 'password',
+    };
+    try {
+      chai.request(app)
+        .post(`${baseUrl}/login`)
+        .send(loginDetails)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.errors[0]).to.eql('Email is required');
+          done();
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+  it('Should respond with status code 400 if email is invalid', (done) => {
+    const loginDetails = {
+      email: 'jondoegmail.com',
+      password: 'password',
+    };
+    try {
+      chai.request(app)
+        .post(`${baseUrl}/login`)
+        .send(loginDetails)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.errors[0]).to.eql('Invalid email');
+          done();
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+  it('Should respond with status code 401 if email is wrong', (done) => {
+    const loginDetails = {
+      email: 'jondoe1@gmail.com',
+      password: 'password',
+    };
+    try {
+      chai.request(app)
+        .post(`${baseUrl}/login`)
+        .send(loginDetails)
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.message).to.eql('Invalid email or password');
+          expect(res.body.error).to.equal(true);
+          done();
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+  it('Should respond with status code 401 if password is wrong', (done) => {
+    const loginDetails = {
+      email: 'jondoe@gmail.com',
+      password: 'passwordd',
+    };
+    try {
+      chai.request(app)
+        .post(`${baseUrl}/login`)
+        .send(loginDetails)
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.message).to.eql('Invalid email or password');
+          expect(res.body.error).to.equal(true);
+          done();
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
+  it('Should login user with correct credentials', async () => {
+    try {
+      const res = await chai.request(app)
+        .post(`${baseUrl}/login`)
+        .send(user);
+      expect(res).to.have.status(200);
+      expect(res.body.data[0]).to.have.property('token');
+      expect(res.body.data[0].user).to.be.an('object');
+      expect(res.body.message).to.eql('Login successful');
     } catch (err) {
       console.log(err);
     }
