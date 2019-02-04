@@ -1,8 +1,10 @@
 import Helpers from '../helpers/Helpers';
 import UserModel from '../models/UserModel';
+import Authenticator from '../helpers/Authenticator';
 
 const { getUser } = UserModel;
 const { extractErrors } = Helpers;
+const { verifyToken } = Authenticator;
 /**
  * @description Handles validation for all authentication processes
  */
@@ -41,6 +43,37 @@ class AuthValidator {
     const user = await getUser('email', email);
     if (user) {
       return res.status(409).json({ error: true, message: 'User already exists' });
+    }
+    return next();
+  }
+
+  static validateLogin(req, res, next) {
+    req.check('email', 'Email is required').notEmpty().isEmail().trim()
+      .withMessage('Invalid email');
+    req.check('password', 'Password is required').notEmpty().trim();
+
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({
+        errors: extractErrors(errors),
+        error: true,
+      });
+    }
+    return next();
+  }
+
+  static isAuthenticated(req, res, next) {
+    try {
+      const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
+      if (!authorization) {
+        return res.status(401).json({ error: true, message: 'Unauthorized' });
+      }
+      const verifiedToken = verifyToken(authorization);
+      if (!verifiedToken.id) {
+        return res.status(401).json({ error: true, message: 'Unauthorized' });
+      }
+    } catch (err) {
+      return res.status(401).json({ error: true, message: 'Unauthorized' });
     }
     return next();
   }

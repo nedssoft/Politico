@@ -8,8 +8,8 @@ import UserController from '../controllers/UserController';
 
 
 const router = express.Router();
-const { createAccount } = UserController;
-const { validateSignUp, userExists } = AuthValidator;
+const { createAccount, loginUser } = UserController;
+const { validateSignUp, userExists, validateLogin } = AuthValidator;
 const { createOfficeValidator, readOfficeValidator } = OfficeValidator;
 const { getOffice, allOffices, createOffice } = OfficeController;
 const { editPartyValidator, createPartyValidator, deletePartyValidator } = PartyValidator;
@@ -46,4 +46,5 @@ router.delete(`${partyUrl}/:partyId`, deletePartyValidator, deleteParty);
 
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
+router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 export default router;
