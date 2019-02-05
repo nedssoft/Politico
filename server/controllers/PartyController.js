@@ -1,13 +1,6 @@
 
-import PartyModel from '../models/PartyModel';
-<<<<<<< HEAD
 import pool from '../config/connection';
 
-const { createParty } = PartyModel;
-=======
-
-const { create, getParty } = PartyModel;
->>>>>>> 63c45d11fafa1b1a58ac055b90e728ba4c430354
 
 /**
  *Defines the actions for Party Endpoints
@@ -20,21 +13,25 @@ class PartyController {
    * @param {object} res - response
    */
   static async createParty(req, res) {
+    const client = await pool.connect();
     let party;
     try {
-<<<<<<< HEAD
-      party = await createParty(req, res);
-=======
-      party = await create(req, res);
->>>>>>> 63c45d11fafa1b1a58ac055b90e728ba4c430354
+      const { name, hqAddress, logoUrl } = req.body;
+      const text = `INSERT INTO parties(name, hqAddress, logoUrl)
+                      VALUES($1,$2,$3) RETURNING id, name`;
+      const values = [name, hqAddress, logoUrl];
+      party = await client.query({ text, values });
       if (party.rows && party.rowCount) {
-        party = party.rows;
+        party = party.rows[0];
         return res.status(201).json({
           status: 201, data: party,
         });
       }
     } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Internal server error' });
+      console.log(err);
+      return res.status(500).json({ error: true, message: 'Internal server error' });
+    } finally {
+      await client.release();
     }
   }
 
@@ -46,7 +43,6 @@ class PartyController {
    */
   static async getAParty(req, res) {
     const { partyId } = req.params;
-<<<<<<< HEAD
     const client = await pool.connect();
     let party;
     try {
@@ -66,6 +62,8 @@ class PartyController {
       }
     } catch (err) {
       return res.status(500).json({ status: 500, errror: 'Internal server error' });
+    } finally {
+      client.release();
     }
   }
 
@@ -83,25 +81,14 @@ class PartyController {
       if (parties.rowCount) {
         return res.status(200).json({
           status: 200,
-          data: [parties.rows[0]],
+          data: [parties.rows],
         });
       }
       return res.status(200).json({ status: 200, data: [] });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
-=======
-    const party = await getParty(partyId);
-    if (party) {
-      res.status(200).json({
-        status: 200,
-        data: party,
-      });
-    } else {
-      return res.status(404).json({
-        status: 404,
-        error: `Party with ID: ${partyId} Not Found`,
-      });
->>>>>>> 63c45d11fafa1b1a58ac055b90e728ba4c430354
+    } finally {
+      client.release();
     }
   }
 }
