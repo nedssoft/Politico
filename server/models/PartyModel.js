@@ -54,8 +54,7 @@ class PartyModel {
       const values = [partyId];
       party = await client.query({ text, values });
       if (party.rowCount) {
-        const theval = party.rows[0];
-        return theval;
+        return party.rows[0];
       } return null;
     } catch (err) {
       return null;

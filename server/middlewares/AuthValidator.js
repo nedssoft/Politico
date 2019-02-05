@@ -66,14 +66,14 @@ class AuthValidator {
     try {
       const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
       if (!authorization) {
-        return res.status(401).json({ error: true, message: 'Unauthorized' });
+        return res.status(401).json({ error: true, message: 'Access denied, Authorization required' });
       }
       const verifiedToken = verifyToken(authorization);
       if (!verifiedToken.id) {
-        return res.status(401).json({ error: true, message: 'Unauthorized' });
+        return res.status(401).json({ error: true, message: 'Access denied, Authorization required' });
       }
     } catch (err) {
-      return res.status(401).json({ error: true, message: 'Unauthorized' });
+      return res.status(401).json({ error: true, message: 'Access denied, Authorization required' });
     }
     return next();
   }
@@ -83,15 +83,15 @@ class AuthValidator {
       const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
 
       if (!authorization) {
-        return res.status(401).json({ error: true, message: 'Unauthorized' });
+        return res.status(401).json({ error: true, message: 'Unauthorized, Authorization required' });
       }
       const verifiedToken = verifyToken(authorization);
 
       if (!verifiedToken.isadmin) {
-        return res.status(401).json({ error: true, message: 'Unauthorized' });
+        return res.status(401).json({ error: true, message: 'Unauthorized, Authorization required' });
       }
     } catch (err) {
-      return res.status(401).json({ error: true, message: 'Unauthorized' });
+      return res.status(401).json({ error: true, message: 'Unauthorized, Authorization required' });
     }
     return next();
   }
