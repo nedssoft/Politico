@@ -11,7 +11,7 @@ const { createAccount, loginUser } = UserController;
 const { validateSignUp, userExists, validateLogin, isAdmin } = AuthValidator;
 
 const { createPartyValidator, validateParam } = PartyValidator;
-const { createParty, getAParty } = PartyController;
+const { createParty, getAParty, allParties } = PartyController;
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
 });
@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
 const partyUrl = '/api/v1/parties';
 router.post(partyUrl, createPartyValidator, isAdmin, createParty);
 router.get(`${partyUrl}/:partyId`, validateParam, getAParty);
+router.get(partyUrl, allParties);
 
 
 /** End Party Routes */

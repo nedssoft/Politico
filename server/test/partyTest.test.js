@@ -137,4 +137,17 @@ describe('Test Party Endpoints', () => {
         done();
       });
   });
+  it('should get all parties record', async () => {
+    try {
+      const res = await chai.request(app)
+        .get(baseUrl);
+      expect(res).to.have.status(200);
+      expect(res.body.data).to.have.lengthOf(1);
+      expect(res.body.data[0].name).to.eql('Test Party');
+      expect(res.body.data[0].hqAddress).to.eql('Test Address');
+      expect(res.body.data[0].logoUrl).to.eql('test-logo.png');
+    } catch (err) {
+      console.log(err);
+    }
+  });
 });
