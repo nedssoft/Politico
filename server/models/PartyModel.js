@@ -10,7 +10,7 @@ class PartyModel {
    * @param {object} req - request
    * @param {object} res - response
    */
-  static async createParty(req, res) {
+  static async create(req, res) {
     const client = await pool.connect();
     let party;
     try {
@@ -37,6 +37,26 @@ class PartyModel {
     try {
       const text = 'SELECT * FROM parties WHERE name = $1 LIMIT 1';
       const values = [name];
+      party = await client.query({ text, values });
+      if (party.rowCount) {
+        return party.rows[0];
+      } return null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  /**
+   *Gets single party
+   *@static
+   * @param {integer} partyId - ID of the party
+   */
+  static async getParty(partyId) {
+    const client = await pool.connect();
+    let party;
+    try {
+      const text = 'SELECT * FROM parties WHERE id = $1 LIMIT 1';
+      const values = [partyId];
       party = await client.query({ text, values });
       if (party.rowCount) {
         return party.rows[0];
