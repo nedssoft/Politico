@@ -1,8 +1,22 @@
 
-import PartyModel from '../models/dummyModels/PartyModel';
-import helpers from '../helpers/Helpers';
 
+import helpers from '../helpers/Helpers';
+import PartyModel from '../models/PartyModel';
+
+const { partyExists } = PartyModel;
+
+/**
+ * Defines methods to validate party endpoints
+ * @class PartyValidator
+ */
 class PartyValidator {
+  /**
+   *@description Validates create party endpoint
+   *@static
+   * @param {object} req - request
+   * @param {object} res - response
+   * @param {object} next - callback
+   */
   static createPartyValidator(req, res, next) {
     req.check('name', 'The party name is required')
       .notEmpty()
@@ -11,7 +25,10 @@ class PartyValidator {
       .not()
       .isNumeric()
       .withMessage('The party name cannot be a number');
-    req.check('hqAddress', 'The party HQ Address is required').notEmpty();
+    req.check('hqAddress', 'The party HQ Address is required').notEmpty()
+      .not()
+      .isNumeric()
+      .withMessage('Party name must be a string');
     req.check('logoUrl', 'The party logo is required').notEmpty()
       .isLength({ min: 3 })
       .withMessage('The party logo Url must be at leat 3 characters long');
@@ -23,16 +40,16 @@ class PartyValidator {
         errors: helpers.extractErrors(errors),
       });
     }
-    // const partyExists = PartyModel.find(party => (
-    //   party.name.toLowerCase() === req.body.name.toLowerCase()
-    // ));
-    const partyExists = helpers.recordExists(PartyModel, req);
-    if (partyExists) {
-      return res.status(409).json({
-        status: 409,
-        error: 'The party already exists',
-      });
-    }
+    (async () => {
+      const party = await partyExists(req.body.name);
+      if (party) {
+        return res.status(409).json({
+          status: 409,
+          error: 'The party already exists',
+        });
+      }
+    })();
+
     const { name, hqAddress, logoUrl } = req.body;
     req.body.name = name.trim();
     req.body.hqAddress = hqAddress.trim();

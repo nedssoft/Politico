@@ -12,8 +12,8 @@ class UserController {
       user = await create(req, res);
       if (user.rows && user.rowCount) {
         user = user.rows[0];
-        const { id, isAdmin } = user;
-        const token = await generateToken({ id, isAdmin });
+        const { id, isadmin } = user;
+        const token = await generateToken({ id, isadmin });
         return res.status(201).json({
           status: 201,
           data: [{ token, user }],
