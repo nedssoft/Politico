@@ -115,4 +115,26 @@ describe('Test Party Endpoints', () => {
       }
     });
   });
+  describe('GET REQUESTS', () => {
+    it('should respond with status code 404 if party does not exists', (done) => {
+      const id = 5;
+      chai.request(app)
+        .get(`${baseUrl}/${id}`)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.error).to.eql(`Party with ID: ${id} Not Found`);
+          done();
+        });
+    });
+  });
+  it('should respond with status code 400 if partyId is not a number', (done) => {
+    const id = 'dd';
+    chai.request(app)
+      .get(`${baseUrl}/${id}`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.error).to.eql('The party ID must be a number');
+        done();
+      });
+  });
 });
