@@ -8,15 +8,15 @@ class UserModel {
     let user;
     try {
       const { firstName, lastName, otherName, phone, email,
-        password, passportUrl,
+        password, passportUrl, isAdmin,
       } = req.body;
       const hashedpassword = passwordHash.generate(password);
 
-      const text = `INSERT INTO users(firstName, lastName, otherName, phone, email, passportUrl, password)
-                    VALUES($1, $2, $3, $4, $5, $6, $7) 
+      const text = `INSERT INTO users(firstName, lastName, otherName, phone, email, passportUrl, password, isAdmin)
+                    VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
                     RETURNING id, firstName, lastName, otherName, phone, email, passportUrl, isAdmin`;
       const values = [firstName, lastName, otherName, phone, email,
-        passportUrl, hashedpassword];
+        passportUrl, hashedpassword, isAdmin];
       user = await client.query({ text, values });
       return user;
     } catch (err) {
