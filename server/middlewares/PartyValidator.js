@@ -2,8 +2,7 @@
 
 import helpers from '../helpers/Helpers';
 import PartyModel from '../models/PartyModel';
-
-const { partyExists } = PartyModel;
+import pool from '../config/connection';
 
 /**
  * Defines methods to validate party endpoints
@@ -19,17 +18,17 @@ class PartyValidator {
    */
   static createPartyValidator(req, res, next) {
     req.check('name', 'The party name is required')
-      .notEmpty()
+      .notEmpty().trim()
       .isLength({ min: 3 })
       .withMessage('The party name must be at leat 3 characters long')
       .not()
       .isNumeric()
       .withMessage('The party name cannot be a number');
-    req.check('hqAddress', 'The party HQ Address is required').notEmpty()
+    req.check('hqAddress', 'The party HQ Address is required').notEmpty().trim()
       .not()
       .isNumeric()
       .withMessage('Party name must be a string');
-    req.check('logoUrl', 'The party logo is required').notEmpty()
+    req.check('logoUrl', 'The party logo is required').notEmpty().trim()
       .isLength({ min: 3 })
       .withMessage('The party logo Url must be at leat 3 characters long');
     const errors = req.validationErrors();
@@ -40,20 +39,27 @@ class PartyValidator {
         errors: helpers.extractErrors(errors),
       });
     }
-    (async () => {
-      const party = await partyExists(req.body.name);
-      if (party) {
+    return next();
+  }
+
+  static async isDuplicate(req, res, next) {
+    const client = await pool.connect();
+    let party;
+    try {
+      const sqlQuery = 'SELECT * FROM parties WHERE LOWER(name) = LOWER($1) LIMIT 1';
+      const values = [req.body.name];
+      party = await client.query({ text: sqlQuery, values });
+      if (party.rowCount) {
         return res.status(409).json({
           status: 409,
           error: 'The party already exists',
         });
       }
-    })();
-
-    const { name, hqAddress, logoUrl } = req.body;
-    req.body.name = name.trim();
-    req.body.hqAddress = hqAddress.trim();
-    req.logoUrl = logoUrl.trim();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      await client.release();
+    }
     return next();
   }
 

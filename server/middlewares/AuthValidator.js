@@ -1,8 +1,7 @@
 import Helpers from '../helpers/Helpers';
-import UserModel from '../models/UserModel';
 import Authenticator from '../helpers/Authenticator';
+import pool from '../config/connection';
 
-const { getUser } = UserModel;
 const { extractErrors } = Helpers;
 const { verifyToken } = Authenticator;
 /**
@@ -40,9 +39,21 @@ class AuthValidator {
 
   static async userExists(req, res, next) {
     const { email } = req.body;
-    const user = await getUser('email', email);
-    if (user) {
-      return res.status(409).json({ error: true, message: 'User already exists' });
+    const sqlQuery = 'SELECT * FROM users WHERE email = $1';
+    const values = [email];
+    let user;
+    const client = await pool.connect();
+    try {
+      user = await client.query({ text: sqlQuery, values });
+      if (user.rows && user.rowCount) {
+        return res.status(409).json({
+          status: 409, error: 'User already exists',
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      client.release();
     }
     return next();
   }
@@ -85,8 +96,8 @@ class AuthValidator {
       if (!authorization) {
         return res.status(401).json({ error: true, message: 'Unauthorized, Authorization required' });
       }
-      const verifiedToken = verifyToken(authorization);
 
+      const verifiedToken = verifyToken(authorization);
       if (!verifiedToken.isadmin) {
         return res.status(401).json({ error: true, message: 'Unauthorized, Authorization required' });
       }
