@@ -10,7 +10,7 @@ class PartyModel {
    * @param {object} req - request
    * @param {object} res - response
    */
-  static async createParty(req, res) {
+  static async create(req, res) {
     const client = await pool.connect();
     let party;
     try {

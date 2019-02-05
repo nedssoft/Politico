@@ -1,8 +1,6 @@
 
-import PartyModel from '../models/PartyModel';
 import pool from '../config/connection';
 
-const { create } = PartyModel;
 
 /**
  *Defines the actions for Party Endpoints
@@ -15,17 +13,25 @@ class PartyController {
    * @param {object} res - response
    */
   static async createParty(req, res) {
+    const client = await pool.connect();
     let party;
     try {
-      party = await create(req, res);
+      const { name, hqAddress, logoUrl } = req.body;
+      const text = `INSERT INTO parties(name, hqAddress, logoUrl)
+                      VALUES($1,$2,$3) RETURNING id, name`;
+      const values = [name, hqAddress, logoUrl];
+      party = await client.query({ text, values });
       if (party.rows && party.rowCount) {
-        party = party.rows;
+        party = party.rows[0];
         return res.status(201).json({
           status: 201, data: party,
         });
       }
     } catch (err) {
-      return res.status(500).json({ status: 500, error: 'Internal server error' });
+      console.log(err);
+      return res.status(500).json({ error: true, message: 'Internal server error' });
+    } finally {
+      await client.release();
     }
   }
 
@@ -56,6 +62,8 @@ class PartyController {
       }
     } catch (err) {
       return res.status(500).json({ status: 500, errror: 'Internal server error' });
+    } finally {
+      client.release();
     }
   }
 
@@ -73,12 +81,14 @@ class PartyController {
       if (parties.rowCount) {
         return res.status(200).json({
           status: 200,
-          data: [parties.rows[0]],
+          data: [parties.rows],
         });
       }
       return res.status(200).json({ status: 200, data: [] });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      client.release();
     }
   }
 }

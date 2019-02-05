@@ -1,16 +1,26 @@
 import passwordHash from 'password-hash';
 import Authenticator from '../helpers/Authenticator';
-import UserModel from '../models/UserModel';
 
-const { create, getUser } = UserModel;
+import pool from '../config/connection';
+
 const { generateToken } = Authenticator;
 class UserController {
   static async createAccount(req, res) {
+    const client = await pool.connect();
     let user;
-
     try {
-      user = await create(req, res);
-      if (user.rows && user.rowCount) {
+      const { firstName, lastName, otherName, phone, email,
+        password, passportUrl, isAdmin,
+      } = req.body;
+      const hashedpassword = passwordHash.generate(password);
+
+      const text = `INSERT INTO users(firstName, lastName, otherName, phone, email, passportUrl, password, isAdmin)
+                    VALUES($1, $2, $3, $4, $5, $6, $7, $8) 
+                    RETURNING id, firstName, lastName, otherName, phone, email, passportUrl, isAdmin`;
+      const values = [firstName, lastName, otherName, phone, email,
+        passportUrl, hashedpassword, isAdmin];
+      user = await client.query({ text, values });
+      if (user.rowCount) {
         user = user.rows[0];
         const { id, isadmin } = user;
         const token = await generateToken({ id, isadmin });
@@ -20,28 +30,38 @@ class UserController {
         });
       }
     } catch (err) {
-      return res.status(500).json({
-        error: true,
-        message: 'Unable to create user account',
-      });
+      const { constraint } = err;
+      if (constraint === 'users_email_key') {
+        return res.status(409).json({ error: true, message: 'User already exists' });
+      }
+      return res.status(500).json({ error: true, message: 'Internal Server error' });
+    } finally {
+      await client.release();
     }
   }
 
   static async loginUser(req, res) {
     const { email, password } = req.body;
+    const sqlQuery = 'SELECT * FROM users WHERE email = $1';
+    const values = [email];
+    let user;
+    const client = await pool.connect();
     try {
-      const user = await getUser('email', email);
-      if (!user) {
+      user = await client.query({ text: sqlQuery, values });
+      if (user.rows && user.rowCount) {
+        user = user.rows[0];
+        if (passwordHash.verify(password, user.password)) {
+          const { id, isadmin } = user;
+          const token = await generateToken({ id, isadmin });
+          return res.status(200).json({ data: [{ token, user }], message: 'Login successful' });
+        }
         return res.status(401).json({ error: true, message: 'Invalid email or password' });
-      }
-      if (passwordHash.verify(password, user.password)) {
-        const { id, isAdmin } = user;
-        const token = await generateToken({ id, isAdmin });
-        return res.status(200).json({ data: [{ token, user }], message: 'Login successful' });
       }
       return res.status(401).json({ error: true, message: 'Invalid email or password' });
     } catch (err) {
       return res.status(500).json({ error: true, message: 'Internal server error' });
+    } finally {
+      client.release();
     }
   }
 }
