@@ -100,20 +100,18 @@ describe('SIGN UP', () => {
   });
 });
 describe('SIGN IN', () => {
-  it('Should respond with status code 400 if email is emapty', (done) => {
+  it('Should respond with status code 400 if email is emapty', async () => {
     const loginDetails = {
       email: '',
       password: 'password',
     };
     try {
-      chai.request(app)
+      const res = await chai.request(app)
         .post(`${baseUrl}/login`)
-        .send(loginDetails)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Email is required');
-          done();
-        });
+        .send(loginDetails);
+
+      expect(res).to.have.status(400);
+      expect(res.body.errors[0]).to.eql('Email is required');
     } catch (err) {
       console.log(err);
     }
