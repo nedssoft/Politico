@@ -6,7 +6,7 @@ class Helpers {
     return validationErrors;
   }
 
-  static isNumber(num) {
+  static isANumber(num) {
     return Number.isInteger(Number(num));
   }
 

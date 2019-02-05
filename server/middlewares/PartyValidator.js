@@ -57,6 +57,24 @@ class PartyValidator {
     return next();
   }
 
+  /**
+   * Validates params Id
+   * @static
+   * @param {object} req - request
+   * @param {object} res - response
+   * @param {object} next - callback
+   */
+  static validateParam(req, res, next) {
+    const { partyId } = req.params;
+    if (!helpers.isANumber(partyId) || !partyId) {
+      return res.status(400).json({
+        status: 400,
+        error: 'The party ID must be a number',
+      });
+    }
+    return next();
+  }
+
   static editPartyValidator(req, res, next) {
     req.check('name', 'The new party name is required').notEmpty();
 
