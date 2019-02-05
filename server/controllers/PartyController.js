@@ -1,13 +1,8 @@
 
 import PartyModel from '../models/PartyModel';
-<<<<<<< HEAD
 import pool from '../config/connection';
 
-const { createParty } = PartyModel;
-=======
-
-const { create, getParty } = PartyModel;
->>>>>>> 63c45d11fafa1b1a58ac055b90e728ba4c430354
+const { create } = PartyModel;
 
 /**
  *Defines the actions for Party Endpoints
@@ -22,11 +17,7 @@ class PartyController {
   static async createParty(req, res) {
     let party;
     try {
-<<<<<<< HEAD
-      party = await createParty(req, res);
-=======
       party = await create(req, res);
->>>>>>> 63c45d11fafa1b1a58ac055b90e728ba4c430354
       if (party.rows && party.rowCount) {
         party = party.rows;
         return res.status(201).json({
@@ -46,7 +37,6 @@ class PartyController {
    */
   static async getAParty(req, res) {
     const { partyId } = req.params;
-<<<<<<< HEAD
     const client = await pool.connect();
     let party;
     try {
@@ -89,19 +79,6 @@ class PartyController {
       return res.status(200).json({ status: 200, data: [] });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
-=======
-    const party = await getParty(partyId);
-    if (party) {
-      res.status(200).json({
-        status: 200,
-        data: party,
-      });
-    } else {
-      return res.status(404).json({
-        status: 404,
-        error: `Party with ID: ${partyId} Not Found`,
-      });
->>>>>>> 63c45d11fafa1b1a58ac055b90e728ba4c430354
     }
   }
 }
