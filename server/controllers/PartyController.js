@@ -81,7 +81,7 @@ class PartyController {
       if (parties.rowCount) {
         return res.status(200).json({
           status: 200,
-          data: [parties.rows[0]],
+          data: [parties.rows],
         });
       }
       return res.status(200).json({ status: 200, data: [] });
@@ -110,6 +110,30 @@ class PartyController {
       return res.status(500).json({ status: 500, message: 'Unable to delete the party' });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
+    }
+  }
+
+  static async editParty(req, res) {
+    const { partyId } = req.params;
+    const { name } = req.body;
+    const sqlQuery = { text: 'UPDATE parties SET name = $1 WHERE id = $2 RETURNING name',
+      values: [name, partyId] };
+    const client = await pool.connect();
+    try {
+      const party = await client.query(sqlQuery);
+      if (party.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          data: [{ name }],
+        });
+      }
+      return res.status(500).json({ status: 500, message: 'Unable to delete the party' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
     }
   }
 }
