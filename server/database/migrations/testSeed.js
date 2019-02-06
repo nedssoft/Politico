@@ -12,7 +12,7 @@ const office1 = `INSERT INTO offices(name, type)
     await client.query(party1);
     await client.query(office1);
   } catch (err) {
-    console.log(err);
+    return;
   } finally {
     await client.release();
   }

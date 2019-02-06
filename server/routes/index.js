@@ -11,7 +11,7 @@ const router = express.Router();
 const { createAccount, loginUser } = UserController;
 const { validateSignUp, userExists, validateLogin, isAdmin } = AuthValidator;
 const { createOfficeValidator, isDuplicateOffice } = OfficeValidator;
-const { createOffice } = OfficeController;
+const { createOffice, getAllOffices } = OfficeController;
 const { createPartyValidator, validateParam, isDuplicate,
   partyExists, editPartyValidator } = PartyValidator;
 const { createParty, getAParty, allParties, deleteParty, editParty } = PartyController;
@@ -35,6 +35,7 @@ router.get(partyUrl, allParties);
 const officeUrl = '/api/v1/offices';
 router.post(officeUrl, createOfficeValidator,
   isDuplicateOffice, isAdmin, createOffice);
+router.get(officeUrl, getAllOffices);
 /** End office Routes */
 
 const authBaseUrl = '/api/v1/auth';

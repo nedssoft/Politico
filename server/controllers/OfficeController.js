@@ -32,6 +32,23 @@ class OfficeController {
       await client.release();
     }
   }
+
+  static async getAllOffices(req, res) {
+    const sqlQuery = 'SELECT * FROM offices';
+    const client = await pool.connect();
+    try {
+      const offices = await client.query(sqlQuery);
+      if (offices.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          data: [offices.rows],
+        });
+      }
+      return res.status(200).json({ status: 200, data: [] });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    }
+  }
 }
 
 export default OfficeController;
