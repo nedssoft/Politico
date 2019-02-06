@@ -9,10 +9,6 @@ class Helpers {
   static isANumber(num) {
     return Number.isInteger(Number(num));
   }
-
-  static recordExists(Model, req) {
-    return Model.find(m => m.name.toLowerCase() === req.body.name.toLowerCase());
-  }
 }
 
 export default Helpers;

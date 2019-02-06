@@ -248,8 +248,8 @@ describe('Office Endpoints', () => {
     });
     it('It should create the new political office', async () => {
       const newParty = {
-        name: 'Test Office',
-        type: 'Test office type',
+        name: 'Gubernatorial',
+        type: 'State',
       };
       try {
         const res = await chai.request(app)
@@ -265,8 +265,8 @@ describe('Office Endpoints', () => {
     });
     it('It should respond with status 409 if office already exists', async () => {
       const newParty = {
-        name: 'Test Office',
-        type: 'Test office type',
+        name: 'Gubernatorial',
+        type: 'State',
       };
       try {
         const res = await chai.request(app)

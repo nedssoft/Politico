@@ -28,7 +28,7 @@ const debugg = debug('migration');
     debugg('migrating results..');
     await client.query(tables.restults);
   } catch (err) {
-    debugg(err);
+    return;
   } finally {
     await client.release();
     debugg('migration completed');
