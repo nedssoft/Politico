@@ -44,9 +44,9 @@ Politico enables citizens give their mandate to politicians running for differen
 
 ### User Interface
 The UI is hosted on gh-pages
-* [Landing page] (https://oriechinedu.github.io/Politico/UI/index.html)
-* [User Dashboard] (https://oriechinedu.github.io/Politico/UI/index.html)
-* [Admin Dashboard] (https://oriechinedu.github.io/Politico/UI/parties.html)
+* [Landing page](https://oriechinedu.github.io/Politico/UI/index.html)
+* [User Dashboard](https://oriechinedu.github.io/Politico/UI/index.html)
+* [Admin Dashboard](https://oriechinedu.github.io/Politico/UI/parties.html)
 
 ### Features
 - Admin or Electoral Board can create political parties

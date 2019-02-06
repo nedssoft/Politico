@@ -18,8 +18,8 @@ const party1 = `INSERT INTO parties(name, hqAddress, logoUrl)
 const office1 = `INSERT INTO offices(name, type)
                       VALUES('Lorem Political Office', 'Lorem Political Office Type')`;
 
-const candidate1 = `INSERT INTO candidates(office, party, candidate)
-                        VALUES(1, 1, 1)`;
+const candidate1 = `INSERT INTO candidates(office, candidate)
+                        VALUES(1, 1)`;
 const vote1 = `INSERT INTO votes(office, candidate, createdBy)
                         VALUES(1, 1, 1)`;
 
