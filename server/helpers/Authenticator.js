@@ -13,7 +13,7 @@ class Authenticator {
    * @return {string} access token
    */
   static generateToken(payload) {
-    return jwt.sign(payload, SECRET, { expiresIn: '3h' });
+    return jwt.sign(payload, SECRET, { expiresIn: '24h' });
   }
 
   /**
