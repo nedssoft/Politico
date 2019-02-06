@@ -112,22 +112,24 @@ class PartyValidator {
     return next();
   }
 
-  static deletePartyValidator(req, res, next) {
-    const { partyId } = req.params;
-    if (!helpers.isNumber(partyId)) {
-      return res.status(400).json({
-        status: 400,
-        error: `Party ID: ${partyId} must be an integer`,
-      });
+  static async partyExists(req, res, next) {
+    const client = await pool.connect();
+    let party;
+    try {
+      const sqlQuery = 'SELECT * FROM parties WHERE id = $1';
+      const values = [req.params.partyId];
+      party = await client.query({ text: sqlQuery, values });
+      if (party.rowCount === 0) {
+        return res.status(404).json({
+          status: 404,
+          error: 'The party you want delete does not exist',
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      await client.release();
     }
-    const partyIndex = PartyModel.findIndex(party => party.id === Number(partyId));
-    if (partyIndex < 0) {
-      return res.status(404).json({
-        status: 404,
-        error: `Party with ID: ${partyId} Not Found`,
-      });
-    }
-    req.body.partyIndex = partyIndex;
     return next();
   }
 }

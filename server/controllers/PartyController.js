@@ -89,6 +89,29 @@ class PartyController {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
     }
   }
+
+  /**
+ *@description Deletes a party record
+ * @param {object} req - request
+ * @param {object} res - response
+ */
+  static async deleteParty(req, res) {
+    const { partyId } = req.params;
+    const sqlQuery = { text: 'DELETE FROM parties WHERE id = $1 RETURNING id', values: [partyId] };
+    const client = await pool.connect();
+    try {
+      const party = await client.query(sqlQuery);
+      if (party.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          data: [{ message: 'Party deleted successfully' }],
+        });
+      }
+      return res.status(500).json({ status: 500, message: 'Unable to delete the party' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    }
+  }
 }
 
 export default PartyController;
