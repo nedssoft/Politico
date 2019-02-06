@@ -1,7 +1,6 @@
 
 
 import helpers from '../helpers/Helpers';
-import PartyModel from '../models/PartyModel';
 import pool from '../config/connection';
 
 /**
@@ -27,7 +26,7 @@ class PartyValidator {
     req.check('hqAddress', 'The party HQ Address is required').notEmpty().trim()
       .not()
       .isNumeric()
-      .withMessage('Party name must be a string');
+      .withMessage('The hqAddress name must be a string');
     req.check('logoUrl', 'The party logo is required').notEmpty().trim()
       .isLength({ min: 3 })
       .withMessage('The party logo Url must be at leat 3 characters long');
@@ -82,7 +81,13 @@ class PartyValidator {
   }
 
   static editPartyValidator(req, res, next) {
-    req.check('name', 'The new party name is required').notEmpty();
+    req.check('name', 'The party name is required')
+      .notEmpty().trim()
+      .isLength({ min: 3 })
+      .withMessage('The party name must be at leat 3 characters long')
+      .not()
+      .isNumeric()
+      .withMessage('The party name cannot be a number');
 
     const errors = req.validationErrors();
     if (errors) {
@@ -91,24 +96,7 @@ class PartyValidator {
         errors: helpers.extractErrors(errors),
       });
     }
-    const { partyId } = req.params;
-    if (!helpers.isNumber(partyId)) {
-      return res.status(400).json({
-        status: 400,
-        error: `Party ID: ${partyId} must be an integer`,
-      });
-    }
-    const partyIndex = PartyModel.findIndex(party => (
-      party.id === Number(partyId)
-    ));
-    if (partyIndex < 0) {
-      return res.status(404).json({
-        status: 404,
-        error: 'The party you want to edit does not exist',
-      });
-    }
-    req.body.name = req.body.name.trim();
-    req.body.partyIndex = partyIndex;
+
     return next();
   }
 
@@ -122,7 +110,7 @@ class PartyValidator {
       if (party.rowCount === 0) {
         return res.status(404).json({
           status: 404,
-          error: 'The party you want delete does not exist',
+          error: 'The party does not exist',
         });
       }
     } catch (err) {
