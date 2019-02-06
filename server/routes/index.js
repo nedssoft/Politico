@@ -10,8 +10,8 @@ const router = express.Router();
 const { createAccount, loginUser } = UserController;
 const { validateSignUp, userExists, validateLogin, isAdmin } = AuthValidator;
 
-const { createPartyValidator, validateParam, isDuplicate } = PartyValidator;
-const { createParty, getAParty, allParties } = PartyController;
+const { createPartyValidator, validateParam, isDuplicate, partyExists } = PartyValidator;
+const { createParty, getAParty, allParties, deleteParty } = PartyController;
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
 });
@@ -21,6 +21,7 @@ router.get('/', (req, res) => {
 const partyUrl = '/api/v1/parties';
 router.post(partyUrl, createPartyValidator, isDuplicate, isAdmin, createParty);
 router.get(`${partyUrl}/:partyId`, validateParam, getAParty);
+router.delete(`${partyUrl}/:partyId`, validateParam, isAdmin, partyExists, deleteParty);
 router.get(partyUrl, allParties);
 
 
