@@ -15,7 +15,7 @@ const debugg = debug('migrate:reset');
     await client.query('DROP TABLE IF EXISTS results CASCADE');
     await client.query('DROP TABLE IF EXISTS petitions CASCADE');
   } catch (err) {
-    debugg(err);
+    return;
   } finally {
     await client.release();
     debugg('roll back completed');

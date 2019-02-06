@@ -57,7 +57,7 @@ class OfficeValidator {
         });
       }
     } catch (err) {
-      console.log(err);
+      return;
     } finally {
       await client.release();
     }
