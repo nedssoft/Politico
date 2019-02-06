@@ -47,6 +47,34 @@ class OfficeController {
       return res.status(200).json({ status: 200, data: [] });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
+    }
+  }
+
+  static async findOffice(req, res) {
+    const { officeId } = req.params;
+    const client = await pool.connect();
+    let party;
+    try {
+      const sqlQuery = 'SELECT * FROM offices WHERE id = $1 LIMIT 1';
+      const values = [officeId];
+      party = await client.query({ text: sqlQuery, values });
+      if (party.rowCount) {
+        res.status(200).json({
+          status: 200,
+          data: party.rows[0],
+        });
+      } else {
+        return res.status(404).json({
+          status: 404,
+          error: `Office with ID: ${officeId} Not Found`,
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    } finally {
+      await client.release();
     }
   }
 }

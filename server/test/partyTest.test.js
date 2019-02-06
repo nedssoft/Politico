@@ -281,4 +281,52 @@ describe('Office Endpoints', () => {
       }
     });
   });
+  describe('GET REQUEST', () => {
+    it('should respond with status code 400 if the officeId is not a number', (done) => {
+      const id = 'dd';
+      chai.request(app)
+        .get(`${officeBaseUrl}/${id}`)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.error).to.eql('The office ID must be a number');
+          done();
+        });
+    });
+    it('should respond with status code 404 if the office does not exist', (done) => {
+      const id = 9;
+      chai.request(app)
+        .get(`${officeBaseUrl}/${id}`)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.error).to.eql(`Office with ID: ${id} Not Found`);
+          done();
+        });
+    });
+    it('should respond with status code 400 if the officeId is null', (done) => {
+      const id = null;
+      chai.request(app)
+        .get(`${officeBaseUrl}/${id}`)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          done();
+        });
+    });
+    it('should get the political office for a valid officeId', (done) => {
+      const id = 1;
+      chai.request(app)
+        .get(`${officeBaseUrl}/${id}`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+    it('should get all political offices', (done) => {
+      chai.request(app)
+        .get(officeBaseUrl)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          done();
+        });
+    });
+  });
 });
