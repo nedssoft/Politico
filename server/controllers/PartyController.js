@@ -64,6 +64,8 @@ class PartyController {
       }
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal server error' });
+    } finally {
+      await client.release();
     }
   }
 
@@ -87,6 +89,8 @@ class PartyController {
       return res.status(200).json({ status: 200, data: [] });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
     }
   }
 

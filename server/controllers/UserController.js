@@ -4,7 +4,21 @@ import Authenticator from '../helpers/Authenticator';
 import pool from '../config/connection';
 
 const { generateToken } = Authenticator;
+/**
+ * Defines methods for users
+ *
+ * @class UserController
+ */
 class UserController {
+  /**
+   *
+   * Creates a user
+   * @static
+   * @param {object} req - request
+   * @param {object} res - response
+   * @returns
+   * @memberof UserController
+   */
   static async createAccount(req, res) {
     const client = await pool.connect();
     let user;
@@ -40,6 +54,15 @@ class UserController {
     }
   }
 
+  /**
+ *
+ * Logs in user
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @returns user object
+ * @memberof UserController
+ */
   static async loginUser(req, res) {
     const { email, password } = req.body;
     const sqlQuery = 'SELECT * FROM users WHERE email = $1';
