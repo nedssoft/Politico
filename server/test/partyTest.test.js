@@ -6,6 +6,7 @@ import app from '../app';
 chai.use(chaiHTTP);
 const { expect } = chai;
 const baseUrl = '/api/v1/parties';
+const officeBaseUrl = '/api/v1/offices';
 const hashedPassword = passwordHash.generate('password');
 const admin = {
   firstName: 'First Name2',
@@ -207,6 +208,74 @@ describe('Test Party Endpoints', () => {
           .set('token', token)
           .set('Authorization', token);
         expect(res).to.have.status(200);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  });
+});
+
+describe('Office Endpoints', () => {
+  describe('POST REQUEST', () => {
+    it('Should respond with status code 400 if the name is empty', (done) => {
+      const newOffice = {
+        name: '',
+        type: 'Office Test type',
+      };
+      chai.request(app)
+        .post(officeBaseUrl)
+        .send(newOffice)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.errors[0]).to.eql('The political office name is required');
+          done();
+        });
+    });
+
+    it('Should respond with status code 400 if the type is empty', (done) => {
+      const newOffice = {
+        name: 'Office Test name',
+        type: '',
+      };
+      chai.request(app)
+        .post(officeBaseUrl)
+        .send(newOffice)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.errors[0]).to.eql('The political office type is required');
+          done();
+        });
+    });
+    it('It should create the new political office', async () => {
+      const newParty = {
+        name: 'Test Office',
+        type: 'Test office type',
+      };
+      try {
+        const res = await chai.request(app)
+          .post(officeBaseUrl)
+          .send(newParty)
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(201);
+        expect(res.body.data[0]).to.be.an('object');
+      } catch (err) {
+        console.log(err);
+      }
+    });
+    it('It should respond with status 409 if office already exists', async () => {
+      const newParty = {
+        name: 'Test Office',
+        type: 'Test office type',
+      };
+      try {
+        const res = await chai.request(app)
+          .post(officeBaseUrl)
+          .send(newParty)
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(409);
+        expect(res.body.error).to.eql('The office already exists');
       } catch (err) {
         console.log(err);
       }
