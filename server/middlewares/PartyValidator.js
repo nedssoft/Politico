@@ -41,6 +41,17 @@ class PartyValidator {
     return next();
   }
 
+  /**
+ * Checks if a party is already register
+ * to avoid duplicate entry
+ *
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof PartyValidator
+ */
   static async isDuplicate(req, res, next) {
     const client = await pool.connect();
     let party;
@@ -80,6 +91,16 @@ class PartyValidator {
     return next();
   }
 
+  /**
+ * Validates the input for editing a party
+ *
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof PartyValidator
+ */
   static editPartyValidator(req, res, next) {
     req.check('name', 'The party name is required')
       .notEmpty().trim()
@@ -100,6 +121,16 @@ class PartyValidator {
     return next();
   }
 
+  /**
+ *
+ * Check if a party already exists
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof PartyValidator
+ */
   static async partyExists(req, res, next) {
     const client = await pool.connect();
     let party;

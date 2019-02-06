@@ -43,6 +43,17 @@ class OfficeValidator {
     return next();
   }
 
+  /**
+ *
+ * Checks if an office already exists
+ * to ensure there's no duplicate entry
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof OfficeValidator
+ */
   static async isDuplicateOffice(req, res, next) {
     const client = await pool.connect();
     let party;
@@ -64,6 +75,16 @@ class OfficeValidator {
     return next();
   }
 
+  /**
+ *Validates the params officeId to ensure it is a number
+ *
+ * @static
+ * @param {object} req - requence
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof OfficeValidator
+ */
   static validateOfficeParam(req, res, next) {
     const { officeId } = req.params;
     if (officeId && !Helpers.isANumber(officeId)) {

@@ -330,3 +330,78 @@ describe('Office Endpoints', () => {
     });
   });
 });
+
+describe('Admin Functions', () => {
+  const should = 'should respond with status code ';
+  it(`${should} 400 if the office Id is empty`, (done) => {
+    chai.request(app)
+      .post('/api/v1/office/1/register')
+      .send({ office: '' })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.errors[0]).to.eql('The aspirant\'s office is required');
+        done();
+      });
+  });
+  it(`${should} 400 if the office Id is not a number`, (done) => {
+    chai.request(app)
+      .post('/api/v1/office/1/register')
+      .send({ office: 'd' })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.errors[0]).to.eql('The office must be a number');
+        done();
+      });
+  });
+  it(`${should} 400 if the office does not exist`, (done) => {
+    chai.request(app)
+      .post('/api/v1/office/1/register')
+      .send({ office: 3 })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.error).to.eql('The office does not exist');
+        done();
+      });
+  });
+  it(`${should} 400 if the user Id is not a number`, (done) => {
+    chai.request(app)
+      .post('/api/v1/office/d/register')
+      .send({ office: 1 })
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.error).to.eql('The user ID must be a number');
+        done();
+      });
+  });
+
+  it(`${should} 404 if the user does not exist`, (done) => {
+    chai.request(app)
+      .post('/api/v1/office/3/register')
+      .send({ office: 1 })
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.error).to.eql('The user does not exist');
+        done();
+      });
+  });
+  it(`${should} 401 if user is not an admin`, (done) => {
+    chai.request(app)
+      .post('/api/v1/office/1/register')
+      .send({ office: 1 })
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        done();
+      });
+  });
+  it('should register the candidate', (done) => {
+    chai.request(app)
+      .post('/api/v1/office/1/register')
+      .send({ office: 1 })
+      .set('token', token)
+      .set('Authorization', token)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        done();
+      });
+  });
+});
