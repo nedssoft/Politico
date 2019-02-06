@@ -21,7 +21,7 @@ class PartyModel {
       party = await client.query({ text, values });
       return party;
     } catch (err) {
-      return res.status(500).json({ error: true, message: 'Internal server error, t' });
+      return res.status(500).json({ error: true, message: 'Internal server error' });
     } finally {
       await client.release();
     }
