@@ -1,4 +1,5 @@
 
+
 import pool from '../config/connection';
 
 
@@ -17,18 +18,19 @@ class PartyController {
     let party;
     try {
       const { name, hqAddress, logoUrl } = req.body;
-      const text = `INSERT INTO parties(name, hqAddress, logoUrl)
-                      VALUES($1,$2,$3) RETURNING id, name`;
+      const sqlQuery = `INSERT INTO parties(name, hqAddress, logoUrl)
+                    VALUES($1,$2,$3) RETURNING id, name`;
       const values = [name, hqAddress, logoUrl];
-      party = await client.query({ text, values });
+      party = await client.query({ text: sqlQuery, values });
       if (party.rows && party.rowCount) {
-        party = party.rows[0];
+        party = party.rows;
         return res.status(201).json({
-          status: 201, data: party,
+          status: 201, data: party[0],
         });
       }
+
+      return res.status(500).json({ error: true, message: 'Internal server error' });
     } catch (err) {
-      console.log(err);
       return res.status(500).json({ error: true, message: 'Internal server error' });
     } finally {
       await client.release();
@@ -61,9 +63,7 @@ class PartyController {
         });
       }
     } catch (err) {
-      return res.status(500).json({ status: 500, errror: 'Internal server error' });
-    } finally {
-      client.release();
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
     }
   }
 
@@ -81,14 +81,12 @@ class PartyController {
       if (parties.rowCount) {
         return res.status(200).json({
           status: 200,
-          data: [parties.rows],
+          data: [parties.rows[0]],
         });
       }
       return res.status(200).json({ status: 200, data: [] });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
-    } finally {
-      client.release();
     }
   }
 }
