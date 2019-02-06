@@ -158,6 +158,34 @@ describe('Test Party Endpoints', () => {
       }
     });
   });
+  describe('PATCH REQUEST', () => {
+    it('should respond with status code 404 id the party does not exist', async () => {
+      const id = 9;
+      try {
+        const res = await chai.request(app)
+          .patch(`${baseUrl}/${id}`)
+          .send({ name: 'Updated Party Name' })
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(404);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+    it('should respond update the party with the new name', async () => {
+      const id = 1;
+      try {
+        const res = await chai.request(app)
+          .patch(`${baseUrl}/${id}`)
+          .send({ name: 'Updated Party Name' })
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(200);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  });
   describe('DELETE REQUEST', () => {
     it('should respond with status code 404 if the party to be deleted does not exist', async () => {
       const id = 9;
@@ -172,13 +200,13 @@ describe('Test Party Endpoints', () => {
       }
     });
     it('it should delete the party if it exists', async () => {
-      const id = 9;
+      const id = 1;
       try {
         const res = await chai.request(app)
           .delete(`${baseUrl}/${id}`)
           .set('token', token)
           .set('Authorization', token);
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(200);
       } catch (err) {
         console.log(err);
       }
