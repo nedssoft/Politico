@@ -33,6 +33,15 @@ class OfficeController {
     }
   }
 
+  /**
+ *
+ *Retrives the array of all parties
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @returns the an array of all offices
+ * @memberof OfficeController
+ */
   static async getAllOffices(req, res) {
     const sqlQuery = 'SELECT * FROM offices';
     const client = await pool.connect();
@@ -52,6 +61,15 @@ class OfficeController {
     }
   }
 
+  /**
+ *Returns a single office record
+ *
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @returns object of an office
+ * @memberof OfficeController
+ */
   static async findOffice(req, res) {
     const { officeId } = req.params;
     const client = await pool.connect();
