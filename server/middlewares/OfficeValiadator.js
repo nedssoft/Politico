@@ -63,5 +63,21 @@ class OfficeValidator {
     }
     return next();
   }
+
+  static validateOfficeParam(req, res, next) {
+    const { officeId } = req.params;
+    if (officeId && !Helpers.isANumber(officeId)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'The office ID must be a number',
+      });
+    } if (!officeId) {
+      return res.status(400).json({
+        status: 400,
+        error: 'The office Id is required',
+      });
+    }
+    return next();
+  }
 }
 export default OfficeValidator;

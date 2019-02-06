@@ -10,8 +10,8 @@ import OfficeController from '../controllers/OfficeController';
 const router = express.Router();
 const { createAccount, loginUser } = UserController;
 const { validateSignUp, userExists, validateLogin, isAdmin } = AuthValidator;
-const { createOfficeValidator, isDuplicateOffice } = OfficeValidator;
-const { createOffice, getAllOffices } = OfficeController;
+const { createOfficeValidator, isDuplicateOffice, validateOfficeParam } = OfficeValidator;
+const { createOffice, getAllOffices, findOffice } = OfficeController;
 const { createPartyValidator, validateParam, isDuplicate,
   partyExists, editPartyValidator } = PartyValidator;
 const { createParty, getAParty, allParties, deleteParty, editParty } = PartyController;
@@ -36,6 +36,8 @@ const officeUrl = '/api/v1/offices';
 router.post(officeUrl, createOfficeValidator,
   isDuplicateOffice, isAdmin, createOffice);
 router.get(officeUrl, getAllOffices);
+router.get(`${officeUrl}/:officeId`, validateOfficeParam, findOffice);
+
 /** End office Routes */
 
 const authBaseUrl = '/api/v1/auth';
