@@ -126,35 +126,62 @@ describe('Test Party Endpoints', () => {
           done();
         });
     });
-  });
-  it('should respond with status code 400 if partyId is not a number', (done) => {
-    const id = 'dd';
-    chai.request(app)
-      .get(`${baseUrl}/${id}`)
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.error).to.eql('The party ID must be a number');
-        done();
-      });
-  });
 
-  it('should get all parties record', async () => {
-    try {
-      const res = await chai.request(app)
-        .get(baseUrl);
-      expect(res).to.have.status(200);
-    } catch (err) {
-      console.log(err);
-    }
+    it('should respond with status code 400 if partyId is not a number', (done) => {
+      const id = 'dd';
+      chai.request(app)
+        .get(`${baseUrl}/${id}`)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.error).to.eql('The party ID must be a number');
+          done();
+        });
+    });
+
+    it('should get all parties record', async () => {
+      try {
+        const res = await chai.request(app)
+          .get(baseUrl);
+        expect(res).to.have.status(200);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+    it('should get a single party with a given Id', async () => {
+      const id = 1;
+      try {
+        const res = await chai.request(app)
+          .get(`${baseUrl}/${id}`);
+        expect(res).to.have.status(200);
+      } catch (err) {
+        console.log(err);
+      }
+    });
   });
-  it('should get a single party with a given Id', async () => {
-    const id = 1;
-    try {
-      const res = await chai.request(app)
-        .get(`${baseUrl}/${id}`);
-      expect(res).to.have.status(200);
-    } catch (err) {
-      console.log(err);
-    }
+  describe('DELETE REQUEST', () => {
+    it('should respond with status code 404 if the party to be deleted does not exist', async () => {
+      const id = 9;
+      try {
+        const res = await chai.request(app)
+          .delete(`${baseUrl}/${id}`)
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(404);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+    it('it should delete the party if it exists', async () => {
+      const id = 9;
+      try {
+        const res = await chai.request(app)
+          .delete(`${baseUrl}/${id}`)
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(404);
+      } catch (err) {
+        console.log(err);
+      }
+    });
   });
 });
