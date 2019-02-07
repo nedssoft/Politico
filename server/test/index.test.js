@@ -433,91 +433,101 @@ describe('Admin Functions', () => {
         done();
       });
   });
-  describe('Vote', () => {
-    const voteUrl = '/api/v1/vote';
-    it('should respond with status code 401 if token is not provided', (done) => {
-      chai.request(app)
+});
+describe('Vote', () => {
+  const voteUrl = '/api/v1/vote';
+  it('should respond with status code 401 if token is not provided', (done) => {
+    chai.request(app)
+      .post(voteUrl)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res.body.error).to.eql('Authorization token required');
+        done();
+      });
+  });
+  it('should respond with status code 400 office is empty', async () => {
+    try {
+      const res = await chai.request(app)
         .post(voteUrl)
-        .end((err, res) => {
-          expect(res).to.have.status(401);
-          expect(res.body.error).to.eql('Authorization token required');
-          done();
-        });
-    });
-    it('should respond with status code 400 office is empty', async () => {
+        .send({ office: '' })
+        .set('token', token)
+        .set('Authorization', token);
+      expect(res).to.have.status(400);
+      expect(res.body.errors[0]).to.eql('The aspirant\'s office is required');
+    } catch (err) { console.log(err); }
+  });
+  it('should respond with 400 if the office id is not a number', async () => {
+    try {
+      const res = await chai.request(app)
+        .post(voteUrl)
+        .send({ office: 'd', candidate: 1 })
+        .set('token', token)
+        .set('Authorization', token);
+      expect(res).to.have.status(400);
+      expect(res.body.errors[0]).to.eql('The office must be a number');
+    } catch (err) { console.log(err); }
+  });
+  it('should respond with status code 400 candidate is empty', async () => {
+    try {
+      const res = await chai.request(app)
+        .post(voteUrl)
+        .send({ office: 1, candidate: '' })
+        .set('token', token)
+        .set('Authorization', token);
+      expect(res.body.errors[0]).to.eql('Select the candiadte to vote for');
+    } catch (err) { console.log(err); }
+  });
+  it('should respond with 400 if the candidate id is not a number', async () => {
+    try {
+      const res = await chai.request(app)
+        .post(voteUrl)
+        .send({ office: 1, candidate: 'd' })
+        .set('token', token)
+        .set('Authorization', token);
+      expect(res).to.have.status(400);
+      expect(res.body.errors[0]).to.eql('The candidate ID must be a number');
+    } catch (err) { console.log(err); }
+  });
+  it('should ensure that candidate exists', async () => {
+    try {
+      const res = await chai.request(app)
+        .post(voteUrl)
+        .send({ office: 1, candidate: 4 })
+        .set('token', token)
+        .set('Authorization', token);
+      expect(res).to.have.status(404);
+      expect(res.body.error).to.eql('The candidate does not exist');
+    } catch (err) { console.log(err); }
+  });
+  it('should store the vote', async () => {
+    try {
+      const res = await chai.request(app)
+        .post(voteUrl)
+        .send({ office: 1, candidate: 2 })
+        .set('token', token)
+        .set('Authorization', token);
+      expect(res).to.have.status(201);
+      expect(res.body.data.message).to.eql('congratulations!!!, you have successfully voted');
+    } catch (err) { console.log(err); }
+  });
+  it('should ensure voter only votes once for an office', async () => {
+    try {
+      const res = await chai.request(app)
+        .post(voteUrl)
+        .send({ office: 1, candidate: 2 })
+        .set('token', token)
+        .set('Authorization', token);
+      expect(res).to.have.status(409);
+      expect(res.body.error).to.eql('you have already voted for this office');
+    } catch (err) { console.log(err); }
+  });
+  describe('ELECTION RESULT', () => {
+    it('should get the election result for a given office', async () => {
       try {
         const res = await chai.request(app)
-          .post(voteUrl)
-          .send({ office: '' })
-          .set('token', token)
-          .set('Authorization', token);
-        expect(res).to.have.status(400);
-        expect(res.body.errors[0]).to.eql('The aspirant\'s office is required');
-      } catch (err) { console.log(err); }
-    });
-    it('should respond with 400 if the office id is not a number', async () => {
-      try {
-        const res = await chai.request(app)
-          .post(voteUrl)
-          .send({ office: 'd', candidate: 1 })
-          .set('token', token)
-          .set('Authorization', token);
-        expect(res).to.have.status(400);
-        expect(res.body.errors[0]).to.eql('The office must be a number');
-      } catch (err) { console.log(err); }
-    });
-    it('should respond with status code 400 candidate is empty', async () => {
-      try {
-        const res = await chai.request(app)
-          .post(voteUrl)
-          .send({ office: 1, candidate: '' })
-          .set('token', token)
-          .set('Authorization', token);
-        expect(res.body.errors[0]).to.eql('Select the candiadte to vote for');
-      } catch (err) { console.log(err); }
-    });
-    it('should respond with 400 if the candidate id is not a number', async () => {
-      try {
-        const res = await chai.request(app)
-          .post(voteUrl)
-          .send({ office: 1, candidate: 'd' })
-          .set('token', token)
-          .set('Authorization', token);
-        expect(res).to.have.status(400);
-        expect(res.body.errors[0]).to.eql('The candidate ID must be a number');
-      } catch (err) { console.log(err); }
-    });
-    it('should ensure that candidate exists', async () => {
-      try {
-        const res = await chai.request(app)
-          .post(voteUrl)
-          .send({ office: 1, candidate: 4 })
-          .set('token', token)
-          .set('Authorization', token);
-        expect(res).to.have.status(404);
-        expect(res.body.error).to.eql('The candidate does not exist');
-      } catch (err) { console.log(err); }
-    });
-    it('should store the vote', async () => {
-      try {
-        const res = await chai.request(app)
-          .post(voteUrl)
-          .send({ office: 1, candidate: 2 })
-          .set('token', token)
-          .set('Authorization', token);
-        expect(res).to.have.status(201);
-        expect(res.body.data.message).to.eql('congratulations!!!, you have successfully voted');
-      } catch (err) { console.log(err); }
-    });
-    it('should ensure voter only votes once for an office', async () => {
-      try {
-        const res = await chai.request(app)
-          .post(voteUrl)
-          .send({ office: 1, candidate: 2 })
-          .set('token', token)
-          .set('Authorization', token);
-        expect(res).to.have.status(409);
-        expect(res.body.error).to.eql('you have already voted for this office');
+          .get('/api/v1/office/1/result');
+        expect(res).to.have.status(200);
+        expect(res.body.data).to.be.an('array');
       } catch (err) { console.log(err); }
     });
   });

@@ -38,6 +38,15 @@ class AdminController {
     }
   }
 
+  /**
+ *
+ * Stores the user's vote to the database
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @returns
+ * @memberof AdminController
+ */
   static async vote(req, res) {
     const client = await pool.connect();
     let vote;
@@ -64,6 +73,33 @@ class AdminController {
     } finally {
       await client.release();
     }
+  }
+
+  /**
+ *
+ * @description Retrieves the result of a given political office
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @returns
+ * @memberof AdminController
+ */
+  static async getElectionResult(req, res) {
+    const { office } = req.body;
+    const client = await pool.connect();
+    try {
+      const sqlQuery = `SELECT office, candidate, COUNT(candidate) AS result FROM votes
+       WHERE office = $1 GROUP BY candidate, office`;
+      const values = [office];
+      const result = await client.query({ text: sqlQuery, values });
+      if (result.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          data: result.rows,
+        });
+      }
+      return res.status(404).json({ status: 404, error: 'No result Found for this office' });
+    } catch (err) { console.log(err); } finally { await client.release(); }
   }
 }
 export default AdminController;

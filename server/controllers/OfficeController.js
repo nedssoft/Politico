@@ -1,4 +1,3 @@
-
 import pool from '../config/connection';
 /**
  * @description Defines the actions for Office endpoints
@@ -6,8 +5,8 @@ import pool from '../config/connection';
  */
 class OfficeController {
   /**
-   *@description Creates new office record
-   *@static
+   * @description Creates new office record
+   * @static
    * @param {object} req - request
    * @param {object} res - response
    */
@@ -35,7 +34,7 @@ class OfficeController {
 
   /**
  *
- *Retrives the array of all parties
+ * Retrives the array of all parties
  * @static
  * @param {object} req - request
  * @param {object} res - response
