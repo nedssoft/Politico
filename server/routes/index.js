@@ -13,7 +13,7 @@ const router = express.Router();
 
 const { createAccount, loginUser } = UserController;
 
-const { validateSignUp, userExists, validateLogin, isAdmin } = AuthValidator;
+const { validateSignUp, userExists, validateLogin, isAdmin, checkToken } = AuthValidator;
 
 const { createOfficeValidator, isDuplicateOffice, validateOfficeParam } = OfficeValidator;
 
@@ -24,10 +24,10 @@ const { createPartyValidator, validateParam, isDuplicate,
 
 const { createParty, getAParty, allParties, deleteParty, editParty } = PartyController;
 
-const { registerCandidate } = AdminController;
+const { registerCandidate, vote } = AdminController;
 
 const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
-  validateUserId } = AdminValidator;
+  validateUserId, checkIfUserHasVoted, checkIfCandidateExists, validateVote } = AdminValidator;
 
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
@@ -62,6 +62,9 @@ router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 /** End Auth Routes */
 router.post('/api/v1/office/:userId/register', validateCandidate, checkIfOfficeExists,
   validateUserId, checkIfUserExists, isAdmin, registerCandidate);
+
+router.post('/api/v1/vote', checkToken, validateVote, checkIfCandidateExists,
+  checkIfOfficeExists, checkIfUserHasVoted, vote);
 
 /** Admin Routes */
 

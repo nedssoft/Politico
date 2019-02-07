@@ -37,5 +37,33 @@ class AdminController {
       await client.release();
     }
   }
+
+  static async vote(req, res) {
+    const client = await pool.connect();
+    let vote;
+    try {
+      const { office, candidate, voter } = req.body;
+      const sqlQuery = `INSERT INTO votes(office, candidate, voter)
+                    VALUES($1, $2, $3) RETURNING *`;
+      const values = [office, candidate, voter];
+      vote = await client.query({ text: sqlQuery, values });
+      if (vote.rows && vote.rowCount) {
+        vote = vote.rows[0];
+        return res.status(201).json({
+          status: 201,
+          data: {
+            office: vote.office,
+            candiadte: vote.candidate,
+            voter: vote.voter,
+            message: 'congratulations!!!, you have successfully voted' },
+        });
+      }
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server errorr' });
+    } finally {
+      await client.release();
+    }
+  }
 }
 export default AdminController;

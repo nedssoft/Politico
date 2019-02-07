@@ -1,9 +1,12 @@
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import Helpers from '../helpers/Helpers';
 import Authenticator from '../helpers/Authenticator';
 import pool from '../config/connection';
 
 const { extractErrors } = Helpers;
 const { verifyToken } = Authenticator;
+dotenv.config();
 /**
  * @description Handles validation for all authentication processes
  */
@@ -105,6 +108,25 @@ class AuthValidator {
       return res.status(401).json({ error: true, message: 'Unauthorized, Authorization required' });
     }
     return next();
+  }
+
+  static checkToken(req, res, next) {
+    try {
+      let authorization;
+      if (req.headers.token) authorization = req.headers.token;
+      else if (req.headers.authorization) authorization = req.headers.authorization.split(' ')[1];
+      if (!authorization) {
+        return res.status(401).json({ status: 401, error: 'Authorization token required' });
+      }
+      jwt.verify(authorization, process.env.SECRET, (err, decoded) => {
+        if (err) {
+          console.log(err);
+          return res.status(401).json({ status: 401, error: 'Invalid Authorization token' });
+        }
+        req.body.token = decoded;
+        next();
+      });
+    } catch (err) { console.log(err); }
   }
 }
 
