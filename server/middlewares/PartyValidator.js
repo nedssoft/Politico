@@ -1,5 +1,3 @@
-
-
 import helpers from '../helpers/Helpers';
 import pool from '../config/connection';
 

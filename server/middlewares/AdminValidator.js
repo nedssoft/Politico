@@ -119,7 +119,6 @@ class AdminValidator {
  */
   static validateUserId(req, res, next) {
     const { userId } = req.params;
-    console.log(userId);
     if (userId && !Helpers.isANumber(userId)) {
       return res.status(400).json({
         status: 400,
@@ -132,6 +131,34 @@ class AdminValidator {
         error: 'The user ID is required',
       });
     }
+    next();
+  }
+
+  /**
+ *
+ * Ensures that office ID is valid
+ * @static
+  * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof AdminValidator
+ */
+  static validateOfficeId(req, res, next) {
+    const { officeId } = req.params;
+    if (officeId && !Helpers.isANumber(officeId)) {
+      return res.status(400).json({
+        status: 400,
+        error: 'The office ID must be a number',
+      });
+    }
+    if (!officeId) {
+      return res.status(400).json({
+        status: 400,
+        error: 'The office ID is required',
+      });
+    }
+    req.body.office = officeId;
     next();
   }
 
@@ -167,8 +194,17 @@ class AdminValidator {
     next();
   }
 
+  /**
+ *
+ * Ensures user votes once for a given office
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof AdminValidator
+ */
   static async checkIfUserHasVoted(req, res, next) {
-    /** No validation is done here because the request is passed down by Authenticator */
     const officeId = req.body.office;
     let voterId;
     const client = await pool.connect();
@@ -191,6 +227,16 @@ class AdminValidator {
     next();
   }
 
+  /**
+ *
+ * Ensures that candidate exists in the database
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof AdminValidator
+ */
   static async checkIfCandidateExists(req, res, next) {
     const { candidate } = req.body;
     const client = await pool.connect();

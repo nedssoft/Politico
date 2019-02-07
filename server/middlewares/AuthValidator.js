@@ -110,6 +110,16 @@ class AuthValidator {
     return next();
   }
 
+  /**
+ *
+ * Validates authorization token
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof AuthValidator
+ */
   static checkToken(req, res, next) {
     try {
       let authorization;

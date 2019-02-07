@@ -24,10 +24,11 @@ const { createPartyValidator, validateParam, isDuplicate,
 
 const { createParty, getAParty, allParties, deleteParty, editParty } = PartyController;
 
-const { registerCandidate, vote } = AdminController;
+const { registerCandidate, vote, getElectionResult } = AdminController;
 
 const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
-  validateUserId, checkIfUserHasVoted, checkIfCandidateExists, validateVote } = AdminValidator;
+  validateUserId, checkIfUserHasVoted, checkIfCandidateExists,
+  validateVote, validateOfficeId } = AdminValidator;
 
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
@@ -62,10 +63,14 @@ router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 /** End Auth Routes */
 router.post('/api/v1/office/:userId/register', validateCandidate, checkIfOfficeExists,
   validateUserId, checkIfUserExists, isAdmin, registerCandidate);
+/** Admin Routes */
 
+/** Voting Routes */
 router.post('/api/v1/vote', checkToken, validateVote, checkIfCandidateExists,
   checkIfOfficeExists, checkIfUserHasVoted, vote);
 
-/** Admin Routes */
+router.get('/api/v1/office/:officeId/result', validateOfficeId,
+  checkIfOfficeExists, getElectionResult);
+/** End voting Routes */
 
 export default router;
