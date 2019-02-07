@@ -22,7 +22,9 @@ class AuthValidator {
     req.check('lastName', 'Last Name is required').notEmpty().trim()
       .isString()
       .withMessage('Last Name must be a string');
-    req.check('phone', 'The phone number is required').notEmpty().trim().isString();
+    req.check('phone', 'The phone number is required').notEmpty().trim()
+      .isLength({ min: 11 })
+      .withMessage('Enter a valid phone number');
     req.check('password', 'Password is required')
       .notEmpty().trim().isLength({ min: 6 })
       .withMessage('password cannot be less then 6 characters');
@@ -33,10 +35,9 @@ class AuthValidator {
     if (errors) {
       return res.status(400).json({
         errors: extractErrors(errors),
-        error: true,
+        status: 400,
       });
     }
-
     return next();
   }
 
@@ -50,7 +51,28 @@ class AuthValidator {
       user = await client.query({ text: sqlQuery, values });
       if (user.rows && user.rowCount) {
         return res.status(409).json({
-          status: 409, error: 'User already exists',
+          status: 409, error: `User with email ${email} already exists`,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      client.release();
+    }
+    return next();
+  }
+
+  static async validatePhone(req, res, next) {
+    const { phone } = req.body;
+    const sqlQuery = 'SELECT * FROM users WHERE phone = $1';
+    const values = [phone];
+    let user;
+    const client = await pool.connect();
+    try {
+      user = await client.query({ text: sqlQuery, values });
+      if (user.rows && user.rowCount) {
+        return res.status(409).json({
+          status: 409, error: `User with phone number ${phone} already exists`,
         });
       }
     } catch (err) {
@@ -70,7 +92,7 @@ class AuthValidator {
     if (errors) {
       return res.status(400).json({
         errors: extractErrors(errors),
-        error: true,
+        status: 400,
       });
     }
     return next();
@@ -80,14 +102,14 @@ class AuthValidator {
     try {
       const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
       if (!authorization) {
-        return res.status(401).json({ error: true, message: 'Access denied, Authorization required' });
+        return res.status(401).json({ status: 401, message: 'Access denied, Authorization required' });
       }
       const verifiedToken = verifyToken(authorization);
       if (!verifiedToken.id) {
-        return res.status(401).json({ error: true, message: 'Access denied, Authorization required' });
+        return res.status(401).json({ status: 401, message: 'Access denied, Authorization required' });
       }
     } catch (err) {
-      return res.status(401).json({ error: true, message: 'Access denied, Authorization required' });
+      return res.status(401).json({ status: 401, message: 'Access denied, Authorization required' });
     }
     return next();
   }
@@ -97,15 +119,15 @@ class AuthValidator {
       const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
 
       if (!authorization) {
-        return res.status(401).json({ error: true, message: 'Unauthorized, Authorization required' });
+        return res.status(401).json({ status: 401, message: 'Only an Admin has the right to create a party' });
       }
 
       const verifiedToken = verifyToken(authorization);
       if (!verifiedToken.isadmin) {
-        return res.status(401).json({ error: true, message: 'Unauthorized, Authorization required' });
+        return res.status(401).json({ status: 401, message: 'Only an Admin has the right to create a party' });
       }
     } catch (err) {
-      return res.status(401).json({ error: true, message: 'Unauthorized, Authorization required' });
+      return res.status(401).json({ status: 401, message: 'Only an Admin has the right to create a party' });
     }
     return next();
   }
@@ -126,17 +148,18 @@ class AuthValidator {
       if (req.headers.token) authorization = req.headers.token;
       else if (req.headers.authorization) authorization = req.headers.authorization.split(' ')[1];
       if (!authorization) {
-        return res.status(401).json({ status: 401, error: 'Authorization token required' });
+        return res.status(401).json({ status: 401, error: 'You must log in to vote' });
       }
       jwt.verify(authorization, process.env.SECRET, (err, decoded) => {
         if (err) {
-          console.log(err);
           return res.status(401).json({ status: 401, error: 'Invalid Authorization token' });
         }
         req.body.token = decoded;
         next();
       });
-    } catch (err) { console.log(err); }
+    } catch (err) {
+      return res.status(401).json({ status: 401, error: 'Invalid Authorization token' });
+    }
   }
 }
 

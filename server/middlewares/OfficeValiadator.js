@@ -39,7 +39,9 @@ class OfficeValidator {
         errors: extractErrors(errors),
       });
     }
-
+    const { name, type } = req.body;
+    req.body.name = name.replace(/\s{2,}/g, ' ');
+    req.body.type = type.replace(/\s{2,}/g, ' ');
     return next();
   }
 
@@ -91,11 +93,6 @@ class OfficeValidator {
       return res.status(400).json({
         status: 400,
         error: 'The office ID must be a number',
-      });
-    } if (!officeId) {
-      return res.status(400).json({
-        status: 400,
-        error: 'The office Id is required',
       });
     }
     return next();

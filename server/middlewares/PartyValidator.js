@@ -36,6 +36,10 @@ class PartyValidator {
         errors: helpers.extractErrors(errors),
       });
     }
+    const { name, hqAddress, logoUrl } = req.body;
+    req.body.name = name.replace(/\s{2,}/g, ' ');
+    req.body.hqAddress = hqAddress.replace(/\s{2,}/g, ' ');
+    req.body.logoUrl = logoUrl.replace(/\s{2,}/g, ' ');
     return next();
   }
 
@@ -64,7 +68,7 @@ class PartyValidator {
         });
       }
     } catch (err) {
-      console.log(err);
+      return res.status(500).json({ status: 500, message: 'Internal server error' });
     } finally {
       await client.release();
     }
@@ -143,7 +147,7 @@ class PartyValidator {
         });
       }
     } catch (err) {
-      console.log(err);
+      return res.status(500).json({ status: 500, message: 'Internal server error' });
     } finally {
       await client.release();
     }

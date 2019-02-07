@@ -78,37 +78,6 @@ class AdminValidator {
 
   /**
  *
- * Ensures that the referenced party exists in the database
- * @static
- * @param {object} req - request
- * @param {object} res - response
- * @param {object} next - callback
- * @returns
- * @memberof AdminValidator
- */
-  static async checkIfPartyExists(req, res, next) {
-    const { party } = req.body;
-    const client = await pool.connect();
-
-    try {
-      const sqlQuery = { text: 'SELECT * FROM parties WHERE id = $1', values: [party] };
-      const partyExists = await client.query(sqlQuery);
-      if (!partyExists.rowCount) {
-        return res.status(400).json({
-          status: 400,
-          error: 'The party does not exist',
-        });
-      }
-    } catch (err) {
-      return;
-    } finally {
-      await client.release();
-    }
-    next();
-  }
-
-  /**
- *
  * Ensures that the userId is a number
  * @static
  * @param {object} req - request
@@ -123,12 +92,6 @@ class AdminValidator {
       return res.status(400).json({
         status: 400,
         error: 'The user ID must be a number',
-      });
-    }
-    if (!userId) {
-      return res.status(400).json({
-        status: 400,
-        error: 'The user ID is required',
       });
     }
     next();
@@ -150,12 +113,6 @@ class AdminValidator {
       return res.status(400).json({
         status: 400,
         error: 'The office ID must be a number',
-      });
-    }
-    if (!officeId) {
-      return res.status(400).json({
-        status: 400,
-        error: 'The office ID is required',
       });
     }
     req.body.office = officeId;
@@ -247,6 +204,58 @@ class AdminValidator {
         return res.status(404).json({
           status: 404,
           error: 'The candidate does not exist',
+        });
+      }
+    } catch (err) {
+      return;
+    } finally {
+      await client.release();
+    }
+    next();
+  }
+
+  /**
+ *
+ * Ensures that candidate exists in the database
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof AdminValidator
+ */
+  static async isDuplicateCandidate(req, res, next) {
+    const { office, userId } = req.body;
+    const client = await pool.connect();
+    try {
+      const sqlQuery = { text: 'SELECT * FROM candidates WHERE office = $1 AND candidate = $2',
+        values: [office, userId] };
+      const candidateExists = await client.query(sqlQuery);
+      if (candidateExists.rowCount === 0) {
+        return res.status(404).json({
+          status: 404,
+          error: 'The candidate already registered in the specified office',
+        });
+      }
+    } catch (err) {
+      throw err;
+    } finally {
+      await client.release();
+    }
+    next();
+  }
+
+  static async isAflagBearer(req, res, next) {
+    const { office, candidate } = req.body;
+    const client = await pool.connect();
+    try {
+      const sqlQuery = { text: 'SELECT * FROM candidates WHERE id = $1 AND office = $2',
+        values: [office, candidate] };
+      const flagBearer = await client.query(sqlQuery);
+      if (!flagBearer.rowCount) {
+        return res.status(404).json({
+          status: 404,
+          error: 'The candidate is not a flag bear for the office you want to vote for',
         });
       }
     } catch (err) {
