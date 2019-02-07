@@ -20,7 +20,7 @@ const office1 = `INSERT INTO offices(name, type)
 
 const candidate1 = `INSERT INTO candidates(office, candidate)
                         VALUES(1, 1)`;
-const vote1 = `INSERT INTO votes(office, candidate, createdBy)
+const vote1 = `INSERT INTO votes(office, candidate, voter)
                         VALUES(1, 1, 1)`;
 
 const petition1 = `INSERT INTO petitions(office, createdBy, body, evidence)
