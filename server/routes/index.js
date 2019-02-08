@@ -13,7 +13,8 @@ const router = express.Router();
 
 const { createAccount, loginUser } = UserController;
 
-const { validateSignUp, userExists, validateLogin, isAdmin, checkToken } = AuthValidator;
+const { validateSignUp, userExists, validateLogin, isAdmin, checkToken,
+  validatePhone } = AuthValidator;
 
 const { createOfficeValidator, isDuplicateOffice, validateOfficeParam } = OfficeValidator;
 
@@ -24,7 +25,7 @@ const { createPartyValidator, validateParam, isDuplicate,
 
 const { createParty, getAParty, allParties, deleteParty, editParty } = PartyController;
 
-const { registerCandidate, vote, getElectionResult } = AdminController;
+const { registerCandidate, vote, getElectionResult, getAllCandidates } = AdminController;
 
 const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
   validateUserId, checkIfUserHasVoted, checkIfCandidateExists,
@@ -57,7 +58,7 @@ router.get(`${officeUrl}/:officeId`, validateOfficeParam, findOffice);
 
 /** Auth Routes */
 const authBaseUrl = '/api/v1/auth';
-router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
+router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, validatePhone, createAccount);
 router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
 /** End Auth Routes */
@@ -71,6 +72,8 @@ router.post('/api/v1/vote', checkToken, validateVote, checkIfCandidateExists,
 
 router.get('/api/v1/office/:officeId/result', validateOfficeId,
   checkIfOfficeExists, getElectionResult);
+
+router.get('/api/v1/candidates', getAllCandidates);
 /** End voting Routes */
 
 export default router;

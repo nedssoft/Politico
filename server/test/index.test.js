@@ -13,7 +13,7 @@ const admin = {
   firstName: 'First Name2',
   lastName: 'Last Name2',
   otherName: 'Other Name2',
-  phone: '07000000000',
+  phone: '07000000080',
   email: 'jondoe2@gmail.com',
   passportUrl: 'https://example.com/lorem.jpg',
   isAdmin: true,
@@ -441,7 +441,7 @@ describe('Vote', () => {
       .post(voteUrl)
       .end((err, res) => {
         expect(res).to.have.status(401);
-        expect(res.body.error).to.eql('Authorization token required');
+        expect(res.body.error).to.eql('You must log in to vote');
         done();
       });
   });

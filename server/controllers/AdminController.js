@@ -27,7 +27,9 @@ class AdminController {
       if (aspirant.rows && aspirant.rowCount) {
         aspirant = aspirant.rows[0];
         return res.status(201).json({
-          status: 201, data: { office: aspirant.office, user: aspirant.candidate },
+          status: 201,
+          data: { office: aspirant.office, user: aspirant.candidate },
+          message: 'candidate successfully registered',
         });
       }
       return res.status(500).json({ status: 500, error: 'Internal server error' });
@@ -99,7 +101,30 @@ class AdminController {
         });
       }
       return res.status(404).json({ status: 404, error: 'No result Found for this office' });
-    } catch (err) { console.log(err); } finally { await client.release(); }
+    } catch (err) { return; } finally { await client.release(); }
+  }
+
+  static async getAllCandidates(req, res) {
+    const sqlQuery = `SELECT candidates.id, users.firstname, 
+    users.lastname, offices.name, offices.type FROM candidates 
+    JOIN users ON candidates.candidate = users.id
+    JOIN offices ON candidates.office = offices.id
+    `;
+    const client = await pool.connect();
+    try {
+      const candidates = await client.query(sqlQuery);
+      if (candidates.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          data: candidates.rows,
+        });
+      }
+      return res.status(200).json({ status: 200, data: [] });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
+    }
   }
 }
 export default AdminController;
