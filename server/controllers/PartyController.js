@@ -25,7 +25,9 @@ class PartyController {
       if (party.rows && party.rowCount) {
         party = party.rows;
         return res.status(201).json({
-          status: 201, data: party[0],
+          status: 201,
+          data: party[0],
+          message: 'Party created successfully',
         });
       }
 
@@ -83,7 +85,7 @@ class PartyController {
       if (parties.rowCount) {
         return res.status(200).json({
           status: 200,
-          data: [parties.rows],
+          data: parties.rows,
         });
       }
       return res.status(200).json({ status: 200, data: [] });
@@ -131,6 +133,7 @@ class PartyController {
         return res.status(200).json({
           status: 200,
           data: [{ name }],
+          message: 'Party updated successfully',
         });
       }
       return res.status(500).json({ status: 500, message: 'Unable to delete the party' });
