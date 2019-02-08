@@ -35,19 +35,19 @@
                <form>
                    <button type="submit" class="btn btn-info mt-1 mb-1" id="logout">Logout</button>
                </form>
-            </div>
-            <li class="active">
-                <a href="parties.html">
+           </div>
+            <li>
+                <a href="admin-parties.html">
                     Parties<i class="arrow-right"></i>
                 </a>
             </li>
-            <li>
-                <a href="offices.html">
+            <li class="active">
+                <a href="admin-offices.html">
                     Offices<i class="arrow-right"></i>
                 </a>
             </li>
             <li>
-                <a href="applications.html">
+                <a href="admin-applications.html">
                     Aspirants' Applications	<i class="arrow-right"></i>
                 </a>
             </li>
@@ -56,22 +56,22 @@
     <div class="wrap my-4" id="main">
         <div class="container">
             <div class="text-capitalize d-flex j-c-space-between a-i-center my-4">
-                <h1>Parties </h1>
+                <h1>Offices</h1>
             </div>
             <div class="card px-0 pb-2 my-2">
                 <hr>
                 <div class="container">
-                    <div class="my-1 d-flex justify-content a-i-center">
+                    <div class="my-1 d-flex justify-content a-i-center" >
                         <form class="search-form" action="" method="post" >
                             <div class="input-group search">
-                                <input type="text" name="" value="" placeholder="Search Party..." class="search-btn" >
+                                <input type="text" name="" value="" placeholder="Search office..." class="search-btn" >
                                 <button type="submit"class="btn btn-primary">
                                     Search
                                 </button>
                             </div>
                         </form>
-                        <a href="add-party.html" class="btn btn-primary create-office text-capitalize border-r">
-                            Create Party
+                        <a href="add-office.html" class="btn btn-primary create-office text-capitalize border-r">
+                            Create Office
                         </a>
                     </div>
                     <div class="table-container">
@@ -79,21 +79,19 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Type</th>
                                     <th>Name</th>
-                                    <th>Logo</th>
-                                    <th>HQTRS Address</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                     <td class="text-uppercase">All Progressive Congress</td>
-                                    <td><img src="assets/img/apc.jpeg" class="party-logo" alt="APC"></td>
-                                    <td>40 Blantyre Street, Wuse II, Abuja</td>
+                                    <td class="text-uppercase">Federal</td>
+                                    <td>Presidential</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="edit-party.html" class="btn btn-info">
+                                            <a href="edit-office.html" class="btn btn-info">
                                                 Edit
                                             </a>
                                             <button type="button" name="button" class="btn btn-danger">
@@ -102,14 +100,13 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                               <tr>
                                     <td>2</td>
-                                    <td class="text-uppercase">People's Democratic Party</td>
-                                    <td><img src="assets/img/pdp.jpeg" alt="PDP" class="party-logo"></td>
-                                    <td>Plot 1970 Michael Okpara St, Wuse, Abuja</td>
+                                    <td class="text-uppercase">Federal</td>
+                                    <td>Senatorial</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="edit-party.html" class="btn btn-info">
+                                            <a href="edit-office.html" class="btn btn-info">
                                                 Edit
                                             </a>
                                             <button type="button" name="button" class="btn btn-danger">
@@ -118,16 +115,13 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
+                               <tr>
                                     <td>3</td>
-                                     <td class="text-uppercase">Young Progressives Party</td>
-                                    <td><img src="assets/img/ypp.jpeg" alt="YPP" class="party-logo"></td>
-                                    <td>
-                                        Block 10, Flat 1, Benue Crescent, Section 1, Area 1, Garki, Abuja
-                                    </td>
+                                    <td class="text-uppercase">State</td>
+                                    <td>Gubernatorial</td>
                                     <td>
                                         <div class="btn-group">
-                                             <a href="edit-party.html" class="btn btn-info">
+                                            <a href="edit-office.html" class="btn btn-info">
                                                 Edit
                                             </a>
                                             <button type="button" name="button" class="btn btn-danger">
@@ -138,12 +132,11 @@
                                 </tr>
                                 <tr>
                                     <td>4</td>
-                                   <td class="text-uppercase">Social Democratic Party</td>
-                                    <td><img src="assets/img/sdp.png" alt="SDP" class="party-logo"></td>
-                                    <td>Plot 1977 Orlu Street, Area 3, Garki, Abuja</td>
+                                    <td class="text-uppercase">Local Government</td>
+                                    <td>Chairmanship</td>
                                     <td>
                                         <div class="btn-group">
-                                             <a href="edit-party.html" class="btn btn-info">
+                                            <a href="edit-office.html" class="btn btn-info">
                                                 Edit
                                             </a>
                                             <button type="button" name="button" class="btn btn-danger">
@@ -176,6 +169,5 @@
          </div>
     </div> 
 <script src="assets/js/dashboard.js"></script>
-
 </body>
 </html>
