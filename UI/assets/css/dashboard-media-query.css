@@ -116,6 +116,9 @@
   .admin-form {
     width: 90% !important;
   }
+  .filter-select {
+    width: 61vw;
+  }
 }
 @media screen and (width: 375px) {
   .wrap {
