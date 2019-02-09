@@ -74,20 +74,20 @@ The UI is hosted on gh-pages
 
 
 ### Endpoints
-- Sign up [POST] https://oriechinedu-politico.herokuapp.com/api/v1/auth/signup
-- Login [POST] https://oriechinedu-politico.herokuapp.com/api/v1/auth/login
-- Create Political Office [POST] https://oriechinedu-politico.herokuapp.com/api/v1/offices/
+- `Sign up [POST] https://oriechinedu-politico.herokuapp.com/api/v1/auth/signup`
+- `Login [POST] https://oriechinedu-politico.herokuapp.com/api/v1/auth/login`
+- `Create Political Office [POST] https://oriechinedu-politico.herokuapp.com/api/v1/offices/`
 - `Get single political office [GET] https://oriechinedu-politico.herokuapp.com/api/v1/offices/<officeId>`
-- Get all political offices [GET] https://oriechinedu-politico.herokuapp.com/api/v1/offices/
-- Create a political party [POST] https://oriechinedu-politico.herokuapp.com/api/v1/parties
-- Get a political party [GET] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>
-- Edit a political party [PATCH] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>
-- Delete a political party [DELETE] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>
-- Get all political party [GET] https://oriechinedu-politico.herokuapp.com/api/v1/parties
-- Register a candidate [POST] https://oriechinedu-politico.herokuapp.com/api/v1/office/<userId>/register
-- Vote a candidate [POST] https://oriechinedu-politico.herokuapp.com/api/v1/vote
-- View Election Result [GET] https://oriechinedu-politico.herokuapp.com/api/v1/office/<officeId>/result
-- View Candidates [GET] https://oriechinedu-politico.herokuapp.com/api/v1/candidates
+- `Get all political offices [GET] https://oriechinedu-politico.herokuapp.com/api/v1/offices/`
+- `Create a political party [POST] https://oriechinedu-politico.herokuapp.com/api/v1/parties`
+- `Get a political party [GET] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>`
+- `Edit a political party [PATCH] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>`
+- `Delete a political party [DELETE] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>`
+- `Get all political party [GET] https://oriechinedu-politico.herokuapp.com/api/v1/parties`
+- `Register a candidate [POST] https://oriechinedu-politico.herokuapp.com/api/v1/office/<userId>/register`
+- `Vote a candidate [POST] https://oriechinedu-politico.herokuapp.com/api/v1/vote`
+- `View Election Result [GET] https://oriechinedu-politico.herokuapp.com/api/v1/office/<officeId>/result`
+- `View Candidates [GET] https://oriechinedu-politico.herokuapp.com/api/v1/candidates`
 
 
 ### How to contribute
