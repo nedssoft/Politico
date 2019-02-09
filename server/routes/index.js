@@ -11,7 +11,7 @@ import AdminValidator from '../middlewares/AdminValidator';
 
 const router = express.Router();
 
-const { createAccount, loginUser } = UserController;
+const { createAccount, loginUser, getAllUsers } = UserController;
 
 const { validateSignUp, userExists, validateLogin, isAdmin, checkToken,
   validatePhone } = AuthValidator;
@@ -63,6 +63,7 @@ router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 /** End Auth Routes */
 router.post('/api/v1/office/:userId/register', validateCandidate, checkIfOfficeExists,
   checkIfUserExists, isAdmin, registerCandidate);
+router.get('/api/v1/users', getAllUsers);
 /** Admin Routes */
 
 /** Voting Routes */
