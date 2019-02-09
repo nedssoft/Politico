@@ -77,7 +77,7 @@ The UI is hosted on gh-pages
 - Sign up [POST] https://oriechinedu-politico.herokuapp.com/api/v1/auth/signup
 - Login [POST] https://oriechinedu-politico.herokuapp.com/api/v1/auth/login
 - Create Political Office [POST] https://oriechinedu-politico.herokuapp.com/api/v1/offices/
-- Get single political office [GET] https://oriechinedu-politico.herokuapp.com/api/v1/offices/<officeId>
+- `Get single political office [GET] https://oriechinedu-politico.herokuapp.com/api/v1/offices/<officeId>
 - Get all political offices [GET] https://oriechinedu-politico.herokuapp.com/api/v1/offices/
 - Create a political party [POST] https://oriechinedu-politico.herokuapp.com/api/v1/parties
 - Get a political party [GET] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>
