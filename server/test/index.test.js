@@ -19,7 +19,18 @@ const admin = {
   isAdmin: true,
   password: hashedPassword,
 };
+const user = {
+  firstName: 'test',
+  lastName: 'user',
+  otherName: 'Other Name2',
+  phone: '07000000010',
+  email: 'testuser@gmail.com',
+  passportUrl: 'https://example.com/lorem.jpg',
+  // isAdmin: true,
+  password: hashedPassword,
+};
 let token;
+let userToken;
 const { generateToken, verifyToken } = Authenticator;
 
 describe('App', () => {
@@ -59,6 +70,14 @@ describe('Test Party Endpoints', () => {
         token = res.body.data[0].token;
       } catch (err) {
         console.log(err);
+      }
+      try {
+        const res = await chai.request(app)
+          .post('/api/v1/auth/signup')
+          .send(user);
+        userToken = res.body.data[0].token;
+      } catch (err) {
+        expect(err).to.have.status(500);
       }
     });
 
@@ -108,6 +127,40 @@ describe('Test Party Endpoints', () => {
           done();
         });
     });
+    it('It should respond with 401 if token is not provided', async () => {
+      const newParty = {
+        name: 'Test Party',
+        hqAddress: 'Test Address',
+        logoUrl: 'test-logo.png',
+      };
+      try {
+        const res = await chai.request(app)
+          .post(baseUrl)
+          .send(newParty);
+        expect(res).to.have.status(401);
+        expect(res.body.message).to.eql('Only an Admin has the right to create a party');
+      } catch (err) {
+        console.log(err);
+      }
+    });
+    it('It should ensure the user is an admin', async () => {
+      const newParty = {
+        name: 'Test Party',
+        hqAddress: 'Test Address',
+        logoUrl: 'test-logo.png',
+      };
+      try {
+        const res = await chai.request(app)
+          .post(baseUrl)
+          .send(newParty)
+          .set('token', userToken)
+          .set('Authorization', userToken);
+        expect(res).to.have.status(401);
+        expect(res.body.message).to.eql('Only an Admin has the right to create a party');
+      } catch (err) {
+        console.log(err);
+      }
+    });
     it('It should create the new political party', async () => {
       const newParty = {
         name: 'Test Party',
@@ -126,6 +179,7 @@ describe('Test Party Endpoints', () => {
         console.log(err);
       }
     });
+
     it('It should respond with status 409 if party already exists', async () => {
       const newParty = {
         name: 'Test Party',
@@ -163,7 +217,7 @@ describe('Test Party Endpoints', () => {
         .get(`${baseUrl}/${id}`)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The party ID must be a number');
+          expect(res.body.errors[0]).to.eql('The party ID must be an integer');
           done();
         });
     });
@@ -317,7 +371,7 @@ describe('Office Endpoints', () => {
         .get(`${officeBaseUrl}/${id}`)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.error).to.eql('The office ID must be a number');
+          expect(res.body.errors[0]).to.eql('The office ID must be an integer');
           done();
         });
     });
@@ -398,7 +452,7 @@ describe('Admin Functions', () => {
       .send({ office: 1 })
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.error).to.eql('The user ID must be a number');
+        expect(res.body.errors[0]).to.eql('The user ID must be an integer');
         done();
       });
   });
@@ -439,11 +493,28 @@ describe('Vote', () => {
   it('should respond with status code 401 if token is not provided', (done) => {
     chai.request(app)
       .post(voteUrl)
+      .send({})
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res.body.error).to.eql('You must log in to vote');
         done();
       });
+  });
+  it('should respond with status code 401 if token is invalid', (done) => {
+    try {
+      chai.request(app)
+        .post(voteUrl)
+        .send({})
+        .set('token', 'sjksklxjakljljal')
+        .set('Authorization', 'sjksklxjakljljal')
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+          expect(res.body.error).to.eql('Invalid Authorization token');
+          done();
+        });
+    } catch (err) {
+      expect(err).to.have.status(401);
+    }
   });
   it('should respond with status code 400 office is empty', async () => {
     try {
@@ -522,6 +593,14 @@ describe('Vote', () => {
     } catch (err) { console.log(err); }
   });
   describe('ELECTION RESULT', () => {
+    it('should respond with status code 400 if officeId is not a number', async () => {
+      try {
+        const res = await chai.request(app)
+          .get('/api/v1/office/d/result');
+        expect(res).to.have.status(400);
+        expect(res.body.error).to.eql('The office ID must be a number');
+      } catch (err) { console.log(err); }
+    });
     it('should get the election result for a given office', async () => {
       try {
         const res = await chai.request(app)

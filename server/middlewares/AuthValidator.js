@@ -7,6 +7,7 @@ import pool from '../config/connection';
 const { extractErrors } = Helpers;
 const { verifyToken } = Authenticator;
 dotenv.config();
+
 /**
  * @description Handles validation for all authentication processes
  */
@@ -19,9 +20,7 @@ class AuthValidator {
    */
   static validateSignUp(req, res, next) {
     req.check('firstName', 'First Name is required').notEmpty().trim();
-    req.check('lastName', 'Last Name is required').notEmpty().trim()
-      .isString()
-      .withMessage('Last Name must be a string');
+    req.check('lastName', 'Last Name is required').notEmpty().trim();
     req.check('phone', 'The phone number is required').notEmpty().trim()
       .isLength({ min: 11 })
       .withMessage('Enter a valid phone number');

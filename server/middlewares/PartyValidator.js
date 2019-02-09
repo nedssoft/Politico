@@ -13,33 +13,44 @@ class PartyValidator {
    * @param {object} res - response
    * @param {object} next - callback
    */
-  static createPartyValidator(req, res, next) {
-    req.check('name', 'The party name is required')
-      .notEmpty().trim()
-      .isLength({ min: 3 })
-      .withMessage('The party name must be at leat 3 characters long')
-      .not()
-      .isNumeric()
-      .withMessage('The party name cannot be a number');
-    req.check('hqAddress', 'The party HQ Address is required').notEmpty().trim()
-      .not()
-      .isNumeric()
-      .withMessage('The hqAddress name must be a string');
-    req.check('logoUrl', 'The party logo is required').notEmpty().trim()
-      .isLength({ min: 3 })
-      .withMessage('The party logo Url must be at leat 3 characters long');
+  static partyValidator(req, res, next) {
+    if (req.method === 'POST') {
+      req.checkBody('name', 'The party name is required').notEmpty().trim().isLength({ min: 3 })
+        .withMessage('The party name must be at leat 3 characters long')
+        .not()
+        .isNumeric()
+        .withMessage('The party name cannot be a number');
+      req.checkBody('hqAddress', 'The party HQ Address is required').notEmpty().trim()
+        .not()
+        .isNumeric()
+        .withMessage('The hqAddress name must be a string');
+      req.checkBody('logoUrl', 'The party logo is required').notEmpty().trim().isLength({ min: 3 })
+        .withMessage('The party logo Url must be at leat 3 characters long');
+    } else if (req.method === 'DELETE') {
+      req.checkParams('partyId', 'The party ID must be an integer').notEmpty().isInt();
+    } else if (req.method === 'PATCH') {
+      req.checkParams('partyId', 'The party ID must be an integer').notEmpty().isInt();
+      req.checkBody('name', 'The party name is required')
+        .notEmpty().trim()
+        .isLength({ min: 3 })
+        .withMessage('The party name must be at leat 3 characters long')
+        .not()
+        .isNumeric()
+        .withMessage('The party name cannot be a number');
+    }
     const errors = req.validationErrors();
-
     if (errors) {
       return res.status(400).json({
         status: 400,
         errors: helpers.extractErrors(errors),
       });
     }
-    const { name, hqAddress, logoUrl } = req.body;
-    req.body.name = name.replace(/\s{2,}/g, ' ');
-    req.body.hqAddress = hqAddress.replace(/\s{2,}/g, ' ');
-    req.body.logoUrl = logoUrl.replace(/\s{2,}/g, ' ');
+    if (req.method === 'POST') {
+      const { name, hqAddress, logoUrl } = req.body;
+      req.body.name = name.replace(/\s{2,}/g, ' ');
+      req.body.hqAddress = hqAddress.replace(/\s{2,}/g, ' ');
+      req.body.logoUrl = logoUrl.replace(/\s{2,}/g, ' ');
+    }
     return next();
   }
 
@@ -83,35 +94,7 @@ class PartyValidator {
    * @param {object} next - callback
    */
   static validateParam(req, res, next) {
-    const { partyId } = req.params;
-    if (!helpers.isANumber(partyId) || !partyId) {
-      return res.status(400).json({
-        status: 400,
-        error: 'The party ID must be a number',
-      });
-    }
-    return next();
-  }
-
-  /**
- * Validates the input for editing a party
- *
- * @static
- * @param {object} req - request
- * @param {object} res - response
- * @param {object} next - callback
- * @returns
- * @memberof PartyValidator
- */
-  static editPartyValidator(req, res, next) {
-    req.check('name', 'The party name is required')
-      .notEmpty().trim()
-      .isLength({ min: 3 })
-      .withMessage('The party name must be at leat 3 characters long')
-      .not()
-      .isNumeric()
-      .withMessage('The party name cannot be a number');
-
+    req.checkParams('partyId', 'The party ID must be an integer').notEmpty().isInt();
     const errors = req.validationErrors();
     if (errors) {
       return res.status(400).json({
@@ -119,9 +102,9 @@ class PartyValidator {
         errors: helpers.extractErrors(errors),
       });
     }
-
     return next();
   }
+
 
   /**
  *

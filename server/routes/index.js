@@ -16,19 +16,19 @@ const { createAccount, loginUser } = UserController;
 const { validateSignUp, userExists, validateLogin, isAdmin, checkToken,
   validatePhone } = AuthValidator;
 
-const { createOfficeValidator, isDuplicateOffice, validateOfficeParam } = OfficeValidator;
+const { isDuplicateOffice, validateOffice } = OfficeValidator;
 
 const { createOffice, getAllOffices, findOffice } = OfficeController;
 
-const { createPartyValidator, validateParam, isDuplicate,
-  partyExists, editPartyValidator } = PartyValidator;
+const { partyValidator, validateParam, isDuplicate,
+  partyExists } = PartyValidator;
 
 const { createParty, getAParty, allParties, deleteParty, editParty } = PartyController;
 
 const { registerCandidate, vote, getElectionResult, getAllCandidates } = AdminController;
 
 const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
-  validateUserId, checkIfUserHasVoted, checkIfCandidateExists,
+  checkIfUserHasVoted, checkIfCandidateExists,
   validateVote, validateOfficeId } = AdminValidator;
 
 router.get('/', (req, res) => {
@@ -38,21 +38,20 @@ router.get('/', (req, res) => {
 
 /** Party Routes */
 const partyUrl = '/api/v1/parties';
-router.post(partyUrl, createPartyValidator, isDuplicate, isAdmin, createParty);
+router.post(partyUrl, partyValidator, isDuplicate, isAdmin, createParty);
 router.get(`${partyUrl}/:partyId`, validateParam, getAParty);
-router.delete(`${partyUrl}/:partyId`, validateParam, isAdmin, partyExists, deleteParty);
-router.patch(`${partyUrl}/:partyId`, validateParam, isAdmin, partyExists,
-  editPartyValidator, editParty);
+router.delete(`${partyUrl}/:partyId`, partyValidator, isAdmin, partyExists, deleteParty);
+router.patch(`${partyUrl}/:partyId`, partyValidator, isAdmin, partyExists, editParty);
 router.get(partyUrl, allParties);
 
 /** End Party Routes */
 
 /** Office Routes */
 const officeUrl = '/api/v1/offices';
-router.post(officeUrl, createOfficeValidator,
+router.post(officeUrl, validateOffice,
   isDuplicateOffice, isAdmin, createOffice);
 router.get(officeUrl, getAllOffices);
-router.get(`${officeUrl}/:officeId`, validateOfficeParam, findOffice);
+router.get(`${officeUrl}/:officeId`, validateOffice, findOffice);
 
 /** End office Routes */
 
@@ -63,7 +62,7 @@ router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
 /** End Auth Routes */
 router.post('/api/v1/office/:userId/register', validateCandidate, checkIfOfficeExists,
-  validateUserId, checkIfUserExists, isAdmin, registerCandidate);
+  checkIfUserExists, isAdmin, registerCandidate);
 /** Admin Routes */
 
 /** Voting Routes */
