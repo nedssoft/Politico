@@ -11,6 +11,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Shadows+Into+Light+Two" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/util.css">
     <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/dashboard-media-query.css">
 </head>
 <body>
     <nav class="navbar d-flex j-c-space-between a-i-center" id="nabvar">
@@ -29,7 +30,7 @@
         </div>
         <ul class="text-capitalize">
             <div class="d-flex flex-col j-c-center a-i-center mt-2">
-               <img src="assets/img/avatar.jpeg" class="profile-image" width="20%" height="20%">
+               <img src="assets/img/ned.jpg" class="profile-image" width="20%" height="20%">
                <h4 class="mt-1">Hi, Chinedu</h3>
                <form>
                    <button type="submit" class="btn btn-info mt-1 mb-1" id="logout">Logout</button>
@@ -42,7 +43,7 @@
             </li>
             <li class="active">
                 <a href="apply.html">
-                   Apply<i class="arrow-right"></i>
+                   Application<i class="arrow-right"></i>
                 </a>
             </li>
             <li>
@@ -71,7 +72,7 @@
                  <form action="#" method="post">
                         <div class="form-group">
                         <label for="party">Party</label>
-                        <select name="party_id" id="party" class="form-control">
+                        <select name="party_id" id="party" class="dash-select">
                             <option value="S">Select Party</option>
                             <option value="apc">APC</option>
                             <option value="apga">APGA</option>
@@ -81,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label for="office">Office</label>
-                            <select name="office_id" id="office" class="form-control">
+                            <select name="office_id" id="office" class="dash-select">
                                 <option value="">Select Office</option>
                                 <option value="">Presidential</option>
                                 <option value="">Senatorial</option>
@@ -89,7 +90,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn-default text-center">Submit</button> 
+                            <input type="submit" class="btn-submit w-100 mt-1" value="Submit">
                         </div> 
                 </form>    
             </div>

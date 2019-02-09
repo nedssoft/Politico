@@ -609,11 +609,13 @@
     cursor: pointer;
 }
 
-.btn-default{
-    padding: 10px 0 10px 0;
+.btn-submit {
+    padding: 0.8rem;
     text-align: center;
-    line-height: 20px;
-    background-color: #EE6860;
+    line-height: 25px;
+    /* background-color: #EE6860; */
+    background-color: #6193c5;
+    opacity: 0.9;
     letter-spacing: 0.3px;
     color: aliceblue;
     border: none;
@@ -623,8 +625,10 @@
     text-decoration: none;
     cursor: pointer; 
 }
-.btn-default:hover{
-    background-color: #ea564b;
+.btn-submit:hover{
+    /* background-color: #ea564b; */
+    background-color: #6193c5;
+    opacity: 1;
     transition-duration: 300ms;
 }
 button:focus {
@@ -753,13 +757,16 @@ input{
   border-radius: 4px;
   width: 100%;
 }
-
+.has-error {
+  border: 1px solid #F14340 !important;
+}
 .search-btn {
   border-radius: 0;
 }
 
 label{
-    font-weight: 700;
+  font-weight: 600;
+  display: none;
 }
 
 input:focus{
@@ -778,15 +785,14 @@ input::placeholder{
 }
 
 select{
-
-  height:40px;
   border:1px solid #c4c4c4;
-  border-radius: 0px;
-  font-size: 16px;
-  line-height: 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  line-height: 25px;
   color: #828282;
-  padding-left: 5px!important;
+  padding: 0.8rem;
   background-color: #FFFFFF;
+  margin: 10px 0;
 }
 select:hover{
   border:1px solid #6193c5!important;
@@ -844,7 +850,7 @@ select:hover{
 
 .form-control {
    border: 1px solid #d8e4f1;
-   padding:5px;
+   padding: 0.8rem;
    resize: none;
    line-height: 1;
    margin-bottom: 10px;
@@ -853,7 +859,6 @@ select:hover{
 .form-group{
     display: flex;
     flex-direction: column;
-    margin: 10;
 }
 .form-group small {
   padding-top: 5px;
@@ -863,14 +868,6 @@ select:hover{
     height: 50px;
 }
  @media screen and (min-width: 768px) {
-    
-    .form-control {
-      padding: 10px;
-    }
-
-     .btn-default{
-        line-height: 25px;  
-    }
 
     select {
       width: 30vw;
