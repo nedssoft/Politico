@@ -87,5 +87,18 @@ class UserController {
       client.release();
     }
   }
+
+  static async getAllUsers(req, res) {
+    const sqlQuery = `SELECT firstname, lastname, othername, phone, email, isadmin, createdon
+                          FROM users ORDER BY createdon DESC`;
+    let users;
+    const client = await pool.connect();
+    try {
+      users = await client.query(sqlQuery);
+      return res.status(200).json({ status: 200, data: users.rows });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    } finally { await client.release(); }
+  }
 }
 export default UserController;
