@@ -32,6 +32,29 @@ describe('SIGN UP', () => {
       console.log(err);
     }
   });
+
+  it('Should throw 400 if the fields are empty', (done) => {
+    try {
+      chai.request(app)
+        .post(`${baseUrl}/signup`)
+        .send({})
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.errors).to.be.an('array');
+          expect(res.body.errors[0]).to.eq('First Name is required');
+          expect(res.body.errors[1]).to.eq('Last Name is required');
+          expect(res.body.errors[2]).to.eq('The phone number is required');
+          expect(res.body.errors[3]).to.eq('Enter a valid phone number');
+          expect(res.body.errors[4]).to.eq('Password is required');
+          expect(res.body.errors[5]).to.eq('password cannot be less then 6 characters');
+          expect(res.body.errors[6]).to.eq('Email is required');
+          expect(res.body.errors[7]).to.eq('Invalid email');
+          done();
+        });
+    } catch (err) {
+      expect(err).to.have.status(500);
+    }
+  });
   it('Should throw 400 if first Name is empty', (done) => {
     user.firstName = '';
     try {

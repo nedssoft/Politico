@@ -11,11 +11,10 @@ const { extractErrors } = Helpers;
  */
 class AdminValidator {
   static validateCandidate(req, res, next) {
-    req.check('office', 'The aspirant\'s office is required')
-      .notEmpty().trim()
+    req.checkBody('office', 'The aspirant\'s office is required').notEmpty().trim()
       .isNumeric()
       .withMessage('The office must be a number');
-
+    req.checkParams('userId', 'The user ID must be an integer').notEmpty().isInt();
     const errors = req.validationErrors();
     if (errors) {
       return res.status(400).json({
@@ -72,27 +71,6 @@ class AdminValidator {
       return;
     } finally {
       await client.release();
-    }
-    next();
-  }
-
-  /**
- *
- * Ensures that the userId is a number
- * @static
- * @param {object} req - request
- * @param {object} res - response
- * @param {object} next - callback
- * @returns
- * @memberof AdminValidator
- */
-  static validateUserId(req, res, next) {
-    const { userId } = req.params;
-    if (userId && !Helpers.isANumber(userId)) {
-      return res.status(400).json({
-        status: 400,
-        error: 'The user ID must be a number',
-      });
     }
     next();
   }
@@ -238,32 +216,11 @@ class AdminValidator {
         });
       }
     } catch (err) {
-      throw err;
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
     } finally {
       await client.release();
     }
-    next();
-  }
-
-  static async isAflagBearer(req, res, next) {
-    const { office, candidate } = req.body;
-    const client = await pool.connect();
-    try {
-      const sqlQuery = { text: 'SELECT * FROM candidates WHERE id = $1 AND office = $2',
-        values: [office, candidate] };
-      const flagBearer = await client.query(sqlQuery);
-      if (!flagBearer.rowCount) {
-        return res.status(404).json({
-          status: 404,
-          error: 'The candidate is not a flag bear for the office you want to vote for',
-        });
-      }
-    } catch (err) {
-      return;
-    } finally {
-      await client.release();
-    }
-    next();
+    return next();
   }
 }
 export default AdminValidator;
