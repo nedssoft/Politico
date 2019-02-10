@@ -793,6 +793,7 @@ select{
   padding: 0.8rem;
   background-color: #FFFFFF;
   margin: 10px 0;
+  width: 70vw;
 }
 select:hover{
   border:1px solid #6193c5!important;
@@ -872,4 +873,10 @@ select:hover{
     select {
       width: 30vw;
     }
+}
+@media screen and (width: 768px) {
+
+  select {
+    width: 40vw;
+  }
 }

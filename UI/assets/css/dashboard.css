@@ -20,16 +20,17 @@ i {
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
+    color: white;
 }
-
+.far {
+  color: black !important;
+}
 input {
     height: 100%;
     padding: 0 .5rem;
     width: 90%;
 }
-i {
-    color: white;
-}
+
 hr {
     border: #EBEEF3;
     background-color: #EBEEF3;
@@ -146,9 +147,9 @@ button:focus {
     -webkit-transition: all 500ms ease;
     -o-transition: all 500ms ease;
     transition: all 500ms ease;
-    color: #ffffff; 
+    color: #ffffff !important; 
 }
-.sidebar ul li a:hover{
+.sidebar ul li a:hover, .far:hover{
     color: #ffffff;
 }
 .sidebar ul .active,
