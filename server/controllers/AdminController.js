@@ -126,5 +126,31 @@ class AdminController {
       await client.release();
     }
   }
+
+  static async getAllOfficeCandidates(req, res) {
+    const { officeId } = req.params;
+    const sqlQuery = `SELECT candidates.id, users.firstname, 
+    users.lastname, offices.name AS officename, offices.type AS officetype, parties.name AS partyname FROM candidates 
+    JOIN users ON candidates.candidate = users.id
+    JOIN offices ON candidates.office = offices.id
+    JOIN parties ON candidates.party = parties.id
+    WHERE office = $1`;
+    const values = [officeId];
+    const client = await pool.connect();
+    try {
+      const candidates = await client.query({ text: sqlQuery, values });
+      if (candidates.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          data: candidates.rows,
+        });
+      }
+      return res.status(200).json({ status: 200, data: [] });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
+    }
+  }
 }
 export default AdminController;
