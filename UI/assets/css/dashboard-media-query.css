@@ -106,7 +106,7 @@
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (width: 425px) {
   .wrap {
     width: 100% !important;
   }
