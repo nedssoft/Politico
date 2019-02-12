@@ -1,4 +1,4 @@
-const token = localStorage.getItem('token');
+const accessToken = localStorage.getItem('token');
 
 const isAuthenticated = (tkn) => {
   if (tkn) {
@@ -10,4 +10,4 @@ const isAuthenticated = (tkn) => {
   window.location = 'login.html';
 };
 
-isAuthenticated(token);
+isAuthenticated(accessToken);
