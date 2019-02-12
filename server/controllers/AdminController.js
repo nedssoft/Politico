@@ -130,7 +130,8 @@ class AdminController {
   static async getAllOfficeCandidates(req, res) {
     const { officeId } = req.params;
     const sqlQuery = `SELECT candidates.id, users.firstname, 
-    users.lastname, offices.name AS officename, offices.type AS officetype, parties.name AS partyname FROM candidates 
+    users.lastname, offices.name AS officename, offices.type AS officetype, parties.name AS partyname,
+    parties.logourl AS partylogo FROM candidates 
     JOIN users ON candidates.candidate = users.id
     JOIN offices ON candidates.office = offices.id
     JOIN parties ON candidates.party = parties.id
@@ -157,9 +158,10 @@ class AdminController {
     const { token } = req.body;
     const voter = token.id;
     const sqlQuery = `SELECT votes.id, votes.createdon, offices.name as officename, offices.type AS officetype,
-      parties.name AS partyname, parties.logourl AS partylogo FROM votes
+      parties.name AS partyname, parties.logourl AS partylogo, users.firstname, users.lastname FROM votes
       JOIN offices ON offices.id = votes.office
       JOIN parties ON parties.id = votes.party
+      JOIN users ON users.id = votes.candidate
       WHERE voter = $1`;
     const values = [voter];
     const client = await pool.connect();
