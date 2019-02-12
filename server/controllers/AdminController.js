@@ -53,10 +53,10 @@ class AdminController {
     const client = await pool.connect();
     let vote;
     try {
-      const { office, candidate, voter } = req.body;
-      const sqlQuery = `INSERT INTO votes(office, candidate, voter)
-                    VALUES($1, $2, $3) RETURNING *`;
-      const values = [office, candidate, voter];
+      const { office, candidate, voter, party } = req.body;
+      const sqlQuery = `INSERT INTO votes(office, candidate, voter, party)
+                    VALUES($1, $2, $3, $4) RETURNING *`;
+      const values = [office, candidate, voter, party];
       vote = await client.query({ text: sqlQuery, values });
       if (vote.rows && vote.rowCount) {
         vote = vote.rows[0];
@@ -71,6 +71,7 @@ class AdminController {
       }
       return res.status(500).json({ status: 500, error: 'Internal server error' });
     } catch (err) {
+      console.log(err);
       return res.status(500).json({ status: 500, error: 'Internal server errorr' });
     } finally {
       await client.release();
