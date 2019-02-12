@@ -793,7 +793,6 @@ select{
   padding: 0.8rem;
   background-color: #FFFFFF;
   margin: 10px 0;
-  width: 70vw;
 }
 select:hover{
   border:1px solid #6193c5!important;
@@ -854,7 +853,7 @@ select:hover{
    padding: 0.8rem;
    resize: none;
    line-height: 1;
-   margin-bottom: 10px;
+   margin-top: 10px;
 }
 
 .form-group{
@@ -868,15 +867,38 @@ select:hover{
     width: 50px;
     height: 50px;
 }
+/** Start alert */
+/** Credit: w3shools.com */
+.alert {
+  padding: 10px;
+  background-color: #f44336;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+.alert-success {
+  padding: 10px;
+  background-color: rgb(39, 165, 14);
+  color: white;
+}
+
+/** End alert*/
  @media screen and (min-width: 768px) {
 
     select {
       width: 30vw;
     }
-}
-@media screen and (width: 768px) {
-
-  select {
-    width: 40vw;
-  }
 }
