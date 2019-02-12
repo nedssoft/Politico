@@ -19,10 +19,10 @@ class AdminController {
     const client = await pool.connect();
     let aspirant;
     try {
-      const { office, userId } = req.body;
-      const sqlQuery = `INSERT INTO candidates(office, candidate)
-                    VALUES($1,$2) RETURNING *`;
-      const values = [office, userId];
+      const { office, userId, party } = req.body;
+      const sqlQuery = `INSERT INTO candidates(office, candidate, party)
+                    VALUES($1,$2, $3) RETURNING *`;
+      const values = [office, userId, party];
       aspirant = await client.query({ text: sqlQuery, values });
       if (aspirant.rows && aspirant.rowCount) {
         aspirant = aspirant.rows[0];

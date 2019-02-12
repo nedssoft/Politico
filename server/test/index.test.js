@@ -284,7 +284,7 @@ describe('Test Party Endpoints', () => {
       }
     });
     it('it should delete the party if it exists', async () => {
-      const id = 1;
+      const id = 2;
       try {
         const res = await chai.request(app)
           .delete(`${baseUrl}/${id}`)
@@ -459,7 +459,7 @@ describe('Admin Functions', () => {
 
   it(`${should} 404 if the user does not exist`, (done) => {
     chai.request(app)
-      .post('/api/v1/office/3/register')
+      .post('/api/v1/office/10/register')
       .send({ office: 1 })
       .end((err, res) => {
         expect(res).to.have.status(404);
@@ -479,7 +479,7 @@ describe('Admin Functions', () => {
   it('should register the candidate', (done) => {
     chai.request(app)
       .post('/api/v1/office/1/register')
-      .send({ office: 1 })
+      .send({ office: 1, party: 1 })
       .set('token', token)
       .set('Authorization', token)
       .end((err, res) => {
