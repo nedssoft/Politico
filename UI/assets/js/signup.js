@@ -10,9 +10,11 @@ const alertError = document.getElementById('alert-error');
 const error = document.getElementById('error');
 const success = document.getElementById('success');
 const alertSuccess = document.getElementsByClassName('alert-success')[0];
+const spinner = document.getElementsByClassName('spinner')[0];
 
 alertError.style.display = 'none';
 alertSuccess.style.display = 'none';
+spinner.style.display = 'none';
 // Credit: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
 const validEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 signUp.addEventListener('click', (e) => {
@@ -101,9 +103,12 @@ signUp.addEventListener('click', (e) => {
     headers: { 'Content-Type': 'application/json' },
   };
   const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/auth/signup';
+  spinner.style.display = 'block';
   fetch(url, fetchData)
     .then(res => res.json())
     .then((result) => {
+      spinner.style.display = 'none';
+
       if (result.status !== 201) {
         error.innerHTML = result.message;
         console.log(result.errors);
@@ -115,16 +120,15 @@ signUp.addEventListener('click', (e) => {
 
       localStorage.setItem('token', token);
       localStorage.setItem('authUser', JSON.stringify(user));
-     setTimeout( () => {
-      if (user.isadmin) {
-        localStorage.setItem('isAdmin', user.isadmin);
-        window.location = 'admin-parties.html';
-      }
-      window.location = 'profile.html';
-     }, 3000);
+      setTimeout(() => {
+        if (user.isadmin) {
+          localStorage.setItem('isAdmin', user.isadmin);
+          window.location = 'admin-parties.html';
+        }
+        window.location = 'profile.html';
+      }, 3000);
     })
-    .catch(err =>{
+    .catch((err) => {
       error.innerHTML = err;
     });
-  
 });
