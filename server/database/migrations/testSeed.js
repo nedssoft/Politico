@@ -8,7 +8,7 @@ const password = passwordHash.generate('password');
 const user1 = `INSERT INTO users(firstName, lastName, email, phone, password)
                   VALUES('test', 'test', 'testtest@gmail.com', '07035087659', '${password}')`;
 const party1 = `INSERT INTO parties(name, hqAddress, logoUrl)
-                    VALUES('Lorem Party of Test placeholder', '1111, party test address', 'partyy.png')`;
+                    VALUES('Lorem Party of Test placeholder', '1111, party test address', 'https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg')`;
 
 const office1 = `INSERT INTO offices(name, type)
                       VALUES('Lorem Political Officec', 'Lorem Political Office Typee')`;
