@@ -487,6 +487,22 @@ describe('Admin Functions', () => {
         done();
       });
   });
+  it('should get all candidates', async () => {
+    try {
+      const res = await chai.request(app)
+        .get('/api/v1/candidates');
+      expect(res).to.have.status(200);
+      expect(res.body.data).to.be.an('array');
+    } catch (err) { console.log(err); }
+  });
+  it('should get all for a specific office candidates', async () => {
+    try {
+      const res = await chai.request(app)
+        .get('/api/v1/office/1/candidates');
+      expect(res).to.have.status(200);
+      expect(res.body.data).to.be.an('array');
+    } catch (err) { console.log(err); }
+  });
 });
 describe('Vote', () => {
   const voteUrl = '/api/v1/vote';
