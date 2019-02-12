@@ -189,7 +189,7 @@ class AdminValidator {
     } finally {
       await client.release();
     }
-    next();
+    return next();
   }
 
   /**
