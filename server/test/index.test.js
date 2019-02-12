@@ -590,10 +590,12 @@ describe('Vote', () => {
     try {
       const res = await chai.request(app)
         .post(voteUrl)
-        .send({ office: 1, candidate: 2 })
+        .send({ office: 1, candidate: 2, party: 1 })
         .set('token', token)
         .set('Authorization', token);
       expect(res).to.have.status(201);
+      expect(res.body.data.office).to.eql(1);
+      expect(res.body.data.candidate).to.eql(1);
       expect(res.body.data.message).to.eql('congratulations!!!, you have successfully voted');
     } catch (err) { console.log(err); }
   });

@@ -20,8 +20,8 @@ const office1 = `INSERT INTO offices(name, type)
 
 const candidate1 = `INSERT INTO candidates(office, candidate, party)
                         VALUES(1, 1, 1)`;
-const vote1 = `INSERT INTO votes(office, candidate, voter)
-                        VALUES(1, 1, 1)`;
+const vote1 = `INSERT INTO votes(office, candidate, voter, party)
+                        VALUES(1, 1, 1, 1)`;
 
 const petition1 = `INSERT INTO petitions(office, createdBy, body, evidence)
                       VALUES(1, 1, ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, libero sint sed, excepturi sapiente sunt culpa quidem quibusdam inventore necessitatibus quam alias aliquid? Ab praesentium dicta mollitia aut laudantium deserunt!',
