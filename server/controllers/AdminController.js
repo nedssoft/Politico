@@ -64,14 +64,13 @@ class AdminController {
           status: 201,
           data: {
             office: vote.office,
-            candiadte: vote.candidate,
+            candidate: vote.candidate,
             voter: vote.voter,
             message: 'congratulations!!!, you have successfully voted' },
         });
       }
       return res.status(500).json({ status: 500, error: 'Internal server error' });
     } catch (err) {
-      console.log(err);
       return res.status(500).json({ status: 500, error: 'Internal server errorr' });
     } finally {
       await client.release();
@@ -144,6 +143,32 @@ class AdminController {
         return res.status(200).json({
           status: 200,
           data: candidates.rows,
+        });
+      }
+      return res.status(200).json({ status: 200, data: [] });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
+    }
+  }
+
+  static async getUserVoteHistories(req, res) {
+    const { token } = req.body;
+    const voter = token.id;
+    const sqlQuery = `SELECT votes.id, votes.createdon, offices.name as officename, offices.type AS officetype,
+      parties.name AS partyname, parties.logourl AS partylogo FROM votes
+      JOIN offices ON offices.id = votes.office
+      JOIN parties ON parties.id = votes.party
+      WHERE voter = $1`;
+    const values = [voter];
+    const client = await pool.connect();
+    try {
+      const votes = await client.query({ text: sqlQuery, values });
+      if (votes.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          data: votes.rows,
         });
       }
       return res.status(200).json({ status: 200, data: [] });

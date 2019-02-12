@@ -13,7 +13,7 @@ const admin = `INSERT INTO users(firstName, lastName, isAdmin, email, phone, pas
                   VALUES('Admin', 'Admin', true, 'admin@politico.com', '07080000000', '${adminPassword}')`;
 
 const party1 = `INSERT INTO parties(name, hqAddress, logoUrl)
-                    VALUES('Lorem Party of Test', '111, party test address', 'party.png')`;
+                    VALUES('Lorem Party of Test', '111, party test address', 'https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg')`;
 
 const office1 = `INSERT INTO offices(name, type)
                       VALUES('Lorem Political Office', 'Lorem Political Office Type')`;

@@ -595,7 +595,7 @@ describe('Vote', () => {
         .set('Authorization', token);
       expect(res).to.have.status(201);
       expect(res.body.data.office).to.eql(1);
-      expect(res.body.data.candidate).to.eql(1);
+      expect(res.body.data.candidate).to.eql(2);
       expect(res.body.data.message).to.eql('congratulations!!!, you have successfully voted');
     } catch (err) { console.log(err); }
   });
