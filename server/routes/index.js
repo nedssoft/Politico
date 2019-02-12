@@ -29,8 +29,7 @@ const { registerCandidate, vote, getElectionResult, getAllCandidates,
   getAllOfficeCandidates, getUserVoteHistories } = AdminController;
 
 const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
-  checkIfUserHasVoted, checkIfCandidateExists,
-  validateVote, validateOfficeId } = AdminValidator;
+  checkIfUserHasVoted, validateVote, validateOfficeId } = AdminValidator;
 
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
@@ -68,7 +67,7 @@ router.get('/api/v1/users', getAllUsers);
 /** Admin Routes */
 
 /** Voting Routes */
-router.post('/api/v1/vote', checkToken, validateVote, checkIfCandidateExists,
+router.post('/api/v1/vote', checkToken, validateVote,
   checkIfOfficeExists, checkIfUserHasVoted, vote);
 
 router.get('/api/v1/office/:officeId/result', validateOfficeId,
