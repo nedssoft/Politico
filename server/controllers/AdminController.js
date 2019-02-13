@@ -130,7 +130,8 @@ class AdminController {
   static async getAllOfficeCandidates(req, res) {
     const { officeId } = req.params;
     const sqlQuery = `SELECT candidates.id, users.firstname, 
-    users.lastname, offices.name AS officename, offices.type AS officetype, parties.name AS partyname FROM candidates 
+    users.lastname, offices.name AS officename, offices.type AS officetype, parties.name AS partyname,
+    parties.logourl AS partylogo FROM candidates 
     JOIN users ON candidates.candidate = users.id
     JOIN offices ON candidates.office = offices.id
     JOIN parties ON candidates.party = parties.id
