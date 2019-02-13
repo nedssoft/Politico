@@ -89,6 +89,9 @@
   .admin-form {
     width: 50% !important;
   }
+  .profile{
+    width: 80%;
+  }
 
 }
 @media screen and (width: 1024px) {
@@ -106,7 +109,7 @@
   }
 }
 
-@media screen and (width: 425px) {
+@media screen and (max-width: 425px) {
   .wrap {
     width: 100% !important;
   }
@@ -117,7 +120,7 @@
     width: 90% !important;
   }
   .filter-select {
-    width: 61vw;
+    width: 58vw;
   }
 }
 @media screen and (width: 375px) {
@@ -153,10 +156,32 @@
   .admin-form {
     width: 100% !important;
   }
+  .filter-select {
+    width: 50vw;
+  }
 }
 @media screen and (width: 768px) {
   
   .admin-form {
     width: 70% !important;
   }
+}
+
+@media screen and (width: 640px) {
+  
+  .wrap {
+    width: 100% !important;
+  }
+  .sidebar ul {
+    width: 50% !important;
+  }
+  .filter-c {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.pagination-container {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
 }

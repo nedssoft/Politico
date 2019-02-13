@@ -902,3 +902,21 @@ select:hover{
       width: 30vw;
     }
 }
+@media screen and (max-width: 425px) {
+
+  select {
+    width: 65vw;
+  }
+}
+@media screen and (width: 768px) {
+
+  select {
+    width: 50vw;
+  }
+}
+@media screen and (width: 640px) {
+
+  select {
+    width: 60vw;
+  }
+}
