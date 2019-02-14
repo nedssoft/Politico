@@ -90,8 +90,16 @@ class AdminController {
     const { office } = req.body;
     const client = await pool.connect();
     try {
-      const sqlQuery = `SELECT office, candidate, COUNT(candidate) AS result FROM votes
-       WHERE office = $1 GROUP BY candidate, office`;
+      const sqlQuery = `SELECT office, candidate, users.firstname, users.lastname,
+      parties.name as partyname, parties.logourl as partylogo, COUNT(candidate) AS result
+      FROM votes
+      INNER JOIN users
+      ON users.id = votes.candidate
+      INNER JOIN parties
+      ON parties.id = votes.party
+      WHERE office = $1
+      GROUP BY candidate, office, users.firstname,
+      users.lastname, parties.name, parties.logourl`;
       const values = [office];
       const result = await client.query({ text: sqlQuery, values });
       if (result.rowCount) {
@@ -101,7 +109,9 @@ class AdminController {
         });
       }
       return res.status(404).json({ status: 404, error: 'No result Found for this office' });
-    } catch (err) { return; } finally { await client.release(); }
+    } catch (err) {
+      return;
+    } finally { await client.release(); }
   }
 
   static async getAllCandidates(req, res) {
