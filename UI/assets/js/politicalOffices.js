@@ -22,7 +22,9 @@ fetch(request)
                     <td>${office.name}</td>
                     <td>
                         
-                          <button class="btn btn-info" data-officeId="${office.id}" onclick="proceedToVote(event)">
+                          <button class="btn btn-info" data-officeId="${office.id}"
+                          data-office="${office.name}"
+                          onclick="proceedToVote(event)">
                              Proceed to Vote
                           </button>
                         
@@ -47,6 +49,8 @@ fetch(request)
 const proceedToVote = (e) => {
   e.preventDefault();
   const officeId = e.target.getAttribute('data-officeId');
+  const selectedOffice = e.target.getAttribute('data-office');
   localStorage.setItem('officeId', officeId);
+  localStorage.setItem('selectedOffice', selectedOffice);
   window.location.replace('candidates.html');
 };

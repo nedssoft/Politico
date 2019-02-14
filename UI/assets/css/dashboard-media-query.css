@@ -1,4 +1,7 @@
 @media screen and (min-width: 768px) {
+  .alat {
+    width: 400px;
+  }
   .sidebar {
       width: 18%;
       position: fixed;
@@ -71,6 +74,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .alat {
+    width: 300px;
+  }
   .sidebar {
     width: 30%;
   }

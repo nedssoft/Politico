@@ -65,8 +65,22 @@
     <div class="wrap my-4" id="main">
         <div class="container">
             <div class="text-capitalize d-flex j-c-space-between a-i-center my-4">
-                <h1>Candidates</h1>
+                <h1 id="election-title">Candidates</h1>
             </div>
+           <div class="alert-container">
+            <div class="alert alat" id="alert-error">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+              <p id="error"></p>
+          </div>
+          <div class="alert-success alat">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+              <p id="success"></p>
+          </div>
+          <div class="alert-info alat">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <p id="info"></p>
+          </div>
+           </div>
             <div class="card px-0 pb-2 my-2">
                 <hr>
                 <div class="container">
@@ -183,5 +197,7 @@
     </div> 
 <script src="assets/js/dashboard.js"></script>
 <script src="assets/js/candidates.js"></script>
+<script src="assets/js/isAuth.js"></script>
+<script src="assets/js/logout.js"></script>
 </body>
 </html> 
