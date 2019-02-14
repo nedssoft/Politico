@@ -45,7 +45,6 @@ fetch(request)
     console.log(err);
   });
 
-
 const proceedToVote = (e) => {
   e.preventDefault();
   const officeId = e.target.getAttribute('data-officeId');
