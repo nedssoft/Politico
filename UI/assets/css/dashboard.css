@@ -368,3 +368,9 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
   color: aliceblue;
 }
 
+.alert-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

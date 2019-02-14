@@ -894,6 +894,11 @@ select:hover{
   background-color: rgb(39, 165, 14);
   color: white;
 }
+.alert-info {
+  padding: 10px;
+  background-color: #23B4F3;
+  color: white;
+}
 
 /** End alert*/
  @media screen and (min-width: 768px) {
