@@ -1,4 +1,3 @@
-/** eslint-disable no-unused-vars */
 const tableBody = document.getElementById('table-body');
 const pagination = document.getElementsByClassName('pagination-container')[0];
 
@@ -22,13 +21,11 @@ fetch(request)
                     <td class="text-uppercase">${office.type}</td>
                     <td>${office.name}</td>
                     <td>
-                        
-                          <button class="btn btn-info" data-officeId="${office.id}"
-                          data-office="${office.name}"
-                          onclick="proceedToVote(event)">
-                             Proceed to Vote
-                          </button>
-                        
+                      <button class="btn btn-info" data-officeId="${office.id}"
+                      data-office="${office.name}"
+                      onclick="proceedToVote(event)">
+                          Proceed to Vote
+                      </button>
                     </td>
                 </tr>`;
           tableBody.insertAdjacentHTML('afterbegin', row);
@@ -45,7 +42,8 @@ fetch(request)
   .catch((err) => {
     console.log(err);
   });
-  
+
+/** eslint-disable no-unused-vars */
 const proceedToVote = (e) => {
   e.preventDefault();
   const officeId = e.target.getAttribute('data-officeId');

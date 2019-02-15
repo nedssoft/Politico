@@ -1,6 +1,7 @@
 const submit = document.querySelector('.add-party');
 const name = document.querySelector('[name="name"]');
-const type = document.querySelector('[name="type"]');
+const hqAddress = document.querySelector('[name="hqAddress"]');
+const logoUrl = document.querySelector('[name="logoUrl"]');
 const alertError = document.getElementById('alert-error');
 const error = document.getElementById('error');
 const success = document.getElementById('success');
@@ -34,23 +35,28 @@ const showAlert = (message, succeeded = true) => {
     }, 5000);
   }
 };
+name.value = localStorage.getItem('partyName');
+hqAddress.value = localStorage.getItem('hqAddress');
+const partyId = localStorage.getItem('partyId');
 submit.addEventListener('click', (e) => {
   e.preventDefault();
   const errors = [];
   if (name.value === '') {
-    errors.push('The Office name is required');
+    errors.push('The party name is required');
     name.classList.add('has-error');
   } else name.classList.remove('has-error');
-  if (type.value === '') {
-    errors.push('The Office type is required');
-    type.classList.add('has-error');
-  } else type.classList.remove('has-error');
+  if (hqAddress.value === '') {
+    errors.push('The party Headqauters Address is required');
+    hqAddress.classList.add('has-error');
+  } else hqAddress.classList.remove('has-error');
   if (errors.length) {
     showAlert(errors.join('\n'), false);
   } else {
     toggleInfo('Processing...', false);
-    const body = { name: name.value, type: type.value };
-    const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/offices';
+    const logo = logoUrl.value ? logoUrl.value : 'https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg';
+    console.log(logo);
+    const body = { name: name.value };
+    const url = `https://oriechinedu-politico.herokuapp.com/api/v1/parties/${partyId}`;
     const token = localStorage.getItem('token');
     const headers = new Headers({
       'Content-Type': 'application/json',
@@ -58,7 +64,7 @@ submit.addEventListener('click', (e) => {
       authorization: token,
     });
     const options = {
-      method: 'POST',
+      method: 'PATCH',
       headers,
       body: JSON.stringify(body),
     };
@@ -67,14 +73,16 @@ submit.addEventListener('click', (e) => {
       .then(response => response.json())
       .then((response) => {
         toggleInfo();
-        console.log(response);
         if (response.status === 400) {
           showAlert(response.errors.join('\n'), false);
         } else if (response.status === 401) {
           showAlert(response.message, false);
-        } else if (response.status === 201) {
-          showAlert('Office created Successfully');
-        } else if (response.status === 409 || response.status === 500) {
+        } else if (response.status === 200) {
+          showAlert(response.message);
+          setTimeout(() => {
+            window.location.replace('admin-parties.html');
+          }, 2000);
+        } else if (response.status === 409) {
           showAlert(response.error, false);
         }
       })

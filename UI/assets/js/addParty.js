@@ -12,7 +12,7 @@ const alertInfo = document.getElementsByClassName('alert-info')[0];
 alertError.style.display = 'none';
 alertSuccess.style.display = 'none';
 alertInfo.style.display = 'none';
-const toggleInfo = (msg = null, hide = true) =>{
+const toggleInfo = (msg = null, hide = true) => {
   if (hide) {
     alertInfo.style.display = 'none';
   } else {
@@ -35,7 +35,7 @@ const showAlert = (message, succeeded = true) => {
     }, 5000);
   }
 };
-submit.addEventListener('click', (e) =>{
+submit.addEventListener('click', (e) => {
   e.preventDefault();
   const errors = [];
   if (name.value === '') {
@@ -52,7 +52,7 @@ submit.addEventListener('click', (e) =>{
     toggleInfo('Processing...', false);
     const logo = logoUrl.value ? logoUrl.value : 'https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg';
     console.log(logo);
-    const body = { name: name.value, hqAddress: hqAddress.value, logoUrl: logo};
+    const body = { name: name.value, hqAddress: hqAddress.value, logoUrl: logo };
     const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/parties';
     const token = localStorage.getItem('token');
     const headers = new Headers({
@@ -67,18 +67,20 @@ submit.addEventListener('click', (e) =>{
     };
     const request = new Request(url, options);
     fetch(request)
-    .then(response => response.json())
-    .then((response) => {
-      toggleInfo();
-      console.log(response);
-      if (response.status == 400) {
-        showAlert(response.errors.join('\n'), false);
-      } else if (response.status === 401) {
-        showAlert(response.message, false);
-      }else if(response.status === 201) {
-        showAlert(response.message);
-      }
-    })
-    .catch(err => showAlert(err, false));
+      .then(response => response.json())
+      .then((response) => {
+        toggleInfo();
+        console.log(response);
+        if (response.status === 400) {
+          showAlert(response.errors.join('\n'), false);
+        } else if (response.status === 401) {
+          showAlert(response.message, false);
+        } else if (response.status === 201) {
+          showAlert(response.message);
+        } else if (response.status === 409) {
+          showAlert(response.error, false);
+        }
+      })
+      .catch(err => showAlert(err, false));
   }
 });
