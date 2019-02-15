@@ -1,4 +1,8 @@
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import pool from '../config/connection';
+
+dotenv.config();
 /**
  * Defines Admin actions
  *
@@ -193,6 +197,14 @@ class AdminController {
     } finally {
       await client.release();
     }
+  }
+
+  static validateToken(req, res) {
+    const { token } = req.body;
+    jwt.verify(token, process.env.SECRET, (err, decoded) => {
+      if (err) return res.status(401).json({ status: 401, error: 'Invalid' });
+      return res.status(200).json({ status: 200, data: decoded });
+    });
   }
 }
 export default AdminController;
