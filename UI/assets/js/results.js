@@ -71,6 +71,7 @@ submitFilter.addEventListener('click', (e) => {
       alertInfo.style.display = 'none';
       resultTitle.innerHTML = officeSelector.options[officeSelector.selectedIndex].textContent;
       if (res.status === 200) {
+        tableBody.innerHTML = '';
         const { data } = res;
         if (data.length) {
           let row;
@@ -82,8 +83,7 @@ submitFilter.addEventListener('click', (e) => {
                       <td><img src="${result.partylogo}" class="${result.partyname}" width="50px" height="50px" alt="YPP"></td>
                       <td>${result.result}</td>
                   </tr>`;
-            tableBody.innerHTML = '';
-            tableBody.insertAdjacentHTML('afterbegin', row);
+            tableBody.insertAdjacentHTML('beforeend', row);
           });
           if (data.length >= 15) {
             pagination.style.display = 'flex';
