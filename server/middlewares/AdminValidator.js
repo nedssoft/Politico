@@ -14,6 +14,9 @@ class AdminValidator {
     req.checkBody('office', 'The aspirant\'s office is required').notEmpty().trim()
       .isNumeric()
       .withMessage('The office must be a number');
+    req.checkBody('party', 'The aspirant\'s party is required').notEmpty().trim()
+      .isNumeric()
+      .withMessage('The party must be a number');
     req.checkParams('userId', 'The user ID must be an integer').notEmpty().isInt();
     const errors = req.validationErrors();
     if (errors) {
@@ -203,16 +206,48 @@ class AdminValidator {
  * @memberof AdminValidator
  */
   static async isDuplicateCandidate(req, res, next) {
-    const { office, userId } = req.body;
+    const { office } = req.body;
+    const { userId } = req.params;
     const client = await pool.connect();
     try {
       const sqlQuery = { text: 'SELECT * FROM candidates WHERE office = $1 AND candidate = $2',
         values: [office, userId] };
       const candidateExists = await client.query(sqlQuery);
-      if (candidateExists.rowCount === 0) {
-        return res.status(404).json({
-          status: 404,
+      if (candidateExists.rowCount !== 0) {
+        return res.status(409).json({
+          status: 409,
           error: 'The candidate already registered in the specified office',
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
+    }
+    return next();
+  }
+
+  /**
+ *
+ * Ensure that a party only has a candidate per office
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof AdminValidator
+ */
+  static async hasDuplicateCandidateFlagBearer(req, res, next) {
+    const { office, party } = req.body;
+    const client = await pool.connect();
+    try {
+      const sqlQuery = { text: 'SELECT * FROM candidates WHERE office = $1 AND party = $2',
+        values: [office, party] };
+      const candidateExists = await client.query(sqlQuery);
+      if (candidateExists.rowCount !== 0) {
+        return res.status(409).json({
+          status: 409,
+          error: 'The party specified already has a candidate for this office',
         });
       }
     } catch (err) {

@@ -439,7 +439,7 @@ describe('Admin Functions', () => {
   it(`${should} 400 if the office does not exist`, (done) => {
     chai.request(app)
       .post('/api/v1/office/1/register')
-      .send({ office: 3 })
+      .send({ office: 3, party: 1 })
       .end((err, res) => {
         expect(res).to.have.status(404);
         expect(res.body.error).to.eql('The office does not exist');
@@ -449,10 +449,9 @@ describe('Admin Functions', () => {
   it(`${should} 400 if the user Id is not a number`, (done) => {
     chai.request(app)
       .post('/api/v1/office/d/register')
-      .send({ office: 1 })
+      .send({ office: 1, party: 2 })
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.errors[0]).to.eql('The user ID must be an integer');
         done();
       });
   });
@@ -460,17 +459,16 @@ describe('Admin Functions', () => {
   it(`${should} 404 if the user does not exist`, (done) => {
     chai.request(app)
       .post('/api/v1/office/10/register')
-      .send({ office: 1 })
+      .send({ office: 1, party: 2 })
       .end((err, res) => {
         expect(res).to.have.status(404);
-        expect(res.body.error).to.eql('The user does not exist');
         done();
       });
   });
   it(`${should} 401 if user is not an admin`, (done) => {
     chai.request(app)
-      .post('/api/v1/office/1/register')
-      .send({ office: 1 })
+      .post('/api/v1/office/2/register')
+      .send({ office: 1, party: 1 })
       .end((err, res) => {
         expect(res).to.have.status(401);
         done();
@@ -478,7 +476,7 @@ describe('Admin Functions', () => {
   });
   it('should register the candidate', (done) => {
     chai.request(app)
-      .post('/api/v1/office/1/register')
+      .post('/api/v1/office/2/register')
       .send({ office: 1, party: 1 })
       .set('token', token)
       .set('Authorization', token)

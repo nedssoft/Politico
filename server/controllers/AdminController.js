@@ -25,15 +25,18 @@ class AdminController {
       const values = [office, userId, party];
       aspirant = await client.query({ text: sqlQuery, values });
       if (aspirant.rows && aspirant.rowCount) {
-        aspirant = aspirant.rows[0];
         return res.status(201).json({
           status: 201,
-          data: { office: aspirant.office, user: aspirant.candidate },
+          data: { office: aspirant.rows[0].office, user: aspirant.rows[0].candidate },
           message: 'candidate successfully registered',
         });
       }
       return res.status(500).json({ status: 500, error: 'Internal server error' });
     } catch (err) {
+      const { constraint } = err;
+      if (constraint === 'candidates_party_fkey') {
+        return res.status(409).json({ status: 400, message: 'The party does not exist' });
+      }
       return res.status(500).json({ status: 500, error: 'Internal server errorr' });
     } finally {
       await client.release();
