@@ -29,7 +29,8 @@ const { registerCandidate, vote, getElectionResult, getAllCandidates,
   getAllOfficeCandidates, getUserVoteHistories } = AdminController;
 
 const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
-  checkIfUserHasVoted, validateVote, validateOfficeId } = AdminValidator;
+  checkIfUserHasVoted, validateVote, validateOfficeId,
+  isDuplicateCandidate, hasDuplicateCandidateFlagBearer } = AdminValidator;
 
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
@@ -62,7 +63,8 @@ router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
 /** End Auth Routes */
 router.post('/api/v1/office/:userId/register', validateCandidate, checkIfOfficeExists,
-  checkIfUserExists, isAdmin, registerCandidate);
+  checkIfUserExists, isDuplicateCandidate,
+  hasDuplicateCandidateFlagBearer, isAdmin, registerCandidate);
 router.get('/api/v1/users', getAllUsers);
 /** Admin Routes */
 

@@ -89,7 +89,7 @@ class UserController {
   }
 
   static async getAllUsers(req, res) {
-    const sqlQuery = `SELECT firstname, lastname, othername, phone, email, isadmin, createdon
+    const sqlQuery = `SELECT id,firstname, lastname, othername, phone, email, isadmin, createdon
                           FROM users ORDER BY createdon DESC`;
     let users;
     const client = await pool.connect();
