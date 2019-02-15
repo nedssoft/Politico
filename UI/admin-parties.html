@@ -58,6 +58,20 @@
             <div class="text-capitalize d-flex j-c-space-between a-i-center my-4">
                 <h1>Parties </h1>
             </div>
+            <div class="alert-container">
+              <div class="alert alat" id="alert-error">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                <p id="error"></p>
+              </div>
+              <div class="alert-success alat">
+                  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                  <p id="success"></p>
+              </div>
+              <div class="alert-info alat">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                <p id="info"></p>
+              </div>
+            </div>
             <div class="card px-0 pb-2 my-2">
                 <hr>
                 <div class="container">
@@ -85,8 +99,8 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
+                            <tbody id="table-body">
+                                <!-- <tr>
                                     <td>1</td>
                                      <td class="text-uppercase">All Progressive Congress</td>
                                     <td><img src="assets/img/apc.jpeg" class="party-logo" alt="APC"></td>
@@ -151,7 +165,7 @@
                                             </button>
                                         </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
@@ -176,6 +190,7 @@
          </div>
     </div> 
 <script src="assets/js/dashboard.js"></script>
+<script src="assets/js/adminParties.js"></script>
 <script src="assets/js/logout.js"></script>
 <script src="assets/js/isAuth.js"></script>
 

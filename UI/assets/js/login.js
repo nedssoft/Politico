@@ -61,9 +61,7 @@ signIn.addEventListener('click', (e) => {
       spinner.style.display = 'none';
       if (res.status === 400) {
         error.innerHTML = res.errors.join('\n');
-        console.log(res.errors);
       } else if (res.error) {
-        console.log(res);
         error.innerHTML = res.message;
         alertError.style.display = 'block';
       } else {
@@ -78,8 +76,7 @@ signIn.addEventListener('click', (e) => {
           if (user.isadmin) {
             localStorage.setItem('isAdmin', user.isadmin);
             window.location = 'admin-parties.html';
-          }
-          window.location = 'profile.html';
+          } else window.location = 'profile.html';
         }, 3000);
       }
     })
