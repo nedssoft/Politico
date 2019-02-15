@@ -24,7 +24,7 @@ fetch(url, options)
                           ${party.hqaddress}
                       </td>
                   </tr>`;
-          tableBody.insertAdjacentHTML('afterbegin', row);
+          tableBody.insertAdjacentHTML('beforeend', row);
         });
         if (data.length >= 15) {
           pagination.style.display = 'flex';

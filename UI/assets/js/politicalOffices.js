@@ -36,7 +36,7 @@ fetch(request)
           pagination.style.display = 'flex';
         }
       } else {
-        tableBody.insertAdjacentHTML('afterbegin', '<p>No office at the moment</p>');
+        tableBody.insertAdjacentHTML('beforeend', '<p>No office at the moment</p>');
         pagination.style.display = 'none';
       }
     }
