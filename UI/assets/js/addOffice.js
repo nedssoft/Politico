@@ -1,7 +1,6 @@
 const submit = document.querySelector('.add-party');
 const name = document.querySelector('[name="name"]');
-const hqAddress = document.querySelector('[name="hqAddress"]');
-const logoUrl = document.querySelector('[name="logoUrl"]');
+const type = document.querySelector('[name="type"]');
 const alertError = document.getElementById('alert-error');
 const error = document.getElementById('error');
 const success = document.getElementById('success');
@@ -39,21 +38,19 @@ submit.addEventListener('click', (e) =>{
   e.preventDefault();
   const errors = [];
   if (name.value === '') {
-    errors.push('The party name is required');
+    errors.push('The Office name is required');
     name.classList.add('has-error');
   } else name.classList.remove('has-error');
-  if (hqAddress.value === '') {
-    errors.push('The party Headqauters Address is required');
-    hqAddress.classList.add('has-error');
-  } else hqAddress.classList.remove('has-error');
+  if (type.value === '') {
+    errors.push('The Office type is required');
+    type.classList.add('has-error');
+  } else type.classList.remove('has-error');
   if (errors.length) {
     showAlert(errors.join('\n'), false);
   } else {
     toggleInfo('Processing...', false);
-    const logo = logoUrl.value ? logoUrl.value : 'https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg';
-    console.log(logo);
-    const body = { name: name.value, hqAddress: hqAddress.value, logoUrl: logo};
-    const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/parties';
+    const body = { name: name.value, type: type.value};
+    const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/offices';
     const token = localStorage.getItem('token');
     const headers = new Headers({
       'Content-Type': 'application/json',
@@ -76,7 +73,9 @@ submit.addEventListener('click', (e) =>{
       } else if (response.status === 401) {
         showAlert(response.message, false);
       }else if(response.status === 201) {
-        showAlert(response.message);
+        showAlert('Office created Successfully');
+      }else if(response.status == 409 || response.status === 500){
+        showAlert(response.error, false);
       }
     })
     .catch(err => showAlert(err, false));

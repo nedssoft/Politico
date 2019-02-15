@@ -57,17 +57,31 @@
             <div class="text-capitalize d-flex j-c-space-between a-i-center my-4">
                 <h1>Create New Political Office</h1>
             </div>
-            <div class="card px-0 pb-2 my-2 d-flex flex-row j-c-center a-i-center h-50">
+            <div class="card px-0 pb-2 my-2 d-flex flex-col j-c-center a-i-center h-50">
+                <div class="alert-container">
+                    <div class="alert alat" id="alert-error">
+                      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                      <p id="error"></p>
+                    </div>
+                    <div class="alert-success alat">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <p id="success"></p>
+                    </div>
+                    <div class="alert-info alat">
+                      <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                      <p id="info"></p>
+                    </div>
+                  </div>
                 <form action="#" method="post" class="admin-form">
                         <div class="form-group">
                         <!-- <label for="party">Party</label> -->
-                         <input type="text" name="officeName" class="form-control w-100 p-10" placeholder="Office Name e.g Presidentail, Gubernatorial...">
+                         <input type="text" name="name" class="form-control w-100 p-10" placeholder="Office Name e.g Presidentail, Gubernatorial...">
                         </div>
                         <div class="form-group">
                             <!-- <label for="office">Office</label> -->
-                             <input type="text" name="partyType" class="form-control w-100 p-10" placeholder="Part Type, Federal, State...">
+                             <input type="text" name="type" class="form-control w-100 p-10" placeholder="Office Type, Federal, State...">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mt-1">
                             <input type="submit" class="btn-submit w-100 add-party" value="Submit">
                         </div> 
                 </form>    
@@ -75,5 +89,8 @@
         </div>
     </div>
 <script src="assets/js/dashboard.js"></script>
+<script src="assets/js/addOffice.js"></script>
+<script src="assets/js/isAuth.js"></script>
+<script src="assets/js/logout.js"></script>
 </body>
 </html>

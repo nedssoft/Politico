@@ -1,3 +1,4 @@
+/** eslint-disable no-unused-vars */
 const tableBody = document.getElementById('table-body');
 const pagination = document.getElementsByClassName('pagination-container')[0];
 
@@ -44,7 +45,7 @@ fetch(request)
   .catch((err) => {
     console.log(err);
   });
-
+  
 const proceedToVote = (e) => {
   e.preventDefault();
   const officeId = e.target.getAttribute('data-officeId');
