@@ -43,22 +43,7 @@ describe('App', () => {
       });
   });
 });
-describe('JWT', () => {
-  let testToken;
-  const payload = { id: 1, isAdmin: true };
-  it('should generate token', (done) => {
-    testToken = generateToken(payload);
-    expect(testToken).to.be.a('string');
-    expect(testToken).to.be.have.lengthOf.above(32);
-    done();
-  });
-  it('should verify  testToken', (done) => {
-    const verifiedToken = verifyToken(testToken);
-    expect(verifiedToken.id).to.eql(1);
-    expect(verifiedToken.isAdmin).to.equal(true);
-    done();
-  });
-});
+
 describe('Test Party Endpoints', () => {
   /* eslint-disable no-unused-expressions */
   describe('POST REQUESTS', () => {
@@ -624,6 +609,40 @@ describe('Vote', () => {
         expect(res).to.have.status(200);
         expect(res.body.data).to.be.an('array');
       } catch (err) { console.log(err); }
+    });
+  });
+  describe('JWT', () => {
+    let testToken;
+    const payload = { id: 1, isAdmin: true };
+    it('should generate token', (done) => {
+      testToken = generateToken(payload);
+      expect(testToken).to.be.a('string');
+      expect(testToken).to.be.have.lengthOf.above(32);
+      done();
+    });
+    it('should verify  testToken', (done) => {
+      const verifiedToken = verifyToken(testToken);
+      expect(verifiedToken.id).to.eql(1);
+      expect(verifiedToken.isAdmin).to.equal(true);
+      done();
+    });
+    it('should respond with status code 200 if token is valid', (done) => {
+      chai.request(app)
+        .post('/api/v1/token/validate')
+        .send({ token })
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+        });
+      done();
+    });
+    it('should respond with status code 401 if token is expired', (done) => {
+      chai.request(app)
+        .post('/api/v1/token/validate')
+        .send({ token: `${token}1223` })
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+        });
+      done();
     });
   });
 });

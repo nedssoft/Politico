@@ -26,7 +26,7 @@ const { partyValidator, validateParam, isDuplicate,
 const { createParty, getAParty, allParties, deleteParty, editParty } = PartyController;
 
 const { registerCandidate, vote, getElectionResult, getAllCandidates,
-  getAllOfficeCandidates, getUserVoteHistories } = AdminController;
+  getAllOfficeCandidates, getUserVoteHistories, validateToken } = AdminController;
 
 const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
   checkIfUserHasVoted, validateVote, validateOfficeId,
@@ -66,6 +66,7 @@ router.post('/api/v1/office/:userId/register', validateCandidate, checkIfOfficeE
   checkIfUserExists, isDuplicateCandidate,
   hasDuplicateCandidateFlagBearer, isAdmin, registerCandidate);
 router.get('/api/v1/users', getAllUsers);
+router.post('/api/v1/token/validate', validateToken);
 /** Admin Routes */
 
 /** Voting Routes */
