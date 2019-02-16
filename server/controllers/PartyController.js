@@ -1,9 +1,7 @@
 
 
 import pool from '../config/connection';
-import Helpers from '../helpers/Helpers';
 
-const { uploadImage } = Helpers;
 const logo = 'https://res.cloudinary.com/drjpxke9z/image/upload/v1550322419/logo_zvbwyp.png';
 /**
  *Defines the actions for Party Endpoints
@@ -16,9 +14,7 @@ class PartyController {
    * @param {object} res - response
    */
   static async createParty(req, res) {
-    const image = await uploadImage(req);
-
-    const logoUrl = image || logo;
+    const logoUrl = req.body.logoUrl || logo;
     const client = await pool.connect();
     let party;
     try {
