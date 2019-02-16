@@ -12,8 +12,8 @@ const debugg = debug('migrate:reset');
     await client.query('DROP TABLE IF EXISTS parties CASCADE');
     await client.query('DROP TABLE IF EXISTS candidates CASCADE');
     await client.query('DROP TABLE IF EXISTS votes CASCADE');
-    await client.query('DROP TABLE IF EXISTS results CASCADE');
     await client.query('DROP TABLE IF EXISTS petitions CASCADE');
+    await client.query('DROP TABLE IF EXISTS applications CASCADE');
   } catch (err) {
     return;
   } finally {

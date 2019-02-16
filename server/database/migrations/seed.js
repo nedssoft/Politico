@@ -27,9 +27,6 @@ const petition1 = `INSERT INTO petitions(office, createdBy, body, evidence)
                       VALUES(1, 1, ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, libero sint sed, excepturi sapiente sunt culpa quidem quibusdam inventore necessitatibus quam alias aliquid? Ab praesentium dicta mollitia aut laudantium deserunt!',
                       '{evidence1.png, evidence2.mp4}')`;
 
-const result1 = `INSERT INTO results(office, candidate, result)
-                  VALUES(1, 1, 100000)`;
-
 
 (async function seedDb() {
   const client = await pool.connect();
@@ -41,7 +38,6 @@ const result1 = `INSERT INTO results(office, candidate, result)
     await client.query(candidate1);
     await client.query(vote1);
     await client.query(petition1);
-    await client.query(result1);
   } catch (err) {
     console.log(err);
   } finally {

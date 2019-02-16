@@ -8,6 +8,8 @@ import OfficeValidator from '../middlewares/OfficeValiadator';
 import OfficeController from '../controllers/OfficeController';
 import AdminController from '../controllers/AdminController';
 import AdminValidator from '../middlewares/AdminValidator';
+import ApplicationValidator from '../middlewares/ApplicationValidator';
+import ApplicationController from '../controllers/ApplicationController';
 
 const router = express.Router();
 
@@ -32,6 +34,8 @@ const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
   checkIfUserHasVoted, validateVote, validateOfficeId,
   isDuplicateCandidate, hasDuplicateCandidateFlagBearer } = AdminValidator;
 
+const { validateApplication, isDuplicateApplication } = ApplicationValidator;
+const { createApplication } = ApplicationController;
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
 });
@@ -82,4 +86,8 @@ router.get('/api/v1/office/:officeId/candidates', getAllOfficeCandidates);
 router.get('/api/v1/vote/histories', checkToken, getUserVoteHistories);
 /** End voting Routes */
 
+/** Application */
+router.post('/api/v1/office/apply', validateApplication, checkToken,
+  isDuplicateApplication, createApplication);
+/** End Application */
 export default router;

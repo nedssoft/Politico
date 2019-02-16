@@ -59,11 +59,14 @@ const petitions = `CREATE TABLE IF NOT EXISTS petitions(
   updatedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
-const restults = `CREATE TABLE IF NOT EXISTS results(
+const applications = `CREATE TABLE IF NOT EXISTS applications(
   id SERIAL PRIMARY KEY,
   office INTEGER REFERENCES offices(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  candidate INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  result INTEGER DEFAULT 0
+  party INTEGER REFERENCES parties(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  applicant INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  status VARCHAR(20) DEFAULT 'pending',
+  createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )`;
 
 export default {
@@ -73,5 +76,5 @@ export default {
   candidates,
   votes,
   petitions,
-  restults,
+  applications,
 };
