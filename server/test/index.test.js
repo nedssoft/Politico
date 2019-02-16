@@ -97,21 +97,6 @@ describe('Test Party Endpoints', () => {
         });
     });
 
-    it('It should ensure that party logoUrl is not empty', (done) => {
-      const newParty = {
-        name: 'Test Party',
-        hqAddress: 'Test Address',
-        logoUrl: '',
-      };
-      chai.request(app)
-        .post(baseUrl)
-        .send(newParty)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('The party logo is required');
-          done();
-        });
-    });
     it('It should respond with 401 if token is not provided', async () => {
       const newParty = {
         name: 'Test Party',

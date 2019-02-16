@@ -1,8 +1,10 @@
 
 
 import pool from '../config/connection';
+import Helpers from '../helpers/Helpers';
 
-
+const { uploadImage } = Helpers;
+const logo = 'https://res.cloudinary.com/drjpxke9z/image/upload/v1550322419/logo_zvbwyp.png';
 /**
  *Defines the actions for Party Endpoints
  *@class PartyController
@@ -14,12 +16,15 @@ class PartyController {
    * @param {object} res - response
    */
   static async createParty(req, res) {
+    const image = await uploadImage(req);
+
+    const logoUrl = image || logo;
     const client = await pool.connect();
     let party;
     try {
-      const { name, hqAddress, logoUrl } = req.body;
+      const { name, hqAddress } = req.body;
       const sqlQuery = `INSERT INTO parties(name, hqAddress, logoUrl)
-                    VALUES($1,$2,$3) RETURNING id, name`;
+                    VALUES($1,$2,$3) RETURNING *`;
       const values = [name, hqAddress, logoUrl];
       party = await client.query({ text: sqlQuery, values });
       if (party.rows && party.rowCount) {

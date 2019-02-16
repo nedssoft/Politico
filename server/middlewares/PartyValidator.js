@@ -24,8 +24,6 @@ class PartyValidator {
         .not()
         .isNumeric()
         .withMessage('The hqAddress name must be a string');
-      req.checkBody('logoUrl', 'The party logo is required').notEmpty().trim().isLength({ min: 3 })
-        .withMessage('The party logo Url must be at leat 3 characters long');
     } else if (req.method === 'DELETE') {
       req.checkParams('partyId', 'The party ID must be an integer').notEmpty().isInt();
     } else if (req.method === 'PATCH') {
@@ -46,10 +44,9 @@ class PartyValidator {
       });
     }
     if (req.method === 'POST') {
-      const { name, hqAddress, logoUrl } = req.body;
+      const { name, hqAddress } = req.body;
       req.body.name = name.replace(/\s{2,}/g, ' ');
       req.body.hqAddress = hqAddress.replace(/\s{2,}/g, ' ');
-      req.body.logoUrl = logoUrl.replace(/\s{2,}/g, ' ');
     }
     return next();
   }

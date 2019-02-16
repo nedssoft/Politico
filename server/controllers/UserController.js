@@ -2,8 +2,11 @@ import passwordHash from 'password-hash';
 import Authenticator from '../helpers/Authenticator';
 
 import pool from '../config/connection';
+import Helpers from '../helpers/Helpers';
 
+const { uploadImage } = Helpers;
 const { generateToken } = Authenticator;
+const defaultImage = 'https://res.cloudinary.com/drjpxke9z/image/upload/v1550322608/avartar_cjvb9n.png';
 /**
  * Defines methods for users
  *
@@ -20,11 +23,12 @@ class UserController {
    * @memberof UserController
    */
   static async createAccount(req, res) {
+    const passportUrl = await uploadImage(req) || defaultImage;
     const client = await pool.connect();
     let user;
     try {
       const { firstName, lastName, otherName, phone, email,
-        password, passportUrl, isAdmin,
+        password, isAdmin,
       } = req.body;
       const hashedpassword = passwordHash.generate(password);
 
