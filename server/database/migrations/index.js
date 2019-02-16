@@ -26,9 +26,10 @@ const debugg = debug('migration');
     await client.query(tables.petitions);
 
     debugg('migrating results..');
-    await client.query(tables.restults);
+    await client.query(tables.applications);
   } catch (err) {
-    return;
+  /* istanbul ignore next */
+    console.log(err);
   } finally {
     await client.release();
     debugg('migration completed');

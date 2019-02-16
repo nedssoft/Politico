@@ -630,4 +630,52 @@ describe('Vote', () => {
       done();
     });
   });
+  describe('Application', () => {
+    const url = '/api/v1/office/apply';
+    it('should response with status code 400 if the fields are empty', (done) => {
+      chai.request(app)
+        .post(url)
+        .send({})
+        .set('token', token)
+        .set('Authorization', token)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.errors).to.be.an('array');
+        });
+      done();
+    });
+    it('should response with status code 401 if the user is not logged in', (done) => {
+      chai.request(app)
+        .post(url)
+        .send({ party: 1, office: 1 })
+        .end((err, res) => {
+          expect(res).to.have.status(401);
+        });
+      done();
+    });
+    it('should create the application', async () => {
+      try {
+        const res = await chai.request(app)
+          .post(url)
+          .send({ party: 1, office: 1 })
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(201);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+    it('should respond with status code 409 if application already exists', async () => {
+      try {
+        const res = await chai.request(app)
+          .post(url)
+          .send({ party: 1, office: 1 })
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(409);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  });
 });
