@@ -11,6 +11,7 @@ const app = express();
 const debugg = debug('app');
 const port = process.env.PORT || 3000;
 app.use(cors());
+app.options('*', cors());
 app.use(expressValidator());
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
