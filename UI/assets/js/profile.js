@@ -2,6 +2,8 @@ const user = document.getElementById('auth-user');
 const userName = document.getElementById('user-name');
 const userEmail = document.getElementById('user-email');
 const userPhone = document.getElementById('user-phone');
+const sidebarImage = document.querySelector('.sidebar-image');
+const profilePic = document.querySelector('.profile-pic');
 const tableBody = document.getElementById('table-body');
 const pagination = document.getElementsByClassName('pagination-container')[0];
 
@@ -11,6 +13,8 @@ user.innerHTML = authUser.firstname;
 userName.innerHTML = `${authUser.firstname} ${authUser.lastname}`;
 userEmail.innerHTML = authUser.email;
 userPhone.innerHTML = authUser.phone;
+sidebarImage.setAttribute('src', authUser.passporturl);
+profilePic.setAttribute('src', authUser.passporturl);
 const token = localStorage.getItem('token');
 const fetchUrl = 'https://oriechinedu-politico.herokuapp.com/api/v1/vote/histories';
 

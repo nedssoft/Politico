@@ -1,7 +1,7 @@
 const submit = document.querySelector('.add-party');
 const name = document.querySelector('[name="name"]');
 const hqAddress = document.querySelector('[name="hqAddress"]');
-const logoUrl = document.querySelector('[name="logoUrl"]');
+const logo = document.querySelector('[type="file"]');
 const alertError = document.getElementById('alert-error');
 const error = document.getElementById('error');
 const success = document.getElementById('success');
@@ -35,8 +35,43 @@ const showAlert = (message, succeeded = true) => {
     }, 5000);
   }
 };
+const createParty = (body) => {
+  const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/parties';
+  const token = localStorage.getItem('token');
+  const headers = new Headers({
+    token,
+    Authorization: token,
+    'Content-Type': 'application/json',
+  });
+  const options = {
+    method: 'POST',
+    headers,
+    body,
+  };
+  const request = new Request(url, options);
+  fetch(request)
+    .then(response => response.json())
+    .then((response) => {
+      toggleInfo();
+      console.log(response);
+      if (response.status === 400) {
+        showAlert(response.errors.join('\n'), false);
+      } else if (response.status === 401) {
+        showAlert(response.message, false);
+      } else if (response.status === 201) {
+        showAlert(response.message);
+      } else if (response.status === 409) {
+        showAlert(response.error, false);
+      }
+    })
+    .catch((err) => {
+      toggleInfo();
+      showAlert(err, false);
+    });
+};
 submit.addEventListener('click', (e) => {
   e.preventDefault();
+
   const errors = [];
   if (name.value === '') {
     errors.push('The party name is required');
@@ -50,37 +85,31 @@ submit.addEventListener('click', (e) => {
     showAlert(errors.join('\n'), false);
   } else {
     toggleInfo('Processing...', false);
-    const logo = logoUrl.value ? logoUrl.value : 'https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg';
-    console.log(logo);
-    const body = { name: name.value, hqAddress: hqAddress.value, logoUrl: logo };
-    const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/parties';
-    const token = localStorage.getItem('token');
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      token,
-      authorization: token,
-    });
-    const options = {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body),
-    };
-    const request = new Request(url, options);
-    fetch(request)
-      .then(response => response.json())
-      .then((response) => {
-        toggleInfo();
-        console.log(response);
-        if (response.status === 400) {
-          showAlert(response.errors.join('\n'), false);
-        } else if (response.status === 401) {
-          showAlert(response.message, false);
-        } else if (response.status === 201) {
-          showAlert(response.message);
-        } else if (response.status === 409) {
-          showAlert(response.error, false);
-        }
-      })
-      .catch(err => showAlert(err, false));
+
+    const uploadedFile = logo.files[0];
+    if (uploadedFile) {
+      const formData = new FormData();
+      formData.append('file', uploadedFile);
+      formData.append('upload_preset', 'khmwg7sr');
+
+      const options = {
+        method: 'POST',
+        body: formData,
+      };
+      const request = new Request('https://api.cloudinary.com/v1_1/drjpxke9z/image/upload', options);
+      const result = fetch(request)
+        .then(res => res.json())
+        .then(res => res.secure_url)
+        .catch(err => console.log(err));
+
+      result.then((secureUrl) => {
+        const logoUrl = secureUrl;
+        const body = JSON.stringify({ name: name.value, hqAddress: hqAddress.value, logoUrl });
+        createParty(body);
+      });
+    } else {
+      const body = JSON.stringify({ name: name.value, hqAddress: hqAddress.value });
+      createParty(body);
+    }
   }
 });
