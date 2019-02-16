@@ -8,6 +8,7 @@ const { extractErrors } = Helpers;
 const { verifyToken } = Authenticator;
 dotenv.config();
 
+/* istanbul ignore next */
 /**
  * @description Handles validation for all authentication processes
  */
@@ -97,6 +98,7 @@ class AuthValidator {
     return next();
   }
 
+  /* istanbul ignore next */
   static isAuthenticated(req, res, next) {
     try {
       const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
