@@ -13,7 +13,7 @@ import ApplicationController from '../controllers/ApplicationController';
 
 const router = express.Router();
 
-const { createAccount, loginUser, getAllUsers } = UserController;
+const { createAccount, loginUser, getAllUsers, deleteUser } = UserController;
 
 const { validateSignUp, userExists, validateLogin, isAdmin, checkToken,
   validatePhone } = AuthValidator;
@@ -71,6 +71,7 @@ router.post('/api/v1/office/:userId/register', validateCandidate, checkIfOfficeE
   checkIfUserExists, isDuplicateCandidate,
   hasDuplicateCandidateFlagBearer, isAdmin, registerCandidate);
 router.get('/api/v1/users', getAllUsers);
+router.delete('/api/v1/users/:userId', deleteUser);
 router.post('/api/v1/token/validate', validateToken);
 /** Admin Routes */
 

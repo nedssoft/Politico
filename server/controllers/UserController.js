@@ -21,6 +21,7 @@ class UserController {
    * @memberof UserController
    */
   static async createAccount(req, res) {
+    /* istanbul ignore next */
     const passportUrl = req.body.passportUrl || defaultImage;
     const client = await pool.connect();
     let user;
@@ -91,13 +92,30 @@ class UserController {
   }
 
   static async getAllUsers(req, res) {
-    const sqlQuery = `SELECT id,firstname, lastname, othername, phone, email, isadmin, createdon
-                          FROM users ORDER BY createdon DESC`;
+    const sqlQuery = `SELECT id,firstname, lastname, othername, phone, email, isadmin,
+                      passporturl, createdon
+                      FROM users ORDER BY createdon DESC`;
     let users;
     const client = await pool.connect();
     try {
       users = await client.query(sqlQuery);
       return res.status(200).json({ status: 200, data: users.rows });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    } finally { await client.release(); }
+  }
+
+  static async deleteUser(req, res) {
+    const { userId } = req.params;
+    const sqlQuery = { text: 'DELETE FROM users WHERE id = $1 RETURNING id', values: [userId] };
+    let user;
+    const client = await pool.connect();
+    try {
+      user = await client.query(sqlQuery);
+      if (user.rowCount) {
+        return res.status(200).json({ status: 200, message: 'User deleted successfully' });
+      }
+      return res.status(404).json({ status: 404, message: 'User not found' });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal server error' });
     } finally { await client.release(); }

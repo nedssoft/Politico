@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import debug from 'debug';
 import pool from '../../config/connection';
 import tables from './tables';
@@ -28,7 +29,6 @@ const debugg = debug('migration');
     debugg('migrating results..');
     await client.query(tables.applications);
   } catch (err) {
-  /* istanbul ignore next */
     console.log(err);
   } finally {
     await client.release();

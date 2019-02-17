@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { Pool } from 'pg';
 import dbConfig from './dbConfig';
 

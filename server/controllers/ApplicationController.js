@@ -26,7 +26,7 @@ class ApplicationController {
    */
   static async getAllApplications(req, res) {
     const sqlQuery = `SELECT applications.id, applications.status, users.firstname as firstname,
-    users.lastname as lastname,parties.name as partyname, offices.name as officename,
+    users.lastname as lastname,parties.name as partyname, parties.logourl as partylogo, offices.name as officename,
     offices.type as officetype, applications.createdon FROM applications
     JOIN users ON users.id = applications.applicant
     JOIN parties ON parties.id = applications.party
