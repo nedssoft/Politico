@@ -71,5 +71,30 @@ class ApplicationController {
       await client.release();
     }
   }
+
+  /**
+ *@description Deletes an application record
+ * @param {object} req - request
+ * @param {object} res - response
+ */
+  static async deleteApplication(req, res) {
+    const { applicationId } = req.params;
+    const sqlQuery = { text: 'DELETE FROM applications WHERE id = $1 RETURNING id', values: [applicationId] };
+    const client = await pool.connect();
+    try {
+      const party = await client.query(sqlQuery);
+      if (party.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          data: { message: 'Application deleted successfully' },
+        });
+      }
+      return res.status(500).json({ status: 500, message: 'Unable to delete the application' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
+    }
+  }
 }
 export default ApplicationController;
