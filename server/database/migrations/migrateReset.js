@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import debug from 'debug';
 import pool from '../../config/connection';
 

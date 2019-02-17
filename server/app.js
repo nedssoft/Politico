@@ -10,7 +10,7 @@ import multerUploads from './config/multer';
 
 const app = express();
 const debugg = debug('app');
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 3000;
 app.use(cors());
 app.options('*', cors());
 app.use(expressValidator());

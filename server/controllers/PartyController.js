@@ -14,6 +14,7 @@ class PartyController {
    * @param {object} res - response
    */
   static async createParty(req, res) {
+    /* istanbul ignore next */
     const logoUrl = req.body.logoUrl || logo;
     const client = await pool.connect();
     let party;

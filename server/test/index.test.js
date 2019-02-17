@@ -480,7 +480,7 @@ describe('Vote', () => {
       .send({})
       .end((err, res) => {
         expect(res).to.have.status(401);
-        expect(res.body.error).to.eql('You must log in to vote');
+        expect(res.body.error).to.eql('You must log in to continue');
         done();
       });
   });
@@ -493,7 +493,7 @@ describe('Vote', () => {
         .set('Authorization', 'sjksklxjakljljal')
         .end((err, res) => {
           expect(res).to.have.status(401);
-          expect(res.body.error).to.eql('Invalid Authorization token');
+          expect(res.body.error).to.eql('Kindly log in to continue');
           done();
         });
     } catch (err) {
@@ -698,6 +698,43 @@ describe('Vote', () => {
           .set('token', token)
           .set('Authorization', token);
         expect(res).to.have.status(200);
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  });
+  describe('PETITION', () => {
+    const url = '/api/v1/petitions';
+    it('should respond wit status code 400 if the body is empty', (done) => {
+      chai.request(app)
+        .post(url)
+        .send({ })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+        });
+      done();
+    });
+    it('should respond wit status code 400 if the user is not a politician', async () => {
+      try {
+        const res = await chai.request(app)
+          .post(`${url}`)
+          .send({ office: 2, body: 'lorem' })
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(400);
+        expect(res.body.error).to.eql('You must be contestant for office you want to submit petition for');
+      } catch (err) {
+        console.log(err);
+      }
+    });
+    it('should create the petition', async () => {
+      try {
+        const res = await chai.request(app)
+          .post(`${url}`)
+          .send({ office: 1, body: 'lorem' })
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(201);
       } catch (err) {
         console.log(err);
       }

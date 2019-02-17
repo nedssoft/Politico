@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable no-console */
 import passwordHash from 'password-hash';
 
