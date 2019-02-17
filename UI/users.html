@@ -46,12 +46,12 @@
                     Offices<i class="arrow-right"></i>
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a href="admin-applications.html">
                     Aspirants' Applications	<i class="arrow-right"></i>
                 </a>
             </li>
-            <li>
+            <li class="active">
               <a href="users.html">
                   Manage Users	<i class="arrow-right"></i>
               </a>
@@ -61,7 +61,7 @@
     <div class="wrap my-4" id="main">
         <div class="container">
             <div class="text-capitalize d-flex j-c-space-between a-i-center my-4">
-                <h1>Applications</h1>
+                <h1>Users</h1>
             </div>
             <div class="alert-container">
               <div class="alert alat" id="alert-error">
@@ -89,8 +89,8 @@
                                 </button>
                             </div>
                         </form>
-                        <a href="register-candidate.html" class="btn btn-primary create-office text-capitalize border-r">
-                          Register Candidate
+                        <a href="#" onchange="return false" class="btn btn-primary create-office text-capitalize border-r">
+                          Add User
                       </a>
                     </div>
                     <div class="table-container">
@@ -99,12 +99,11 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Party</th>
-                                    <th>Office</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>Date</th>
-                                    <th>Action</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Role</th> 
+                                    <th>Date Reg.</th>
+                                    <th>Action</th> 
                                 </tr>
                             </thead>
                             <tbody id="table-body">
@@ -133,7 +132,7 @@
          </div>
     </div> 
 <script src="assets/js/dashboard.js"></script>
-<script src="assets/js/adminApplications.js"></script>
+<script src="assets/js/users.js"></script>
 <script src="assets/js/logout.js"></script>
 <script src="assets/js/isAuth.js"></script>
 

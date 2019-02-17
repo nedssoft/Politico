@@ -44,9 +44,9 @@ const createAccount = (userData) => {
       setTimeout(() => {
         if (user.isadmin) {
           localStorage.setItem('isAdmin', user.isadmin);
-          window.location = 'admin-parties.html';
+          window.location.replace('admin-parties.html');
         }
-        window.location = 'profile.html';
+        window.location.replace('profile.html');
       }, 3000);
     })
     .catch((err) => {
