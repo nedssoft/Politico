@@ -676,5 +676,18 @@ describe('Vote', () => {
         console.log(err);
       }
     });
+    it('should respond update the application', async () => {
+      const id = 1;
+      try {
+        const res = await chai.request(app)
+          .patch(`${url}/${id}`)
+          .send({ status: 'approved' })
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(200);
+      } catch (err) {
+        console.log(err);
+      }
+    });
   });
 });

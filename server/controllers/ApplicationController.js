@@ -48,5 +48,28 @@ class ApplicationController {
       await client.release();
     }
   }
+
+  static async editApplication(req, res) {
+    const { applicationId } = req.params;
+    const { status } = req.body;
+    const sqlQuery = { text: 'UPDATE applications SET status = $1 WHERE id = $2 RETURNING id, status',
+      values: [status, applicationId] };
+    const client = await pool.connect();
+    try {
+      const application = await client.query(sqlQuery);
+      if (application.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          data: application.rows[0],
+          message: `Application ${status} successfully`,
+        });
+      }
+      return res.status(500).json({ status: 500, message: 'Unable to update the application' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
+    }
+  }
 }
 export default ApplicationController;
