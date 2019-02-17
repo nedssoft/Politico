@@ -67,7 +67,6 @@ submit.addEventListener('click', (e) => {
       .then(response => response.json())
       .then((response) => {
         toggleInfo();
-        console.log(response);
         if (response.status === 400) {
           showAlert(response.errors.join('\n'), false);
         } else if (response.status === 401) {

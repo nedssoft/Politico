@@ -74,7 +74,6 @@ const updateApplication = (event) => {
       fetch(request)
         .then(res => res.json())
         .then((response) => {
-          console.log(response);
           toggleInfo();
           if (response.status === 200) {
             showAlert(response.data.message);
@@ -155,7 +154,6 @@ const getAction = (application) => {
 fetch(url, options)
   .then(res => res.json())
   .then((res) => {
-    console.log(res);
     if (res.status === 200) {
       const { data } = res;
       if (data.length) {

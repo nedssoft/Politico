@@ -135,8 +135,6 @@ submit.addEventListener('click', (e) => {
   } else {
     toggleInfo('Processing...', false);
     const body = { office: officeSelector.value, party: partySelector.value };
-    console.log(candidateSelector);
-    console.log(candidateSelector.value);
     url = `https://oriechinedu-politico.herokuapp.com/api/v1/office/${candidateSelector.value}/register`;
     const token = localStorage.getItem('token');
     const headers = new Headers({
@@ -154,7 +152,6 @@ submit.addEventListener('click', (e) => {
       .then(response => response.json())
       .then((response) => {
         toggleInfo();
-        console.log(response);
         if (response.status === 400) {
           showAlert(response.errors.join('\n'), false);
         } else if (response.status === 401) {

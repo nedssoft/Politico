@@ -12,7 +12,8 @@ const resultTitle = document.getElementById('result-title');
 const sidebarImage = document.querySelector('.sidebar-image');
 
 const authUser = JSON.parse(localStorage.getItem('authUser'));
-sidebarImage.setAttribute('src', authUser.passporturl);
+const passporturl = authUser.passporturl || 'assets/img/avatar.jpeg';
+sidebarImage.setAttribute('src', passporturl);
 alertError.style.display = 'none';
 alertSuccess.style.display = 'none';
 alertInfo.style.display = 'none';
@@ -31,6 +32,14 @@ const showAlert = (message, succeeded = true) => {
     setTimeout(() => {
       alertError.style.display = 'none';
     }, 5000);
+  }
+};
+const toggleInfo = (msg = null, hide = true) => {
+  if (hide) {
+    alertInfo.style.display = 'none';
+  } else {
+    info.innerHTML = msg;
+    alertInfo.style.display = 'block';
   }
 };
 
@@ -60,8 +69,7 @@ fetch(request)
   });
 submitFilter.addEventListener('click', (e) => {
   e.preventDefault();
-  info.innerHTML = 'Retrieving Result...';
-  alertInfo.style.display = 'block';
+  toggleInfo('Loading Result...', false);
   url = `https://oriechinedu-politico.herokuapp.com/api/v1/office/${officeSelector.value}/result`;
   options = {
     method: 'GET',
@@ -71,7 +79,7 @@ submitFilter.addEventListener('click', (e) => {
   fetch(request)
     .then(res => res.json())
     .then((res) => {
-      alertInfo.style.display = 'none';
+      toggleInfo();
       resultTitle.innerHTML = officeSelector.options[officeSelector.selectedIndex].textContent;
       if (res.status === 200) {
         tableBody.innerHTML = '';
@@ -98,6 +106,7 @@ submitFilter.addEventListener('click', (e) => {
       }
     })
     .catch((err) => {
-      if (err) showAlert('Unable to fetch result, Refresh the browser', false);
+      toggleInfo();
+      if (err) showAlert('Unable to fetch result, Refresh the browser and select Office', false);
     });
 });

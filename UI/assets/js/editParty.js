@@ -53,8 +53,6 @@ submit.addEventListener('click', (e) => {
     showAlert(errors.join('\n'), false);
   } else {
     toggleInfo('Processing...', false);
-    const logo = logoUrl.value ? logoUrl.value : 'https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg';
-    console.log(logo);
     const body = { name: name.value };
     const url = `https://oriechinedu-politico.herokuapp.com/api/v1/parties/${partyId}`;
     const token = localStorage.getItem('token');

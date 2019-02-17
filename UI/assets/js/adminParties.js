@@ -124,7 +124,6 @@ const deleteParty = (event) => {
     fetch(request)
       .then(res => res.json())
       .then((response) => {
-        console.log(response);
         toggleInfo();
         if (response.status === 200) {
           showAlert(response.data[0].message);

@@ -13,8 +13,9 @@ user.innerHTML = authUser.firstname;
 userName.innerHTML = `${authUser.firstname} ${authUser.lastname}`;
 userEmail.innerHTML = authUser.email;
 userPhone.innerHTML = authUser.phone;
-sidebarImage.setAttribute('src', authUser.passporturl);
-profilePic.setAttribute('src', authUser.passporturl);
+const passporturl = authUser.passporturl || 'assets/img/avatar.jpeg';
+sidebarImage.setAttribute('src', passporturl);
+profilePic.setAttribute('src', passporturl);
 const token = localStorage.getItem('token');
 const fetchUrl = 'https://oriechinedu-politico.herokuapp.com/api/v1/vote/histories';
 

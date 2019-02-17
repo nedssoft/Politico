@@ -3,7 +3,8 @@ const pagination = document.getElementsByClassName('pagination-container')[0];
 const sidebarImage = document.querySelector('.sidebar-image');
 
 const authUser = JSON.parse(localStorage.getItem('authUser'));
-sidebarImage.setAttribute('src', authUser.passporturl);
+const passporturl = authUser.passporturl || 'assets/img/avatar.jpeg';
+sidebarImage.setAttribute('src', passporturl);
 pagination.style.display = 'none';
 const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/parties';
 const options = {

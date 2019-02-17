@@ -9,7 +9,11 @@ const alertInfo = document.getElementsByClassName('alert-info')[0];
 const officeSelector = document.querySelector('[name="office"]');
 const partySelector = document.querySelector('[name="party"]');
 const submit = document.querySelector('.apply');
+const sidebarImage = document.querySelector('.sidebar-image');
 
+const authUser = JSON.parse(localStorage.getItem('authUser'));
+const passporturl = authUser.passporturl || 'assets/img/avatar.jpeg';
+sidebarImage.setAttribute('src', passporturl);
 alertError.style.display = 'none';
 alertSuccess.style.display = 'none';
 alertInfo.style.display = 'none';
@@ -106,7 +110,7 @@ submit.addEventListener('click', (e) => {
   } else {
     toggleInfo('Processing...', false);
     const body = { office: officeSelector.value, party: partySelector.value };
-    url = 'https://oriechinedu-politico.herokuapp.com/api/v1/office/apply';
+    url = 'https://oriechinedu-politico.herokuapp.com/api/v1/office/applications';
     const token = localStorage.getItem('token');
     const headers = new Headers({
       'Content-Type': 'application/json',
@@ -123,7 +127,6 @@ submit.addEventListener('click', (e) => {
       .then(response => response.json())
       .then((response) => {
         toggleInfo();
-        console.log(response);
         if (response.status === 400) {
           showAlert(response.errors.join('\n'), false);
         } else if (response.status === 401) {
