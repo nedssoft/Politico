@@ -35,7 +35,8 @@ const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
   isDuplicateCandidate, hasDuplicateCandidateFlagBearer } = AdminValidator;
 
 const { validateApplication, isDuplicateApplication } = ApplicationValidator;
-const { createApplication, getAllApplications, editApplication } = ApplicationController;
+const { createApplication, getAllApplications, editApplication,
+  deleteApplication } = ApplicationController;
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
 });
@@ -91,5 +92,6 @@ router.post('/api/v1/office/applications', validateApplication, checkToken,
   isDuplicateApplication, createApplication);
 router.get('/api/v1/office/applications', getAllApplications);
 router.patch('/api/v1/office/applications/:applicationId', isAdmin, editApplication);
+router.delete('/api/v1/office/applications/:applicationId', isAdmin, deleteApplication);
 /** End Application */
 export default router;
