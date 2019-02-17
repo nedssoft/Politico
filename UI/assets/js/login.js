@@ -75,8 +75,8 @@ signIn.addEventListener('click', (e) => {
         setTimeout(() => {
           if (user.isadmin) {
             localStorage.setItem('isAdmin', user.isadmin);
-            window.location = 'admin-parties.html';
-          } else window.location = 'profile.html';
+            window.location.replace('admin-parties.html');
+          } else window.location.replace('profile.html');
         }, 3000);
       }
     })
