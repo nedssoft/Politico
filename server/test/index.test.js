@@ -647,20 +647,20 @@ describe('Vote', () => {
         const res = await chai.request(app)
           .post(url)
           .send({ party: 1, office: 1 })
-          .set('token', token)
-          .set('Authorization', token);
+          .set('token', userToken)
+          .set('Authorization', userToken);
         expect(res).to.have.status(201);
       } catch (err) {
         console.log(err);
       }
     });
-    it('should respond with status code 409 if application already exists', async () => {
+    it('should response with status code 409 if already exitss', async () => {
       try {
         const res = await chai.request(app)
           .post(url)
           .send({ party: 1, office: 1 })
-          .set('token', token)
-          .set('Authorization', token);
+          .set('token', userToken)
+          .set('Authorization', userToken);
         expect(res).to.have.status(409);
       } catch (err) {
         console.log(err);
@@ -672,11 +672,12 @@ describe('Vote', () => {
           .get(url);
         expect(res).to.have.status(200);
         expect(res.body.data).to.be.an('array');
+        expect(res.body.message).to.eql('OK');
       } catch (err) {
         console.log(err);
       }
     });
-    it('should respond update the application', async () => {
+    it('should update the application', async () => {
       const id = 1;
       try {
         const res = await chai.request(app)
