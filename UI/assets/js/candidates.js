@@ -4,8 +4,10 @@ const success = document.getElementById('success');
 const info = document.getElementById('info');
 const alertSuccess = document.getElementsByClassName('alert-success')[0];
 const alertInfo = document.getElementsByClassName('alert-info')[0];
+const sidebarImage = document.querySelector('.sidebar-image');
 
-
+const authUser = JSON.parse(localStorage.getItem('authUser'));
+sidebarImage.setAttribute('src', authUser.passporturl);
 alertError.style.display = 'none';
 alertSuccess.style.display = 'none';
 alertInfo.style.display = 'none';

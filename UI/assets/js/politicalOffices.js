@@ -1,6 +1,9 @@
 const tableBody = document.getElementById('table-body');
 const pagination = document.getElementsByClassName('pagination-container')[0];
+const sidebarImage = document.querySelector('.sidebar-image');
 
+const authUser = JSON.parse(localStorage.getItem('authUser'));
+sidebarImage.setAttribute('src', authUser.passporturl);
 pagination.style.display = 'none';
 const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/offices';
 const options = {
