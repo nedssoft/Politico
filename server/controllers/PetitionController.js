@@ -38,5 +38,19 @@ class PetitionController {
     }
     return evidence;
   }
+
+  static async getAllPetitions(req, res) {
+    const sqlQuery = 'SELECT * FROM petitions';
+    const client = await pool.connect();
+    try {
+      const petitions = await client.query(sqlQuery);
+      if (petitions.rowCount) {
+        return res.status(200).json({ status: 200, data: petitions.rows, message: 'OK' });
+      }
+      return res.status(200).json({ status: 200, data: [], message: 'No record found' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, message: 'Internal server error' });
+    } finally { await client.release(); }
+  }
 }
 export default PetitionController;

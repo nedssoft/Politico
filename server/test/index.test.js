@@ -739,5 +739,15 @@ describe('Vote', () => {
         console.log(err);
       }
     });
+    it('should get all petitions', async () => {
+      try {
+        const res = await chai.request(app)
+          .get(`${url}`);
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.eql('OK');
+      } catch (err) {
+        console.log(err);
+      }
+    });
   });
 });
