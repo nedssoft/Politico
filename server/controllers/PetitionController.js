@@ -68,5 +68,30 @@ class PetitionController {
       return res.status(500).json({ status: 500, message: 'Internal server error' });
     } finally { await client.release(); }
   }
+
+  /**
+ *@description Deletes a petition
+ * @param {object} req - request
+ * @param {object} res - response
+ */
+  static async deletePetition(req, res) {
+    const { petitionId } = req.params;
+    const sqlQuery = { text: 'DELETE FROM petitions WHERE id = $1 RETURNING id', values: [petitionId] };
+    const client = await pool.connect();
+    try {
+      const petition = await client.query(sqlQuery);
+      if (petition.rowCount) {
+        return res.status(200).json({
+          status: 200,
+          message: 'Petition deleted successfully',
+        });
+      }
+      return res.status(500).json({ status: 500, error: 'Petition Not Found ' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    } finally {
+      await client.release();
+    }
+  }
 }
 export default PetitionController;
