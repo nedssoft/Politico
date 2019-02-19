@@ -40,7 +40,7 @@ const { validateApplication, isDuplicateApplication } = ApplicationValidator;
 const { createApplication, getAllApplications, editApplication,
   deleteApplication } = ApplicationController;
 const { validatePetition, isPolitician } = PetitionValidator;
-const { createPetition, getAllPetitions } = PetitionController;
+const { createPetition, getAllPetitions, getPetition } = PetitionController;
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
 });
@@ -103,5 +103,6 @@ router.delete('/api/v1/office/applications/:applicationId', isAdmin, deleteAppli
 /** Petition */
 router.post('/api/v1/petitions', validatePetition, checkToken, isPolitician, createPetition);
 router.get('/api/v1/petitions', getAllPetitions);
+router.get('/api/v1/petitions/:petitionId', getPetition);
 /** End Petition */
 export default router;
