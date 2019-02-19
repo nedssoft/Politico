@@ -759,5 +759,17 @@ describe('Vote', () => {
         console.log(err);
       }
     });
+    it('it should delete the petition if it exists', async () => {
+      const id = 1;
+      try {
+        const res = await chai.request(app)
+          .delete(`${url}/${id}`)
+          .set('token', token)
+          .set('Authorization', token);
+        expect(res).to.have.status(200);
+      } catch (err) {
+        console.log(err);
+      }
+    });
   });
 });
