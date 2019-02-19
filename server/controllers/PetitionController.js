@@ -40,7 +40,11 @@ class PetitionController {
   }
 
   static async getAllPetitions(req, res) {
-    const sqlQuery = 'SELECT * FROM petitions';
+    const sqlQuery = `SELECT petitions.*, users.firstname, users.lastname, offices.name as officename 
+    FROM petitions
+    JOIN users ON users.id = petitions.createdBy
+    JOIN offices ON offices.id = petitions.office
+    ORDER BY createdon DESC`;
     const client = await pool.connect();
     try {
       const petitions = await client.query(sqlQuery);
@@ -49,13 +53,19 @@ class PetitionController {
       }
       return res.status(200).json({ status: 200, data: [], message: 'No record found' });
     } catch (err) {
+      console.log(err);
       return res.status(500).json({ status: 500, message: 'Internal server error' });
     } finally { await client.release(); }
   }
 
   static async getPetition(req, res) {
     const { petitionId } = req.params;
-    const sqlQuery = 'SELECT * FROM petitions WHERE id = $1';
+    const sqlQuery = `SELECT petitions.*, users.firstname, users.lastname, offices.name as officename
+    FROM petitions
+    JOIN users ON users.id = petitions.createdBy
+    JOIN offices ON offices.id = petitions.office
+    WHERE petitions.id = $1
+    ORDER BY createdon DESC`;
     const values = [petitionId];
     const client = await pool.connect();
     try {
@@ -65,6 +75,7 @@ class PetitionController {
       }
       return res.status(200).json({ status: 404, message: 'Petition Not Found' });
     } catch (err) {
+      console.log(err);
       return res.status(500).json({ status: 500, message: 'Internal server error' });
     } finally { await client.release(); }
   }
