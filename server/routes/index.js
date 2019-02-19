@@ -10,6 +10,8 @@ import AdminController from '../controllers/AdminController';
 import AdminValidator from '../middlewares/AdminValidator';
 import ApplicationValidator from '../middlewares/ApplicationValidator';
 import ApplicationController from '../controllers/ApplicationController';
+import PetitionController from '../controllers/PetitionController';
+import PetitionValidator from '../middlewares/PetitionValidator';
 
 const router = express.Router();
 
@@ -37,6 +39,8 @@ const { validateCandidate, checkIfOfficeExists, checkIfUserExists,
 const { validateApplication, isDuplicateApplication } = ApplicationValidator;
 const { createApplication, getAllApplications, editApplication,
   deleteApplication } = ApplicationController;
+const { validatePetition, isPolitician } = PetitionValidator;
+const { createPetition } = PetitionController;
 router.get('/', (req, res) => {
   res.send('welcome to Politico');
 });
@@ -95,4 +99,8 @@ router.get('/api/v1/office/applications', getAllApplications);
 router.patch('/api/v1/office/applications/:applicationId', isAdmin, editApplication);
 router.delete('/api/v1/office/applications/:applicationId', isAdmin, deleteApplication);
 /** End Application */
+
+/** Petition */
+router.post('/api/v1/petitions', validatePetition, checkToken, isPolitician, createPetition);
+/** End Petition */
 export default router;

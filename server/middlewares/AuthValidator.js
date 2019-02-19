@@ -149,17 +149,17 @@ class AuthValidator {
       if (req.headers.token) authorization = req.headers.token;
       else if (req.headers.authorization) authorization = req.headers.authorization.split(' ')[1];
       if (!authorization) {
-        return res.status(401).json({ status: 401, error: 'You must log in to vote' });
+        return res.status(401).json({ status: 401, error: 'You must log in to continue' });
       }
       jwt.verify(authorization, process.env.SECRET, (err, decoded) => {
         if (err) {
-          return res.status(401).json({ status: 401, error: 'Invalid Authorization token' });
+          return res.status(401).json({ status: 401, error: 'Kindly log in to continue' });
         }
         req.body.token = decoded;
         next();
       });
     } catch (err) {
-      return res.status(401).json({ status: 401, error: 'Invalid Authorization token' });
+      return res.status(401).json({ status: 401, error: 'Kindly login to continue' });
     }
   }
 }
