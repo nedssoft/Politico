@@ -41,7 +41,11 @@ const toggleInfo = (msg = null, hide = true) => {
     alertInfo.style.display = 'block';
   }
 };
-
+const showPetitionDetails = (event) => {
+  const petitionId = event.target.getAttribute('data-petitionId');
+  localStorage.setItem('petitionId', petitionId);
+  window.location.replace('petition-details.html');
+};
 const deletePetition = (event) => {
   const petitionId = event.target.getAttribute('data-petitionId');
   url = `https://oriechinedu-politico.herokuapp.com/api/v1/petitions/${petitionId}`;
@@ -69,7 +73,7 @@ const deletePetition = (event) => {
         }
       })
       .catch((err) => {
-        if (err) showAlert('Unable to delete the user, try again', false);
+        if (err) showAlert('Unable to delete the petition, try again', false);
       });
   }
   return false;

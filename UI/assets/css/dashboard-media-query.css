@@ -71,6 +71,12 @@
       margin: 10px 20px;
       width: 30% !important;
   }
+  .petition-details {
+    flex-direction: row;
+  }
+  .evidence-image, .petition-content {
+    flex-basis: 50%;
+  }
 }
 
 @media screen and (max-width: 768px) {
