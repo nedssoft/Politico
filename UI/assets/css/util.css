@@ -914,6 +914,11 @@ select:hover{
   color: white;
   display: none;
 }
+.note {
+  max-width: 200px;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
 
 /** End alert*/
  @media screen and (min-width: 768px) {
