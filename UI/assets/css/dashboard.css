@@ -374,3 +374,49 @@ table thead tr td, table thead tr th, table tbody tr td, table tbody tr th {
   justify-content: center;
   align-items: center;
 }
+
+.petition-details {
+  color: #828282;
+  text-align: left;
+ 
+}
+.evidence-image, .petition-content {
+  padding: 20px;
+}
+.evidence-image{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.evidence-image >img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.petition-content p {
+  padding: 0.4rem;
+  line-height: 1.4;
+  word-spacing: 0.1rem;
+}
+
+.petition-content hr {
+  border: 1px solid #23B4F3;
+  width: 10%;
+  margin-top: 5px;
+}
+.petition-content hr:first-of-type {
+  width: 8%;
+}
+.petition-content hr:last-of-type {
+  width: 20%;
+}
+.note {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5em;
+  height: 3em;
+  white-space: nowrap;
+
+}

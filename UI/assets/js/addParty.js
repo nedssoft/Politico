@@ -80,6 +80,10 @@ submit.addEventListener('click', (e) => {
     errors.push('The party Headqauters Address is required');
     hqAddress.classList.add('has-error');
   } else hqAddress.classList.remove('has-error');
+  if (logo.files[0] && logo.files[0] > 2097152) {
+    errors.push('Image is too large');
+    logo.classList.add('has-error');
+  } else logo.classList.remove('has-error');
   if (errors.length) {
     showAlert(errors.join('\n'), false);
   } else {

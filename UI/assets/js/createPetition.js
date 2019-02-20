@@ -107,10 +107,11 @@ const createPetition = (body) => {
   fetch(request)
     .then(response => response.json())
     .then((response) => {
+      console.log(response);
       toggleInfo();
       petitionBody.value = '';
       if (response.status === 400) {
-        showAlert(response.errors.join('\n'), false);
+        showAlert(response.error || response.errors.join('\n'), false);
       } else if (response.status === 401) {
         showAlert(response.message, false);
       } else if (response.status === 201) {
@@ -135,7 +136,10 @@ submit.addEventListener('click', (e) => {
     errors.push('The office is required');
     officeSelector.classList.add('has-error');
   } else officeSelector.classList.remove('has-error');
-
+  if (evidence.files[0] && evidence.files[0] > 2097152) {
+    errors.push('The file is too large');
+    evidence.classList.add('has-error');
+  } else evidence.classList.remove('has-error');
   if (errors.length) {
     showAlert(errors.join('\n'), false);
   } else {
@@ -149,6 +153,7 @@ submit.addEventListener('click', (e) => {
           office: officeSelector.value,
           body: petitionBody.value,
           imageUrl });
+        console.log(body);
         createPetition(body);
       });
     } else {
