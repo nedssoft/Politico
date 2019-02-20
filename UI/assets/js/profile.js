@@ -13,7 +13,7 @@ user.innerHTML = authUser.firstname;
 userName.innerHTML = `${authUser.firstname} ${authUser.lastname}`;
 userEmail.innerHTML = authUser.email;
 userPhone.innerHTML = authUser.phone;
-const passporturl = authUser.passporturl || 'assets/img/avatar.jpeg';
+const passporturl = authUser.passporturl || 'assets/img/avatar.png';
 sidebarImage.setAttribute('src', passporturl);
 profilePic.setAttribute('src', passporturl);
 const token = localStorage.getItem('token');

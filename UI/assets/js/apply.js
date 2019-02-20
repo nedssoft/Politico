@@ -10,10 +10,12 @@ const officeSelector = document.querySelector('[name="office"]');
 const partySelector = document.querySelector('[name="party"]');
 const submit = document.querySelector('.apply');
 const sidebarImage = document.querySelector('.sidebar-image');
+const user = document.getElementById('auth-user');
 
 const authUser = JSON.parse(localStorage.getItem('authUser'));
-const passporturl = authUser.passporturl || 'assets/img/avatar.jpeg';
+const passporturl = authUser.passporturl || 'assets/img/avatar.png';
 sidebarImage.setAttribute('src', passporturl);
+user.innerHTML = authUser.firstname;
 alertError.style.display = 'none';
 alertSuccess.style.display = 'none';
 alertInfo.style.display = 'none';

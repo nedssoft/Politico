@@ -608,7 +608,9 @@
     height: 100%;
     cursor: pointer;
 }
-
+small {
+  color: #828282;
+}
 .btn-submit {
     padding: 0.8rem;
     text-align: center;
@@ -634,7 +636,17 @@
 button:focus {
   outline: none;
 }
-
+textarea {
+  padding: 15px;
+  border:1px solid #c4c4c4;
+  color: #828282;
+  font-family: inherit;
+  font-size: 1rem !important;
+}
+textarea:hover {
+  border:1px solid #6193c5!important;
+  outline: none;
+}
 .p-10 {
   padding: 10px !important;
 }

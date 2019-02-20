@@ -1,10 +1,12 @@
 const tableBody = document.getElementById('table-body');
 const pagination = document.getElementsByClassName('pagination-container')[0];
 const sidebarImage = document.querySelector('.sidebar-image');
+const user = document.getElementById('auth-user');
 
 const authUser = JSON.parse(localStorage.getItem('authUser'));
-const passporturl = authUser.passporturl || 'assets/img/avatar.jpeg';
+const passporturl = authUser.passporturl || 'assets/img/avatar.png';
 sidebarImage.setAttribute('src', passporturl);
+user.innerHTML = authUser.firstname;
 pagination.style.display = 'none';
 const url = 'https://oriechinedu-politico.herokuapp.com/api/v1/parties';
 const options = {
