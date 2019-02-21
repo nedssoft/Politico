@@ -15,10 +15,10 @@ import PetitionValidator from '../middlewares/PetitionValidator';
 
 const router = express.Router();
 
-const { createAccount, loginUser, getAllUsers, deleteUser } = UserController;
+const { createAccount, loginUser, getAllUsers, deleteUser, resetPassword } = UserController;
 
 const { validateSignUp, userExists, validateLogin, isAdmin, checkToken,
-  validatePhone } = AuthValidator;
+  validatePhone, validatePasswordReset } = AuthValidator;
 
 const { isDuplicateOffice, validateOffice } = OfficeValidator;
 
@@ -69,6 +69,7 @@ router.get(`${officeUrl}/:officeId`, validateOffice, findOffice);
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, validatePhone, createAccount);
 router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/reset`, validatePasswordReset, resetPassword);
 
 /** End Auth Routes */
 router.post('/api/v1/office/:userId/register', validateCandidate, checkIfOfficeExists,

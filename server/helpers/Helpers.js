@@ -28,6 +28,17 @@ class Helpers {
       return response;
     } return false;
   }
+
+  static template(url) {
+    return `<div>
+              <h2>Password Reset</h2>
+              <p>You requested to reset you account password, click the link below to complete the action</p>
+              <p>
+              <a href="${url}"> Reset Password</a>
+              <p>${url}</p>
+              </p>
+            </div>`;
+  }
 }
 
 export default Helpers;
