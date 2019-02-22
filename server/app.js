@@ -7,7 +7,6 @@ import morgan from 'morgan';
 import expressValidator from 'express-validator';
 import router from './routes';
 
-
 const app = express();
 const debugg = debug('app');
 const port = process.env.PORT || 3000;

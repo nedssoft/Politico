@@ -53,7 +53,6 @@ class PetitionController {
       }
       return res.status(200).json({ status: 200, data: [], message: 'No record found' });
     } catch (err) {
-      console.log(err);
       return res.status(500).json({ status: 500, message: 'Internal server error' });
     } finally { await client.release(); }
   }
@@ -75,7 +74,6 @@ class PetitionController {
       }
       return res.status(200).json({ status: 404, message: 'Petition Not Found' });
     } catch (err) {
-      console.log(err);
       return res.status(500).json({ status: 500, message: 'Internal server error' });
     } finally { await client.release(); }
   }

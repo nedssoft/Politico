@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import nodemailer from 'nodemailer';
 import mailConfig from '../config/mailConfig';
 
@@ -11,7 +12,7 @@ class Mailer {
       const info = await transporter.sendMail(mailOptions);
       return info;
     } catch (err) {
-      console.log(err);
+      return err;
     }
   }
 }

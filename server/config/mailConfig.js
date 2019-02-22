@@ -1,11 +1,11 @@
-
+/* istanbul ignore file */
 const mailConfig = {
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  secure: process.env.MAIL_ENCRYPTION,
+  host: process.env.MAIL_HOST || 'smtp.gmail.com',
+  port: process.env.MAIL_PORT || 465,
+  secure: process.env.MAIL_ENCRYPTION || true,
   auth: {
-    user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD,
+    user: process.env.MAIL_USERNAME || 'nedsoftng@gmail.com',
+    pass: process.env.MAIL_PASSWORD || 'calculus2689',
   },
 };
 
