@@ -162,6 +162,30 @@ class AuthValidator {
       return res.status(401).json({ status: 401, error: 'Kindly login to continue' });
     }
   }
+
+  /**
+ *
+ * Validates Reset password email
+ * @static
+ * @param {object} req - request
+ * @param {object} res - response
+ * @param {object} next - callback
+ * @returns
+ * @memberof AuthValidator
+ */
+  static async validatePasswordReset(req, res, next) {
+    const { email } = req.body;
+    console.log(email);
+    const sqlQuery = { text: 'SELECT email FROM users WHERE email = $1', values: [email] };
+    const client = await pool.connect();
+    try {
+      const user = await client.query(sqlQuery);
+      if (!user.rowCount) {
+        return res.status(404).json({ status: 404, error: `User with email ${email} does not exist` });
+      }
+    } catch (err) { return res.status(500).json({ status: 500, error: 'Internal server error' }); } finally { await client.release(); }
+    return next();
+  }
 }
 
 export default AuthValidator;

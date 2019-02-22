@@ -12,13 +12,15 @@ import ApplicationValidator from '../middlewares/ApplicationValidator';
 import ApplicationController from '../controllers/ApplicationController';
 import PetitionController from '../controllers/PetitionController';
 import PetitionValidator from '../middlewares/PetitionValidator';
+import PasswordResetController from '../controllers/PasswordResetController';
+import helpers from '../helpers/Helpers';
 
 const router = express.Router();
 
 const { createAccount, loginUser, getAllUsers, deleteUser } = UserController;
 
 const { validateSignUp, userExists, validateLogin, isAdmin, checkToken,
-  validatePhone } = AuthValidator;
+  validatePhone, validatePasswordReset } = AuthValidator;
 
 const { isDuplicateOffice, validateOffice } = OfficeValidator;
 
@@ -41,8 +43,10 @@ const { createApplication, getAllApplications, editApplication,
   deleteApplication } = ApplicationController;
 const { validatePetition, isPolitician } = PetitionValidator;
 const { createPetition, getAllPetitions, getPetition, deletePetition } = PetitionController;
+
+const { resetPasswordForm, passwordReset, resetPassword } = PasswordResetController;
 router.get('/', (req, res) => {
-  res.send('welcome to Politico');
+  res.send(helpers.indexTemplate());
 });
 
 
@@ -69,6 +73,9 @@ router.get(`${officeUrl}/:officeId`, validateOffice, findOffice);
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, validatePhone, createAccount);
 router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/reset`, validatePasswordReset, passwordReset);
+router.get('/password/reset/:token', resetPasswordForm);
+router.post('/password/reset', resetPassword);
 
 /** End Auth Routes */
 router.post('/api/v1/office/:userId/register', validateCandidate, checkIfOfficeExists,

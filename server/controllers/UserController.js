@@ -1,7 +1,7 @@
 import passwordHash from 'password-hash';
 import Authenticator from '../helpers/Authenticator';
-
 import pool from '../config/connection';
+
 
 const { generateToken } = Authenticator;
 const defaultImage = 'https://res.cloudinary.com/drjpxke9z/image/upload/v1550322608/avartar_cjvb9n.png';
@@ -121,4 +121,5 @@ class UserController {
     } finally { await client.release(); }
   }
 }
+
 export default UserController;
