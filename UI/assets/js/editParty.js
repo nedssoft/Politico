@@ -1,3 +1,7 @@
+if (!localStorage.getItem('isAdmin')) {
+  window.location.replace('login.html');
+}
+
 const submit = document.querySelector('.add-party');
 const name = document.querySelector('[name="name"]');
 const hqAddress = document.querySelector('[name="hqAddress"]');

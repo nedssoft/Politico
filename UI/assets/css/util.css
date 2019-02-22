@@ -791,8 +791,8 @@ input{
 }
 
 label{
-  font-weight: 600;
-  display: none;
+  font-weight: 400;
+  /* display: none; */
 }
 
 input:focus{
@@ -879,7 +879,7 @@ select:hover{
    padding: 0.8rem;
    resize: none;
    line-height: 1;
-   margin-top: 10px;
+   margin-bottom: 10px;
 }
 
 .form-group{

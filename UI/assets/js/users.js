@@ -1,3 +1,7 @@
+if (!localStorage.getItem('isAdmin')) {
+  window.location.replace('login.html');
+}
+
 const tableBody = document.getElementById('table-body');
 const pagination = document.querySelector('.pagination-container');
 const alertError = document.getElementById('alert-error');

@@ -93,7 +93,7 @@ submitFilter.addEventListener('click', (e) => {
             row = `<tr>
                       <td>${index + 1}</td>
                       <td>${result.firstname} ${result.lastname}</td>
-                      <td class="text-uppercase">${result.partyname}</td>
+                      <td>${result.partyname}</td>
                       <td><img src="${result.partylogo}" class="${result.partyname}" width="50px" height="50px" alt="YPP"></td>
                       <td>${result.result}</td>
                   </tr>`;

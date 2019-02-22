@@ -1,3 +1,7 @@
+if (!localStorage.getItem('isAdmin')) {
+  window.location.replace('login.html');
+}
+
 const detailsDiv = document.querySelector('.petition-content');
 const petitionImage = document.querySelector('.petition-details');
 

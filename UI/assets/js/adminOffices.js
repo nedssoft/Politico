@@ -1,3 +1,7 @@
+if (!localStorage.getItem('isAdmin')) {
+  window.location.replace('login.html');
+}
+
 const tableBody = document.getElementById('table-body');
 const pagination = document.getElementsByClassName('pagination-container')[0];
 
@@ -19,7 +23,7 @@ fetch(request)
           row = `<tr>
                     <td>${index + 1}</td>
                     <td>${office.name}</td>
-                    <td class="text-uppercase">${office.type}</td>
+                    <td>${office.type}</td>
                 </tr>`;
           tableBody.insertAdjacentHTML('beforeend', row);
         });

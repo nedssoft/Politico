@@ -24,8 +24,8 @@ fetch(request)
         data.forEach((office, index) => {
           row = `<tr>
                     <td>${index + 1}</td>
-                    <td class="text-uppercase">${office.type}</td>
                     <td>${office.name}</td>
+                    <td>${office.type}</td>
                     <td>
                       <button class="btn btn-info" data-officeId="${office.id}"
                       data-office="${office.name}"

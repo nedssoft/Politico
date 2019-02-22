@@ -24,7 +24,7 @@ fetch(url, options)
         data.forEach((party, index) => {
           row = `  <tr>
                       <td>${index + 1}</td>
-                      <td class="text-uppercase">${party.name}</td>
+                      <td>${party.name}</td>
                       <td><img src="${party.logourl}" alt="${party.name}" class="party-logo"></td>
                       <td>
                           ${party.hqaddress}

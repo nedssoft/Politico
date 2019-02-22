@@ -1,4 +1,7 @@
 
+if (!localStorage.getItem('isAdmin')) {
+  window.location.replace('login.html');
+}
 
 const alertError = document.getElementById('alert-error');
 const error = document.getElementById('error');
