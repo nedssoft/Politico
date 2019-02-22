@@ -9,17 +9,20 @@ const { sendMail } = Mailer;
 const { generateToken, verifyToken } = Authenticator;
 class PasswordResetController {
   static async passwordReset(req, res) {
+    let token;
+    let info;
     try {
       const { email } = req.body;
-      const token = await generateToken({ email });
+      token = await generateToken({ email });
       const url = `${req.protocol}://${req.get('host')}/password/reset/${token}`;
       const message = helpers.template(url);
       const subject = 'Password Reset';
-      const { accepted } = await sendMail({ to: email, subject, html: message });
+      info = await sendMail({ to: email, subject, html: message });
+      const { accepted } = info;
       if (accepted[0] === email) {
         return res.status(200).json({ status: 200, message: 'Check your mail for password reset link', email });
       }
-    } catch (err) { return res.status(500).json({ status: 500, err }); }
+    } catch (err) { return res.status(500).json({ status: 500, err, info }); }
   }
 
   static resetPasswordForm(req, res) {
