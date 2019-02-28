@@ -1,0 +1,1216 @@
+{
+	"swagger": "2.0",
+	"info": {
+	  "version": "1.0",
+	  "title": "POLITICO",
+	  "description": "Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency"
+	},
+	"schemes": [
+	  "https"
+	],
+	"host": "oriechinedu-politico.herokuapp.com",
+	"basePath": "/api/v1",
+	"securityDefinitions": {
+	  "Bearer": {
+		"type": "bearer",
+		"name": "Authorization",
+    "in": "header"
+	  }
+	},
+	"tags": [
+	  {
+		"name": "Auth",
+		"description": "Endpoint for Authentication"
+    },
+    {
+      "name": "Users",
+      "description": "Endpoint for Users"
+    },
+	  {
+      "name": "Offices",
+      "description": "Endpoint for political offices"
+	  },
+	  {
+      "name": "Parties",
+      "description": "Endpoint for political parties"
+	  },
+	  {
+      "name": "Candidates",
+      "description": "Endpoint for candidates"
+    },
+    {
+      "name": "Applications",
+      "description": "Endpoints for aspirants to express interest to run for an office"
+    },
+    {
+      "name": "Votes",
+      "description": "Endpoint for candidates"
+    },
+    {
+      "name": "Petitions",
+      "description": "Endpoint for candidates"
+    }
+	],
+	"paths": {
+	  "/auth/signup": {
+		"post": {
+		  "description": "User can create an account",
+		  "summary": "Handles sign up",
+		  "tags": [
+			"Auth"
+		  ],
+		  "produces": [
+			"application/json"
+		  ],
+		  "security": [],
+		  "parameters": [
+			{
+			  "in": "body",
+			  "name": "body",
+			  "required": true,
+			  "description": "This is the request body object containing user information",
+			  "schema": {
+				"$ref": "#/requestBody/signUpRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"201": {
+			  "description": "Account created successfully"
+			},
+			"400": {
+			  "description": "Please fill in the fields"
+			},
+			"409": {
+			  "description": "User with email/phone already exists"
+			},
+			"500": {
+			  "description": "Internal server error"
+			}
+		  }
+		}
+  },
+  "/auth/login": {
+    "post": {
+		  "description": "User can sign in",
+		  "summary": "Handles sign in",
+		  "tags": [
+			"Auth"
+		  ],
+		  "produces": [
+			"application/json"
+		  ],
+		  "security": [],
+		  "parameters": [
+			{
+			  "in": "body",
+			  "name": "body",
+			  "required": true,
+			  "description": "This is the request body object containing user login information",
+			  "schema": {
+				"$ref": "#/requestBody/loginRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "Login successful"
+			},
+			"400": {
+			  "description": "Please fill in the fields"
+			},
+      "401": {
+			  "description": "Invalid email or password"
+			},
+			"500": {
+			  "description": "Internal server error"
+			}
+		  }
+		}
+  },
+  "/auth/reset": {
+    "post": {
+		  "description": "User can reset passowrd",
+		  "summary": "Handles password reset",
+		  "tags": [
+			"Auth"
+		  ],
+		  "produces": [
+			"application/json"
+		  ],
+		  "security": [],
+		  "parameters": [
+			{
+			  "in": "body",
+			  "name": "body",
+			  "required": true,
+			  "description": "This is the request body object containing user email for password reset",
+			  "schema": {
+				"$ref": "#/requestBody/passwordResetRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "Check your email for password reset link"
+			},
+			"400": {
+			  "description": "email is required && email must be valid"
+			},
+      "404": {
+			  "description": "User with email does not exist"
+			},
+			"500": {
+			  "description": "Internal server error"
+			}
+		  }
+		}
+  },
+  "/users": {
+      "get": {
+        "description": "Get all users",
+        "summary": "Returns the list of users in the system",
+        "tags": [
+        "Users"
+        ],
+        "produces": [
+        "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+
+      "responses": {  
+        "200": {
+          "description": "Success"
+        },
+        "404": {
+          "description": "No user found"
+        },
+        "500": {
+          "description": "Internal server error"
+        },
+        "schema": {
+        "$ref": "#/responseBody/usersResponse"
+        }
+      }
+    }
+  },
+  "/users/{userId}": {
+      "delete": {
+        "description": "Delete a single user",
+        "summary": "Deletes the user with the userId",
+        "tags": [
+        "Users"
+        ],
+        "produces": [
+        "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "The Id of the user to be deleted"
+          }
+        ],
+
+      "responses": {  
+        "200": {
+          "description": "User delete successfully"
+        },
+        "404": {
+          "description": "User not Found"
+        },
+        "500": {
+          "description": "Internal server error"
+        }
+      }
+    }
+  },
+  "/offices/": {
+    "post": {
+		  "description": "Create new political office by an admin",
+		  "summary": "Handles Creating new political office",
+		  "tags": [
+			"Offices"
+		  ],
+		  "produces": [
+			"application/json"
+		  ],
+		  "security": [
+			{
+			  "Bearer": []
+			}
+		  ],
+		  "parameters": [
+			{
+			  "in": "body",
+			  "name": "body",
+			  "required": true,
+			  "description": "This is the request body object containing data for the new office",
+			  "schema": {
+				"$ref": "#/requestBody/officeRequest"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "office created successfully"
+			},
+			"400": {
+			  "description": "Some fields are empty or invalid data format"
+			},
+      "401": {
+			  "description": "Only an admin can create a political office"
+      },
+      "409": {
+			  "description": "The office already exists"
+			},
+			"500": {
+			  "description": "Internal server error"
+			}
+		  }
+		}
+  },
+  "/offices": {
+      "get": {
+        "description": "Get all political offices",
+        "summary": "Returns the list of political offices in the system",
+        "tags": [
+        "Offices"
+        ],
+        "produces": [
+        "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+
+      "responses": {  
+        "200": {
+          "description": "Success"
+        },
+        "404": {
+          "description": "No Office found"
+        },
+        "500": {
+          "description": "Internal server error"
+        },
+        "schema": {
+        "$ref": "#/responseBody/OfficesResponse"
+        }
+      }
+    }
+  },
+  "/offices/{officeId}": {
+    "get": {
+      "description": "Get a single political office",
+      "summary": "Returns a single political offices with the specified ID",
+      "tags": [
+        "Offices"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "officeId",
+          "required": true,
+          "description": "The Id of the political office"
+        }
+      ],
+      "responses": {  
+        "200": {
+          "description": "Success"
+        },
+        "404": {
+          "description": "Office Not Found"
+        },
+        "500": {
+          "description": "Internal server error"
+        }
+      }
+  }
+  },
+  "/parties": {
+    "post": {
+      "description": "Create new political party by an admin",
+      "summary": "Handles Creating new political party",
+      "tags": [
+      "Parties"
+      ],
+      "produces": [
+      "application/json"
+      ],
+      "security": [
+      {
+        "Bearer": []
+      }
+      ],
+      "parameters": [
+      {
+        "in": "body",
+        "name": "body",
+        "required": true,
+        "description": "This is the request body object containing data for the new party",
+        "schema": {
+        "$ref": "#/requestBody/partiesRequest"
+        }
+      }
+      ],
+      "responses": {
+      "200": {
+        "description": "party created successfully"
+      },
+      "400": {
+        "description": "Some fields are empty or invalid data format"
+      },
+      "401": {
+        "description": "Only an admin can create a political party"
+      },
+      "409": {
+        "description": "The party already exists"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+      }
+    }
+  },
+  "/parties/{partyId}/": {
+    "get": {
+      "description": "Get a single political party",
+      "summary": "Returns a single political party with the specified ID",
+      "tags": [
+        "Parties"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "security": [],
+      "parameters": [
+        {
+          "in": "path",
+          "name": "partyId",
+          "required": true,
+          "description": "The Id of the political party"
+        }
+      ],
+      "responses": {  
+        "200": {
+          "description": "Success"
+        },
+        "404": {
+          "description": "party Not Found"
+        },
+        "500": {
+          "description": "Internal server error"
+        }
+      }
+  }
+  },
+  "/parties/": {
+    "get": {
+      "description": "Get all political parties",
+      "summary": "Returns the list of political parties in the system",
+      "tags": [
+      "Parties"
+      ],
+      "produces": [
+      "application/json"
+      ],
+      "security": [],
+
+    "responses": {  
+      "200": {
+        "description": "Success"
+      },
+      "404": {
+        "description": "No parties found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+  },
+"/parties/{partyId}": {
+  "delete": {
+    "description": "Delete a single party",
+    "summary": "Deletes the party with the partyId",
+    "tags": [
+    "Parties"
+    ],
+    "produces": [
+    "application/json"
+    ],
+    "security": [
+      {
+        "Bearer": []
+      }
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "partyId",
+        "required": true,
+        "description": "The Id of the party to be deleted"
+      }
+    ],
+
+    "responses": {  
+      "200": {
+        "description": "party delete successfully"
+      },
+      "404": {
+        "description": "Party not Found"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+  },
+  "/parties/{partyId}/name": {
+		"patch": {
+			"description": "Admin can update party's name",
+			"summary": "Handles the updating of party name",
+			"tags": [
+			  "Parties"
+			],
+			"produces": [
+			  "application/json"
+			],
+			"security": [
+			  {
+				"Bearer": []
+			  }
+			],
+			"parameters": [
+			  {
+				"in": "path",
+				"name": "partyId",
+				"required": true,
+				"description": "The Id of the party to be updated"
+			  },
+			  {
+				"in": "body",
+				"name": "body",
+				"required": true,
+				"description": "This is the request body object containing the new party name",
+				"schema": {
+				  "$ref": "#/requestBody/patchRequest"
+				}
+			  }
+			],
+			"responses": {
+			  "200": {
+				"description": "Party susccessfully updated"
+			  },
+			  "404": {
+				"description": "product does not exist"
+			  },
+			  "401": {
+				"description": "Kindly sign in"
+			  },
+			  "500": {
+				"description": "Internal server error"
+			  }
+			}
+		  }
+    },
+    "/office/{userId}/register": {
+      "post": {
+        "description": "Admin can register a candidate for an office",
+        "summary": "Handles candidates registration",
+        "tags": [
+          "Candidates"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+        {
+          "Bearer": []
+        }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "This is the request body object containing data for the candidate",
+            "schema": {
+            "$ref": "#/requestBody/RegisterCandidateRequest"
+            }
+          },
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "description": "The Id of the user"
+          }
+        ],
+        "responses": {
+        "200": {
+          "description": "candidate registered successfully"
+        },
+        "400": {
+          "description": "Some fields are empty or invalid data format"
+        },
+        "401": {
+          "description": "Only an admin can register candidate"
+        },
+        "409": {
+          "description": "The party already exists"
+        },
+        "500": {
+          "description": "Internal server error"
+        }
+        }
+      }
+    },
+    "/office/applications": {
+      "post": {
+        "description": "Create a new application for an office",
+        "summary": "Handles expression of interest",
+        "tags": [
+        "Applications"
+        ],
+        "produces": [
+        "application/json"
+        ],
+        "security": [
+        {
+          "Bearer": []
+        }
+        ],
+        "parameters": [
+        {
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "description": "This is the request body object containing data for the application",
+          "schema": {
+          "$ref": "#/requestBody/applicationsRequest"
+          }
+        }
+        ],
+        "responses": {
+        "201": {
+          "description": "application submitted successfully"
+        },
+        "400": {
+          "description": "Some fields are empty or invalid data format"
+        },
+        "401": {
+          "description": "You must log in to continue"
+        },
+        "500": {
+          "description": "Internal server error"
+        }
+        }
+      }
+    },
+    "/office/applications/": {
+      "get": {
+        "description": "Get all aspirants' application",
+        "summary": "Returns the list applications in the system",
+        "tags": [
+        "Applications"
+        ],
+        "produces": [
+        "application/json"
+        ],
+        "security": [],
+    
+      "responses": {  
+        "200": {
+          "description": "Success"
+        },
+        "404": {
+          "description": "No application found"
+        },
+        "500": {
+          "description": "Internal server error"
+        }
+      }
+    }
+    },
+    "/office/applications/{applicationId}": {
+      "patch": {
+        "description": "Admin can accept, reject or revoked approval of an application",
+        "summary": "Handles the updating of the application status",
+        "tags": [
+          "Applications"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+          "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+          "in": "path",
+          "name": "applicationId",
+          "required": true,
+          "description": "The Id of the application"
+          },
+          {
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "description": "This is the request body object containing the new party name",
+          "schema": {
+            "$ref": "#/requestBody/applicationPatchRequest"
+          }
+          }
+        ],
+        "responses": {
+          "200": {
+          "description": "Application status susccessfully updated"
+          },
+          "404": {
+          "description": "application does not exist"
+          },
+          "401": {
+          "description": "Login to continue"
+          },
+          "500": {
+          "description": "Internal server error"
+          }
+        }
+        }
+      },
+      "/office/applications/{applicationId}/": {
+        "delete": {
+          "description": "Admin can delete an application",
+          "summary": "Deletes the application with the applicationId",
+          "tags": [
+          "Applications"
+          ],
+          "produces": [
+          "application/json"
+          ],
+          "security": [
+            {
+              "Bearer": []
+            }
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "applicationId",
+              "required": true,
+              "description": "The Id of the application to be deleted"
+            }
+          ],
+      
+          "responses": {  
+            "200": {
+              "description": "application deleted successfully"
+            },
+            "404": {
+              "description": "application not Found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+        },
+        "/vote": {
+          "post": {
+            "description": "User can vote candidate of choice",
+            "summary": "Handles voting",
+            "tags": [
+            "Votes"
+            ],
+            "produces": [
+            "application/json"
+            ],
+            "security": [
+            {
+              "Bearer": []
+            }
+            ],
+            "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing data for the voting",
+              "schema": {
+              "$ref": "#/requestBody/voteRequest"
+              }
+            }
+            ],
+            "responses": {
+            "201": {
+              "description": "congratulations!!!, you've successfully voted"
+            },
+            "400": {
+              "description": "Some fields are empty or invalid data format"
+            },
+            "401": {
+              "description": "You must log in to continue"
+            },
+            "409": {
+              "description": "You've voted for this candidate"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+            }
+          }
+        },
+        "/vote/histories": {
+          "get": {
+            "description": "User can view the list of offices he/she has voted for",
+            "summary": "Returns the user vote histories",
+            "tags": [
+              "Votes"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "security": [
+              {
+                "Bearer":[]
+              }
+            ],
+            
+            "responses": {  
+              "200": {
+                "description": "Success"
+              },
+              "404": {
+                "description": "No  Record Found"
+              },
+              "401": {
+                "description": "You must log in to continue"
+              },
+              "500": {
+                "description": "Internal server error"
+              }
+            }
+        }
+        },
+        "/office/{officeId}/result": {
+          "get": {
+            "description": "Gets the results for a political office",
+            "summary": "Returns results for a single political office with the specified ID",
+            "tags": [
+              "Results"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "security": [],
+            "parameters": [
+              {
+                "in": "path",
+                "name": "officeId",
+                "required": true,
+                "description": "The Id of the political office"
+              }
+            ],
+            "responses": {  
+              "200": {
+                "description": "Success"
+              },
+              "404": {
+                "description": "office Not Found | No result Found"
+              },
+              "500": {
+                "description": "Internal server error"
+              }
+            }
+        }
+        },
+        "/petitions": {
+          "post": {
+            "description": "User can create petition for a concluded election",
+            "summary": "Handles Creating petitions",
+            "tags": [
+            "Petitions"
+            ],
+            "produces": [
+            "application/json"
+            ],
+            "security": [
+            {
+              "Bearer": []
+            }
+            ],
+            "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "description": "This is the request body object containing data for the new petition",
+              "schema": {
+              "$ref": "#/requestBody/petitionsRequest"
+              }
+            }
+            ],
+            "responses": {
+            "200": {
+              "description": "petition submitted successfully"
+            },
+            "400": {
+              "description": "Some fields are empty or Not a candidate for the office"
+            },
+            "401": {
+              "description": "You must log in to continue"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+            }
+          }
+        },
+        "/petitions/{petitionId}/": {
+          "get": {
+            "description": "Get the details of a petition",
+            "summary": "Returns a single petition with the specified ID",
+            "tags": [
+              "Petitions"
+            ],
+            "produces": [
+              "application/json"
+            ],
+            "security": [],
+            "parameters": [
+              {
+                "in": "path",
+                "name": "petitionId",
+                "required": true,
+                "description": "The Id of the petition"
+              }
+            ],
+            "responses": {  
+              "200": {
+                "description": "Success"
+              },
+              "404": {
+                "description": "petition Not Found"
+              },
+              "500": {
+                "description": "Internal server error"
+              }
+            }
+        }
+        },
+        "/petitions/": {
+          "get": {
+            "description": "Get all petitions",
+            "summary": "Returns the list of petitions in the system",
+            "tags": [
+            "Petitions"
+            ],
+            "produces": [
+            "application/json"
+            ],
+            "security": [],
+        
+          "responses": {  
+            "200": {
+              "description": "Success"
+            },
+            "404": {
+              "description": "No petition found"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
+        }
+},  
+	"requestBody": {
+	  "signUpRequest": {
+		"title": "Signup Request",
+		"type": "object",
+		"properties": {
+		  "firstName": {
+			"description": "first name of the user",
+			"type": "string"
+      },
+      "lastName": {
+        "description": "last name of the user",
+        "type": "string"
+        },
+		  "email": {
+			"description": "email of the user",
+			"type": "string"
+		  },
+		  "phone": {
+			"description": "Phone number of the user",
+			"type": "string"
+		  },
+		  "password": {
+			"description": "The Password of the user",
+			"type": "string"
+      },
+      "passportUrl": {
+        "description": "PassportUrl of the user",
+        "type": "string"
+        }
+		},
+		"example": {
+		  "firstName": "John",
+		  "lastName": "Doe",
+		  "otherName": "",
+		  "email": "johndoe@example.com",
+      "password": "password12",
+      "phone": "09000000000",
+		  "passportUrl": "https://example.com/passport.png"
+		},
+		"required": [
+		  "phone, email, firstName, lastName, password,"
+		]
+    },
+    "loginRequest": {
+      "title": "Login Request",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "email address of the user user",
+          "type": "string"
+        },
+      "password": {
+        "description": "The Password of the user",
+        "type": "string"
+        }
+      },
+      "example": {
+        "email": "johndoe@example.com",
+        "password": "password12"
+      },
+      "required": [
+        "email, password,"
+      ]
+    },
+    "passwordResetRequest": {
+      "title": "Password Reset Request",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "email address of the user user",
+          "type": "string"
+        }
+      },
+      "example": {
+        "email": "johndoe@example.com"
+      },
+      "required": [
+        "email"
+      ]
+    },
+    "officeRequest": {
+      "title": "Create Office Request",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the political office",
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of political office e.g Federal, State...",
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "Presidenatial",
+        "type": "Federal"
+      },
+      "required": [
+        "name, type"
+      ]
+    },
+    "partiesRequest": {
+      "title": "Create Party Request",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the political party",
+          "type": "string"
+        },
+        "hqAddress": {
+          "description": "The headQaurters address of the political party",
+          "type": "string"
+        },
+        "logoUrl": {
+          "description": "The logo of the party",
+          "type": "blob"
+        }
+      },
+      "example": {
+        "name": "Example Party",
+        "hqAddress": "Example Party HQ Addres",
+        "logoUrl": "https://foo.com/bar.png"
+      },
+      "required": [
+        "name, hqAddress, logoUrl"
+      ]
+    },
+    "patchRequest": {
+      "title": "Update Party",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "new party name",
+          "type": "string"
+        }
+      },
+      "example": {
+        "name": "Example updated party name "
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "RegisterCandidateRequest": {
+      "title": "Register Candidate",
+      "type": "object",
+      "properties": {
+        "party": {
+          "description": "The party Id the candidate's party",
+          "type": "integer"
+        },
+        "office": {
+          "description": "The office Id of the office the candidate wants to run for",
+          "type": "integer"
+        }
+      },
+      "example": {
+        "party": 1,
+        "office": 1
+      },
+      "required": [
+        "office, party, userId"
+      ]
+    },
+    "applicationsRequest":  {
+      "title": "apply for an office",
+      "type": "object",
+      "properties": {
+        "party": {
+          "description": "The ID of the aspirant's party",
+          "type": "integer"
+        },
+        "office": {
+          "description": "The office Id of the office the candidate wants to run for",
+          "type": "intger"
+        }
+      },
+      "example": {
+        "party": 1,
+        "office": 1
+      },
+      "required": [
+        "office, party"
+      ]
+    },
+    "applicationPatchRequest":  {
+      "title": "Update application status",
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "the new status [rejected, approved, revoked]",
+          "type": "string"
+        }
+      },
+      "example": {
+        "status": "rejected"
+      },
+      "required": [
+        "status"
+      ]
+    },
+    "voteRequest":  {
+      "title": "store user vote",
+      "type": "object",
+      "properties": {
+        "party": {
+          "description": "The Id of the candidate's party",
+          "type": "integer"
+        },
+        "office": {
+          "description": "The Id of the candidate's office",
+          "type": "integer"
+        },
+        "candidate": {
+          "description": "The user Id of the candidate",
+          "type": "inetger"
+        }
+      },
+      "example": {
+        "party": 1,
+        "office": 1,
+        "candidate": 1
+      },
+      "required": [
+        "office, candidate, party"
+      ]
+    },
+    "petitionsRequest":  {
+      "title": "store user petition",
+      "type": "object",
+      "properties": {
+        "office": {
+          "description": "The Id of the candidate's office",
+          "type": "integer"
+        },
+        "body": {
+          "description": "The description of the petition",
+          "type": "string"
+        },
+        "evidence": {
+          "description": "Image or/and video evidence",
+          "type": "array"
+        }
+      },
+      "example": {
+        "office": 1,
+        "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+        "evidence": []
+      },
+      "required": [
+        "office, body"
+      ]
+    }
+  },
+  "responseBody": {
+    "userResponse": {
+      "example":[
+        {
+          "firstname": "John",
+          "lastname": "Doe",
+          "othername": "",
+          "email": "johndoe@example.com",
+          "phone": "09000000000",
+          "passportUrl": "https://example.com/passport.png",
+          "isadmin": false
+        }
+      ]
+    }
+    
+  }
+}

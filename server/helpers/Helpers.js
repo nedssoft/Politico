@@ -50,7 +50,6 @@ class Helpers {
               }
               
               .container {
-                border: 1px solid #6784C7;;
                 height: 50vh;
                 align-items: center;
                 padding: 20px;
@@ -119,7 +118,6 @@ class Helpers {
                 /* border-radius: 3px; */
               }
               .container {
-                border: 1px solid #6784C7;;
                 height: 100vh;
               }
               .form-group {
@@ -357,6 +355,7 @@ class Helpers {
               <div class="container">
                 <h1>POLITICO</h1>
                 <h3>Developed By: <a href="https://twitter.com/nedusoft">Orie Chinedu</a></h3> <hr>
+                <h2><a href="/api/docs">API Docs</a></h2> 
               </div>
             </body>
             </html>`;
