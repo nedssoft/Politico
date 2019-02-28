@@ -42,6 +42,15 @@ describe('App', () => {
         done();
       });
   });
+  it('should respond with status code 404 if route is not defined ', (done) => {
+    chai.request(app)
+      .get('/hkjhksdk')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.message).to.eql('Endpoint Not Found');
+        done();
+      });
+  });
 });
 
 describe('Test Party Endpoints', () => {

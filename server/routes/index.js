@@ -1,4 +1,5 @@
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 
 import PartyController from '../controllers/PartyController';
 import PartyValidator from '../middlewares/PartyValidator';
@@ -16,6 +17,7 @@ import PasswordResetController from '../controllers/PasswordResetController';
 import helpers from '../helpers/Helpers';
 
 const router = express.Router();
+const swaggerDocument = require('../../swagger.json');
 
 const { createAccount, loginUser, getAllUsers, deleteUser } = UserController;
 
@@ -113,4 +115,15 @@ router.get('/api/v1/petitions', getAllPetitions);
 router.get('/api/v1/petitions/:petitionId', getPetition);
 router.delete('/api/v1/petitions/:petitionId', deletePetition);
 /** End Petition */
+
+/** Documentaion */
+router.use('/api/docs', swaggerUi.serve);
+router.get('/api/docs', swaggerUi.setup(swaggerDocument));
+/** End documenation */
+router.get('*', (req, res, next) => {
+  res.status(404).json({
+    message: 'Endpoint Not Found',
+  });
+  return next();
+});
 export default router;
