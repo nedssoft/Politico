@@ -1,3 +1,4 @@
+
 if (!localStorage.getItem('isAdmin')) {
   window.location.replace('login.html');
 }
@@ -13,6 +14,8 @@ const info = document.getElementById('info');
 const alertSuccess = document.getElementsByClassName('alert-success')[0];
 const alertInfo = document.getElementsByClassName('alert-info')[0];
 
+
+window.oncontextmenu = () => false;
 alertError.style.display = 'none';
 alertSuccess.style.display = 'none';
 alertInfo.style.display = 'none';

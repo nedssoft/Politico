@@ -53,9 +53,10 @@ Politico enables citizens give their mandate to politicians running for differen
 
 ### User Interface
 The UI is hosted on gh-pages
-* [Landing page](https://oriechinedu.github.io/Politico/UI/index.html)
-* [User Dashboard](https://oriechinedu.github.io/Politico/UI/index.html)
-* [Admin Dashboard](https://oriechinedu.github.io/Politico/UI/parties.html)
+* [UI Landing](https://oriechinedu.github.io/Politico/UI/index.html)
+
+### API
+* [API Documentation](https://oriechinedu-politico.herokuapp.com/api/docs)
 
 ### Features
 - Admin or Electoral Board can create political parties
@@ -70,25 +71,6 @@ The UI is hosted on gh-pages
 - Users/Admin can view the results of a concluded election
 - Users/Admin can sign up
 - Users/Admin can log in
+- Users can express interest to run for a political office
 - Users/Politicans can file petitions for an unsatisfied election result
 
-
-### Endpoints
-- Sign up [POST] https://oriechinedu-politico.herokuapp.com/api/v1/auth/signup
-- Login [POST] https://oriechinedu-politico.herokuapp.com/api/v1/auth/login
-- Create Political Office [POST] https://oriechinedu-politico.herokuapp.com/api/v1/offices/
-- `Get single political office [GET] https://oriechinedu-politico.herokuapp.com/api/v1/offices/<officeId>`
-- Get all political offices [GET] https://oriechinedu-politico.herokuapp.com/api/v1/offices/
-- Create a political party [POST] https://oriechinedu-politico.herokuapp.com/api/v1/parties
-- Get a political party [GET] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>
-- Edit a political party [PATCH] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>
-- Delete a political party [DELETE] https://oriechinedu-politico.herokuapp.com/api/v1/parties/<partyId>
-- Get all political party [GET] https://oriechinedu-politico.herokuapp.com/api/v1/parties
-- Register a candidate [POST] https://oriechinedu-politico.herokuapp.com/api/v1/office/<userId>/register
-- Vote a candidate [POST] https://oriechinedu-politico.herokuapp.com/api/v1/vote
-- View Election Result [GET] https://oriechinedu-politico.herokuapp.com/api/v1/office/<officeId>/result
-- View Candidates [GET] https://oriechinedu-politico.herokuapp.com/api/v1/candidates
-
-
-### How to contribute
- Detail coming soon

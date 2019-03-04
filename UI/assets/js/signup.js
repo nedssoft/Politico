@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-escape */
+window.oncontextmenu = () => false;
 const signUp = document.getElementById('sign-up');
 const fname = document.getElementById('first__name');
 const lname = document.getElementById('last__name');
