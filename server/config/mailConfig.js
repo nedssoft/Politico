@@ -4,8 +4,8 @@ const mailConfig = {
   port: process.env.MAIL_PORT || 465,
   secure: process.env.MAIL_ENCRYPTION || true,
   auth: {
-    user: process.env.MAIL_USERNAME || 'nedsoftng@gmail.com',
-    pass: process.env.MAIL_PASSWORD || 'calculus2689',
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD
   },
 };
 
